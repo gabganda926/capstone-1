@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\courierConnection;
+use App\Courier;
 
-use App\personalInfoConnection;
+use App\Address;
 
-class courierController extends Controller
+use App\PersonalInfo;
+
+use Alert;
+
+use Redirect;
+
+class CourierController extends Controller
 {
-  public function __construct(courierConnection $cor, personalInfoConnection $personalinfo)
+ public function __construct(Courier $cor, PersonalInfo $personalinfo)
   {
       $this->courier = $cor;
       $this->pinfo = $personalinfo;
@@ -19,8 +25,8 @@ class courierController extends Controller
   public function index()
   {
     return view('/pages/maintenance/courier')
-    ->with('cor',courierConnection::all())
-    ->with('pnf',personalInfoConnection::all());
+    ->with('cor',Courier::all())
+    ->with('pnf',PersonalInfo::all());
   }
 
   public function add_courier(Request $req)
@@ -38,61 +44,236 @@ class courierController extends Controller
       }
       $this->pinfo->pinfo_contact = $req->emp_contact;
       $this->pinfo->pinfo_mail = $req->emp_mail;
-      $this->pinfo->del_flag  = 0;
-      if($this->pinfo->save())
+      try
       {
+        $this->pinfo->save();
         return $this->add_data($req);
+      }
+      catch(\Exception $e)
+      {
+        $message = $e->getCode();
+        if($message == 23000)
+        {
+            alert()
+            ->error('ERROR', 'Data already exist!')
+            ->persistent("Close");
+
+            return Redirect::back();
+        }
+        else if($message == 22001)
+        {
+          alert()
+          ->error('ERROR', 'Exceed Max limit of column!')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        else
+        {
+          alert()
+          ->error('ERROR', $e->getCode())
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
       }
   }
 
   public function add_data($req)
   {
-      $latestidpinfo = personalInfoConnection::orderBy('pinfo_ID', 'desc')->first();
+      $latestidpinfo = PersonalInfo::orderBy('pinfo_ID', 'desc')->first();
       $this->courier->personal_info_ID = (int)$latestidpinfo->pinfo_ID;
       $mytime = $req->time;
       $this->courier->created_at = $mytime;
       $this->courier->updated_at = $mytime;
       $this->courier->del_flag  = 0;
-      $this->courier->save();
+      try
+      {
+        $this->courier->save();
+        alert()
+        ->success('Record Saved', 'Success')
+        ->persistent("Close");
 
-      return redirect('admin/maintenance/courier');
+        return Redirect::back();
+      }
+      catch(\Exception $e)
+      {
+        $message = $e->getCode();
+        if($message == 23000)
+        {
+            alert()
+            ->error('ERROR', 'Data already exist!')
+            ->persistent("Close");
+
+            return Redirect::back();
+        }
+        else if($message == 22001)
+        {
+          alert()
+          ->error('ERROR', 'Exceed Max limit of column!')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        else
+        {
+          alert()
+          ->error('ERROR', $e->getCode())
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+      }
   }
 
   public function update_courier(Request $req)
   {
-      $pinfo = personalInfoConnection::where('pinfo_ID', '=', $req->pInfo_ID)->first();
+      $pinfo = PersonalInfo::where('pinfo_ID', '=', $req->pInfo_ID)->first();
       $pinfo->pinfo_first_name = $req->aemp_first_name;
       $pinfo->pinfo_middle_name = $req->aemp_middle_name;
       $pinfo->pinfo_last_name = $req->aemp_last_name;
       $pinfo->pinfo_contact = $req->aemp_contact;
-      $pinfo->pinfo_mail = $req->aemp_email;
-      $pinfo->del_flag  = 0;
-      if($pinfo->save())
+      $pinfo->pinfo_mail = $req->aemp_mail;
+      try
       {
+        $pinfo->save();
         return $this->update_data($req);
+      }
+      catch(\Exception $e)
+      {
+        $message = $e->getCode();
+        if($message == 23000)
+        {
+            alert()
+            ->error('ERROR', 'Data already exist!')
+            ->persistent("Close");
+
+            return Redirect::back();
+        }
+        else if($message == 22001)
+        {
+          alert()
+          ->error('ERROR', 'Exceed Max limit of column!')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        else
+        {
+          alert()
+          ->error('ERROR', $e->getCode())
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
       }
   }
 
   public function update_data($req)
   {
-      $courier = courierConnection::where('courier_ID', '=', $req->aemp_id)->first();
+      $courier = Courier::where('courier_ID', '=', $req->aemp_id)->first();
 
       $mytime = $req->atime;
       $courier->updated_at = $mytime;
 
-      $courier->save();
+      try
+      {
+        $courier->save();
+        alert()
+        ->success('Record Updated', 'Success')
+        ->persistent("Close");
 
-      return redirect('admin/maintenance/courier');
+        return Redirect::back();
+      }
+      catch(\Exception $e)
+      {
+        $message = $e->getCode();
+        if($message == 23000)
+        {
+            alert()
+            ->error('ERROR', 'Data already exist!')
+            ->persistent("Close");
+
+            return Redirect::back();
+        }
+        else if($message == 22001)
+        {
+          alert()
+          ->error('ERROR', 'Exceed Max limit of column!')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        else
+        {
+          alert()
+          ->error('ERROR', $e->getCode())
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+      }
+
   }
 
   public function delete_courier(Request $req)
   {
-      $courier = courierConnection::where('courier_ID', '=', $req->aemp_id)->first();
+      $courier = Courier::where('courier_ID', '=', $req->aemp_id)->first();
 
       $courier->del_flag = 1;
+      $mytime = $req->atime;
+      $courier->updated_at = $mytime;
 
-      $courier->save();
+      try
+      {
+        $courier->save();
+        alert()
+        ->success('Record Deleted', 'Success')
+        ->persistent("Close");
 
-      return redirect('admin/maintenance/courier');
+        return Redirect::back();
+      }
+      catch(\Exception $e)
+      {
+        $message = $e->getCode();
+        if($message == 23000)
+        {
+            alert()
+            ->error('ERROR', 'Data already exist!')
+            ->persistent("Close");
+
+            return Redirect::back();
+        }
+        else if($message == 22001)
+        {
+          alert()
+          ->error('ERROR', 'Exceed Max limit of column!')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        else
+        {
+          alert()
+          ->error('ERROR', $e->getCode())
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+      }
+  }
+
+  public function ardelete_courier(Request $req)
+  {
+      foreach($req->asd as $ID)
+      {
+        $courier = Courier::where('courier_ID', '=', $ID)->first();
+
+        $courier->del_flag = 1;
+        $mytime = $req->time;
+        $courier->updated_at = $mytime;
+
+        $courier->save();
+      }
   }
 }

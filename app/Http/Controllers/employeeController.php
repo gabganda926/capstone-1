@@ -4,20 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Employee;
 
-use App\addressConnection;
+use App\PersonalInfo;
 
-use App\employeeConnection;
+use App\EmployeeRole;
 
-use App\personalInfoConnection;
+use App\Address;
 
-use App\employeeTypeConnection;
+use Alert;
 
-class employeeController extends Controller
+use Redirect;
+
+class EmployeeController extends Controller
 {
 
-    public function __construct(employeeConnection $emp, addressConnection $add, personalInfoConnection $personalinfo)
+    public function __construct(Employee $emp, Address $add, PersonalInfo $personalinfo)
     {
         $this->employee = $emp;
         $this->address = $add;
@@ -27,10 +29,11 @@ class employeeController extends Controller
     public function index()
     {
       return view('/pages/maintenance/employee')
-      ->with('emp',employeeConnection::all())
-      ->with('emptype',employeeTypeConnection::all())
-      ->with('pnf',personalInfoConnection::all())
-      ->with('add',addressConnection::all());
+      ->with('emp',Employee::all())
+      ->with('emptype',Employee::all())
+      ->with('pnf',PersonalInfo::all())
+      ->with('job',EmployeeRole::all())
+      ->with('add',Address::all());
     }
 
     public function add_employee(Request $req)
@@ -71,10 +74,39 @@ class employeeController extends Controller
         {
           $this->address->add_zipcode = $req->add_zipcode;
         }
-          $this->address->del_flag  = 0;
-        if($this->address->save())
+
+        try
         {
+          $this->address->save();
           return $this->add_emp_info($req);
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getMessage();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
     }
 
@@ -93,42 +125,108 @@ class employeeController extends Controller
         }
         $this->pinfo->pinfo_contact = $req->emp_contact;
         $this->pinfo->pinfo_mail = $req->emp_mail;
-        if($req->hasFile('picture')) 
+        if($req->hasFile('picture'))
         {
             $file = $req->file('picture');
-            
+
             $name = $file->getClientOriginalName();
 
-            $file->move(public_path().'/image/', $name);
             $this->pinfo->pinfo_picture = $name;
-        }
-        $this->pinfo->del_flag  = 0;
 
-        if($this->pinfo->save())
+            $file->move(public_path().'/image/', $name);
+        }
+
+        try
         {
+          $this->pinfo->save();
           return $this->add_emp($req);
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getMessage();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
     }
 
     public function add_emp($req)
     {
-        $latestid = addressConnection::orderBy('add_ID', 'desc')->first();
-        $latestidpinfo = personalInfoConnection::orderBy('pinfo_ID', 'desc')->first();
+        $latestid = Address::orderBy('add_ID', 'desc')->first();
+        $latestidpinfo = PersonalInfo::orderBy('pinfo_ID', 'desc')->first();
         $this->employee->emp_add_ID = (int)$latestid->add_ID;
         $this->employee->personal_info_ID = (int)$latestidpinfo->pinfo_ID;
-        $mytime = $req->time;
         $this->employee->emp_type = $req->emp_type;
+        $this->employee->job_title = $req->jobtitle;
+        $mytime = $req->time;
         $this->employee->created_at = $mytime;
         $this->employee->updated_at = $mytime;
         $this->employee->del_flag  = 0;
-        $this->employee->save();
+ 
+        try
+        {
+          $this->employee->save();
+          alert()
+          ->success('Record Saved', 'Success')
+          ->persistent("Close");
 
-        return redirect('admin/maintenance/employee');
+          return Redirect::back();
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getMessage();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+        }
+
     }
 
     public function update_employee(Request $req)
     {
-        $address = addressConnection::where('add_ID', '=', $req->aadd_id)->first();
+        $address = Address::where('add_ID', '=', $req->aadd_id)->first();
 
         if($req->aadd_blcknum != null)
         {
@@ -167,66 +265,206 @@ class employeeController extends Controller
           $address->add_zipcode = $req->aadd_zipcode;
         }
 
-        if($address->save())
+        try
         {
+          $address->save();
           return $this->update_emp_info($req);
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getMessage();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
 
     }
 
     public function update_emp_info($req)
     {
-        $pinfo = personalInfoConnection::where('pinfo_ID', '=', $req->pInfo_ID)->first();
+        $pinfo = PersonalInfo::where('pinfo_ID', '=', $req->pInfo_ID)->first();
         $pinfo->pinfo_first_name = $req->aemp_first_name;
         $pinfo->pinfo_middle_name = $req->aemp_middle_name;
         $pinfo->pinfo_last_name = $req->aemp_last_name;
         $pinfo->pinfo_contact = $req->aemp_contact;
         $pinfo->pinfo_mail = $req->aemp_mail;
-        $pinfo->del_flag  = 0;
-        if($pinfo->save())
+        if($req->hasFile('apicture'))
         {
+            $file = $req->file('apicture');
+
+            $name = $file->getClientOriginalName();
+
+            $pinfo->pinfo_picture = $name;
+
+            $file->move(public_path().'/image/', $name);
+        }
+
+        try
+        {
+          $pinfo->save();
           return $this->update_data($req);
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getMessage();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
     }
 
 
     public function update_data($req)
     {
-        $employee = employeeConnection::where('emp_ID', '=', $req->aemp_id)->first();
+        $employee = Employee::where('emp_ID', '=', $req->aemp_id)->first();
 
         $employee->emp_type = $req->aemp_type;
+        $employee->job_title = $req->ajobtitle;
 
         $mytime = $req->atime;
         $employee->updated_at = $mytime;
 
-        $employee->save();
+        try
+        {
+          $employee->save();
+          alert()
+          ->success('Record Updated', 'Success')
+          ->persistent("Close");
 
-        return redirect('admin/maintenance/employee');
+          return Redirect::back();
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getMessage();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+        }
     }
 
-    public function delete_data($req)
+    public function delete_employee(Request $req)
     {
-        $employee = employeeConnection::where('emp_ID', '=', $req->aemp_id)->first();
+        $employee = Employee::where('emp_ID', '=', $req->aemp_id)->first();
 
         $employee->del_flag = 1;
+        $mytime = $req->atime;
+        $employee->updated_at = $mytime;
 
-        $employee->save();
-
-        return redirect('admin/maintenance/employee');
-    }
-
-
-      public function delete_employee(Request $req)
-    {
-        $address = addressConnection::where('add_ID', '=', $req->aadd_id)->first();
-
-        $address->del_flag = 1;
-
-        if($address->save())
+        try
         {
-          return $this->delete_data($req);
-        }
+          $employee->save();
+          alert()
+          ->success('Record Deleted', 'Success')
+          ->persistent("Close");
 
+          return Redirect::back();
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getMessage();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+        }
     }
+
+    public function ardelete_employee(Request $req)
+    {
+        foreach($req->asd as $ID)
+        {
+            $employee = Employee::where('emp_ID', '=', $ID)->first();
+
+            $employee->del_flag = 1;
+            $mytime = $req->time;
+            $employee->updated_at = $mytime;
+
+            $employee->save();
+        }
+    }
+
 
 }

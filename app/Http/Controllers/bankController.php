@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\bankConnection;
+use App\Bank;
 
-use App\addressConnection;
+use App\ContactPerson;
 
-use App\contactPersonConnection;
+use App\CompanyInfo; //NADAGDAG TO, WALA PANG FUNCTION
 
-use App\personalInfoConnection;
+use App\PersonalInfo;
 
-class bankController extends Controller
+use App\Address;
+
+use Alert;
+
+use Redirect;
+
+class BankController extends Controller
 {
-    public function __construct(contactPersonConnection $contactPerson,bankConnection $bnk, addressConnection $add, personalInfoConnection $personalinfo)
+    public function __construct(ContactPerson $contactPerson,Bank $bnk, Address $add, PersonalInfo $personalinfo)
     {
         $this->banko = $bnk;
         $this->address = $add;
@@ -24,11 +30,11 @@ class bankController extends Controller
 
     public function index()
     {
-      return view('/pages/maintenance/bank')
-      ->with('bank',bankConnection::all())
-      ->with('cpr',contactPersonConnection::all())
-      ->with('pInfo',personalInfoConnection::all())
-      ->with('add',addressConnection::all());
+      return view('/pages/maintenance/bank')//page link from local drive
+      ->with('bank',Bank::all())//data from database
+      ->with('cpr',ContactPerson::all())
+      ->with('pInfo',PersonalInfo::all())
+      ->with('add',Address::all());
     }
 
     public function add_bank(Request $req)
@@ -69,12 +75,40 @@ class bankController extends Controller
         {
           $this->address->add_zipcode = $req->add_zipcode;
         }
-        $this->address->del_flag = 0;
 
-        if($this->address->save())
+      try
+      {
+        $this->address->save();
+        return $this->add_cpersoninfo($req);
+      }
+      catch(\Exception $e)
+      {
+        $message = $e->getCode();
+        if($message == 23000)
         {
-          return $this->add_cpersoninfo($req);
+            alert()
+            ->error('ERROR', 'Data already exist!')
+            ->persistent("Close");
+
+            return Redirect::back();
         }
+        else if($message == 22001)
+        {
+          alert()
+          ->error('ERROR', 'Exceed Max limit of column!')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        else
+        {
+          alert()
+          ->error('ERROR', $e->getCode())
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+      }
     }
 
     public function add_cpersoninfo($req)
@@ -82,7 +116,7 @@ class bankController extends Controller
         if ($req->cPerson_middle_name == null)
         {
         $this->pinfo->pinfo_first_name = $req->cPerson_first_name;
-        $this->pinfo->pinfo_middle_name = $req->cPerson_middle_name;
+        $this->pinfo->pinfo_last_name = $req->cPerson_last_name;
         }
         else
         {
@@ -92,28 +126,85 @@ class bankController extends Controller
         }
         $this->pinfo->pinfo_contact = $req->cPerson_contact;
         $this->pinfo->pinfo_mail = $req->cPerson_email;
-        $this->pinfo->del_flag  = 0;
-        if($this->pinfo->save())
+
+        try
         {
+          $this->pinfo->save();
           return $this->add_cPerson($req);
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getCode();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getCode())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
     }
 
     public function add_cPerson($req)
     {
-        $latestidpinfo = personalInfoConnection::orderBy('pinfo_ID', 'desc')->first();
+        $latestidpinfo = PersonalInfo::orderBy('pinfo_ID', 'desc')->first();
         $this->cPerson->personal_info_ID = (int)$latestidpinfo->pinfo_ID;
-        $this->cPerson->del_flag = 0;
-        if($this->cPerson->save())
+        try
         {
+          $this->cPerson->save();
           return $this->add_data($req);
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getCode();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getCode())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
     }
 
     public function add_data($req)
     {
-        $latestid = addressConnection::orderBy('add_ID', 'desc')->first();
-        $cpersonid = contactPersonConnection::orderBy('cPerson_ID', 'desc')->first();
+        $latestid = Address::orderBy('add_ID', 'desc')->first();
+        $cpersonid = ContactPerson::orderBy('cPerson_ID', 'desc')->first();
         $this->banko->bank_name = $req->bank_name;
         $this->banko->bank_code = $req->bank_code;
         $this->banko->bank_add_ID = (int)$latestid->add_ID;
@@ -122,14 +213,48 @@ class bankController extends Controller
         $this->banko->created_at = $mytime;
         $this->banko->updated_at = $mytime;
         $this->banko->del_flag = 0;
-        $this->banko->save();
+        try
+        {
+          $this->banko->save();
+          alert()
+          ->success('Record Saved', 'Success')
+          ->persistent("Close");
 
-        return redirect('admin/maintenance/bank');
+          return Redirect::back();
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getCode();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getCode())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+        }
     }
 
     public function update_bank(Request $req)
     {
-        $addres = addressConnection::where('add_ID', '=', $req->aaddid)->first();
+        $addres = Address::where('add_ID', '=', $req->aaddid)->first();
 
         if($req->aadd_blcknum != null)
         {
@@ -168,73 +293,187 @@ class bankController extends Controller
           $addres->add_zipcode = $req->aadd_zipcode;
         }
 
-        if($addres->save())
+        try
         {
-          return $this->update_cPerson_info($req);
+          $addres->save();
+          return $this->update_cperson_info($req);
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getCode();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getCode().$e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
     }
 
     public function update_cperson_info($req)
     {
-        $pinfo = personalInfoConnection::where('pinfo_ID','=',$req->pinfo_ID)->first();
+        $pinfo = PersonalInfo::where('pinfo_ID','=',$req->pinfo_ID)->first();
         $pinfo->pinfo_first_name = $req->acPerson_first_name;
         $pinfo->pinfo_middle_name = $req->acPerson_middle_name;
         $pinfo->pinfo_last_name = $req->acPerson_last_name;
         $pinfo->pinfo_contact = $req->acPerson_contact;
         $pinfo->pinfo_mail = $req->acPerson_email;
-        $pinfo->del_flag  = 0;
-        if($pinfo->save())
+        try
+      {
+        $pinfo->save();
+        return $this->update_data($req);
+      }
+      catch(\Exception $e)
+      {
+        $message = $e->getCode();
+        if($message == 23000)
         {
-          return $this->update_data($req);
+            alert()
+            ->error('ERROR', 'Data already exist!')
+            ->persistent("Close");
+
+            return Redirect::back();
         }
+        else if($message == 22001)
+        {
+          alert()
+          ->error('ERROR', 'Exceed Max limit of column!')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        else
+        {
+          alert()
+          ->error('ERROR', $e->getCode().$e->getMessage())
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+      }
     }
 
-    public function update_data($req)
+    public function update_data(Request $req)
     {
-        $bank = bankConnection::where('bank_ID', '=', $req->abnkid)->first();
+        $bank = Bank::where('bank_ID', '=', $req->abnkid)->first();
 
         $bank->bank_name = $req->abank_name;
         $bank->bank_code = $req->abank_code;
         $mytime = $req->atime;
         $bank->updated_at = $mytime;
-        $bank->save();
-
-        return redirect('admin/maintenance/bank');
-    }
-
-    public function delete_cPerson($req)
-    {
-        $cPerson = contactPersonConnection::where('cPerson_ID','=',$req->cpersonID)->first();
-
-        $cPerson->del_flag = 1;
-
-        if($cPerson->save())
+        try
         {
-          return $this->delete_data($req);
+          $bank->save();
+          alert()
+          ->success('Record Updated', 'Success')
+          ->persistent("Close");
+
+          return Redirect::back();
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getCode();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!')
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getCode().$e->getMessage())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
         }
     }
 
     public function delete_bank(Request $req)
     {
-      $address = addressConnection::where('add_ID', '=', $req->aaddid)->first();
-
-      $address->del_flag = 1;
-
-      if($address->save())
-      {
-        return $this->delete_cPerson($req);
-      }
-
-    }
-
-    public function delete_data($req)
-    {
-        $banko = bankConnection::where('bank_ID', '=', $req->abnkid)->first();
+        $banko = Bank::where('bank_ID', '=', $req->abnkid)->first();
 
         $banko->del_flag = 1;
+        $banko->updated_at = $req->time;
 
-        $banko->save();
+        try
+        {
+          $banko->save();
+          alert()
+          ->success('Record Deleted', 'Success')
+          ->persistent("Close");
 
-        return redirect('admin/maintenance/bank');
+          return Redirect::back();
+        }
+        catch(\Exception $e)
+        {
+          $message = $e->getCode();
+          if($message == 23000)
+          {
+              alert()
+              ->error('ERROR', 'Data already exist!'.$e->getMessage())
+              ->persistent("Close");
+
+              return Redirect::back();
+          }
+          else if($message == 22001)
+          {
+            alert()
+            ->error('ERROR', 'Exceed Max limit of column!')
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+          else
+          {
+            alert()
+            ->error('ERROR', $e->getCode())
+            ->persistent("Close");
+
+            return Redirect::back();
+          }
+        }
+    }
+
+    public function ardelete_bank(Request $req)
+    {
+        foreach($req->asd as $ID)
+        {
+            $banko = Bank::where('bank_ID', '=', $ID)->first();
+
+            $banko->del_flag = 1;
+            $banko->updated_at = $req->time;
+
+            $banko->save();
+        }
     }
 }
