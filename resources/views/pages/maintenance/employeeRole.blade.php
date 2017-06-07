@@ -11,99 +11,12 @@
 @section('body')
     <section class="content">
         <div class="container-fluid">
-
-            <!-- Exportable Table -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2><b>
-                                JOB TITLE
-                            </b></h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="modal" data-target="#addModal">
-                                    <i class="material-icons">group_add</i>
-                                    <span>Add Job Title</span>
-                                </button>
-                                </li>
-                                <li>
-                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
-                                    <i class="material-icons">delete</i>
-                                    <span>Delete</span>
-                                </button>
-                                </li>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
-                                <thead>
-                                    <tr class="bg-blue-grey">
-                                        <th class="col-md-1"></th>
-                                        <th>Job Title</th>
-                                        <th>Employees</th>
-                                        <th class="col-md-2">Date Created</th>
-                                        <th class="col-md-2">Latest Update</th>
-                                        <th class="col-md-1">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  <?php
-                                      $index = 1;
-                                  ?>
-                                  @foreach($jobtitle as $emp)
-                                  @if($emp->del_flag == 0)
-                                      <tr>
-                                          <td><input type="checkbox" id="{{ $emp->jobtitle_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $emp->jobtitle_ID }}"/>
-                                          <label for="{{ $emp->jobtitle_ID }}"></label></td> <!--YUNG ID DAPAT NAG IIBA EVERY RECORD -->
-                                          <td>{{ $emp->jobtitle_Name }}</td>
-                                          <td><div class="icon-button-demo">
-                                            <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#empList"
-                                            onclick = "
-                                            var table = $('#view_list').DataTable();
-                                            table.column(3).search({{ $emp->jobtitle_ID }}).draw();">
-                                                <i class="material-icons">list</i>
-                                                <span>View List</span>
-                                            </button>
-                                            </div></td>
-                                            <td>{{ \Carbon\Carbon::parse($emp->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($emp->created_at)->format('l, h:i:s A').")" }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($emp->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($emp->updated_at)->format('l, h:i:s A').")" }}</td>
-                                            <td>
-                                            <div class="icon-button-demo">
-                                                <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
-                                                data-id = "{{ $emp->jobtitle_ID }}"
-                                                data-name = "{{ $emp->jobtitle_Name }}"
-                                                data-desc = "{{ $emp->jobtitle_Desc }}"
-                                                onclick= "
-
-                                                document.getElementById('id').value = $(this).data('id');
-                                                document.getElementById('aEmployee_type').value = $(this).data('name');
-                                                document.getElementById('aEmployeeType_desc').value = $(this).data('desc');
-                                                ">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                    <span>View</span>
-                                                </button>
-                                            </div>
-                                          </td>
-                                      </tr>
-                                  @endif
-                                  @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Exportable Table -->
-
             <!-- ADD INST MODAL -->
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+            <div class="collapse fade" id="addModal" role="dialog">
                 <div class="modal-dialog animated zoomInLeft active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-add">
-                            <h4><br/>Add Job Title</h4>
+                            <h4><br/>CREATE NEW EMPLOYEE ROLE RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
                             <form id="add" name = "add" action = "title/submit" method="POST">
@@ -113,7 +26,7 @@
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                     <input id = "Employee_type" name = "Employee_type" type="text" class="form-control" required>
-                                                    <label class="form-label">Job Title Name </label>
+                                                    <label class="form-label">Employee Role Name </label>
                                                 </div>
                                             </div>
                                     </div>
@@ -163,7 +76,7 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -172,11 +85,11 @@
             <!-- #END# ADD INST MODAL -->
 
             <!-- View INST MODAL-->
-            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+            <div class="collapse fade" id="largeModal" role="dialog">
                 <div class="modal-dialog animated zoomInRight active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-view">
-                            <h4><br/>Job Title Details
+                            <h4><br/>EMPLOYEE ROLE DETAILS
                             </h4>
                         </div><br/>
                         <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
@@ -208,6 +121,28 @@
                         <br/>
                         <div class="modal-body">
                             <form id="view" name = "view" method="POST">
+                            <div class="row clearfix">
+                                                <div class="col-md-1">
+                                                   <label for="date_created"><small><small>Date Created</small></small></label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label for="last_update"><small><small>Last Update</small></small></label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                               <div class="col-md-4" style = "display: none;">
                                 <input id = "id" type="text" class="form-control" name="id" pattern="[A-Za-z'-]">
                               </div>
@@ -216,7 +151,7 @@
                                     <div class="col-md-12">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                <label><small>Job Title Name :</small></label>
+                                                <label><small>Employee Role Name :</small></label>
                                                     <input id = "aEmployee_type" name = "aEmployee_type" type="text" class="form-control" disabled="disable" required>
                                                 </div>
                                             </div>
@@ -264,13 +199,118 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
                 </div>
             </div>
             <!-- #END# VIEW INST MODAL -->
+
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2><b>
+                                MAINTENANCE - EMPLOYEE ROLE
+                            </b></h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                <li>
+                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addModal">
+                                    <i class="material-icons">group_add</i>
+                                    <span>Add Employee Role</span>
+                                </button>
+                                </li>
+                                <li>
+                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
+                                    <i class="material-icons">delete</i>
+                                    <span>Delete</span>
+                                </button>
+                                </li>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
+                                <thead>
+                                    <tr class="bg-blue-grey">
+                                        <th class="col-md-1"></th>
+                                        <th>Employee Role</th>
+                                        <th>Desctiption</th>
+                                        <th>Employees</th>
+                                        <th class="col-md-1">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
+                                                data-id=""/>
+                                                <label for="pppp"></label></td>
+                                  <td>Accounting Staff</td>
+                                  <td>The one who chuchu the churva</td>
+                                  <td><div class="icon-button-demo">
+                                            <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#empList">
+                                                <i class="material-icons">list</i>
+                                                <span>View List</span>
+                                            </button>
+                                            </div></td>
+
+                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
+                                                    <i class="material-icons">remove_red_eye</i>
+                                                    <span>View</span>
+                                                </button></td>
+                                </tr>
+                                  <!-- COMMENT KO MUNA
+                                  <?php
+                                      $index = 1;
+                                  ?>
+                                  @foreach($jobtitle as $emp)
+                                  @if($emp->del_flag == 0)
+                                      <tr>
+                                          <td><input type="checkbox" id="{{ $emp->jobtitle_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $emp->jobtitle_ID }}"/>
+                                          <label for="{{ $emp->jobtitle_ID }}"></label></td>
+                                          <td>{{ $emp->jobtitle_Name }}</td>
+                                          <td><div class="icon-button-demo">
+                                            <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#empList"
+                                            onclick = "
+                                            var table = $('#view_list').DataTable();
+                                            table.column(3).search({{ $emp->jobtitle_ID }}).draw();">
+                                                <i class="material-icons">list</i>
+                                                <span>View List</span>
+                                            </button>
+                                            </div></td>
+                                            <td>{{ \Carbon\Carbon::parse($emp->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($emp->created_at)->format('l, h:i:s A').")" }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($emp->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($emp->updated_at)->format('l, h:i:s A').")" }}</td>
+                                            <td>
+                                            <div class="icon-button-demo">
+                                                <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
+                                                data-id = "{{ $emp->jobtitle_ID }}"
+                                                data-name = "{{ $emp->jobtitle_Name }}"
+                                                data-desc = "{{ $emp->jobtitle_Desc }}"
+                                                onclick= "
+
+                                                document.getElementById('id').value = $(this).data('id');
+                                                document.getElementById('aEmployee_type').value = $(this).data('name');
+                                                document.getElementById('aEmployeeType_desc').value = $(this).data('desc');
+                                                ">
+                                                    <i class="material-icons">remove_red_eye</i>
+                                                    <span>View</span>
+                                                </button>
+                                            </div>
+                                          </td>
+                                      </tr>
+                                  @endif
+                                  @endforeach -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->  
 
             <!-- View INST MODAL-->
               <div class="modal fade" id="empList" tabindex="-1" role="dialog">
@@ -289,7 +329,7 @@
                                         <th>Employee</th>
                                         <th>Date Created</th>
                                         <th>Last Update</th>
-                                        <th>Job Title</th>
+                                        <th>Employee Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>

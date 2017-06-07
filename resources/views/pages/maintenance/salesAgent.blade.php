@@ -4,6 +4,8 @@
 
 @section('maintenance','active')
 
+@section('personnel','active')
+
 @section('salesagent','active')
 
 @section('body')
@@ -16,7 +18,7 @@
                     <div class="card">
                         <div class="header">
                             <h2><b>
-                                SALES AGENT
+                                MAINTENANCE - SALES AGENT
                             </b></h2>
                             <ul class="header-dropdown m-r--5">
                                 <li>

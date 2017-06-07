@@ -4,7 +4,7 @@
 
 @section('maintenance','active')
 
-@section('quotation','active')
+@section('vehicle','active')
 
 @section('vtype','active')
 
@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="header">
                             <h2><b>
-                                VEHICLE TYPE
+                                MAINTENANCE - VEHICLE TYPE
                             </b></h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">

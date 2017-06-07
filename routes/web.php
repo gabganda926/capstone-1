@@ -120,6 +120,62 @@ Route::post('/admin/maintenance/insurance/company/delete', 'InsuranceCompanyCont
 
 Route::post('/admin/maintenance/insurance/company/ardelete', 'InsuranceCompanyController@ardelete_bank');
 
+//mainte-policynum
+Route::get('/admin/maintenance/policyno', 'PolicyNumberController@index');
+
+Route::post('/admin/maintenance/policyno/submit', 'PolicyNumberController@add_bank');
+
+Route::post('/admin/maintenance/policyno/update', 'PolicyNumberController@update_bank');
+
+Route::post('/admin/maintenance/policyno/delete', 'PolicyNumberController@delete_bank');
+
+Route::post('/admin/maintenance/policyno/ardelete', 'PolicyNumberController@ardelete_bank');
+
+//mainte-salesagent
+Route::get('/admin/maintenance/salesagent', 'SalesAgentController@index');
+
+Route::post('/admin/maintenance/salesagent/submit', 'SalesAgentController@add_bank');
+
+Route::post('/admin/maintenance/salesagent/update', 'SalesAgentController@update_bank');
+
+Route::post('/admin/maintenance/salesagent/delete', 'SalesAgentController@delete_bank');
+
+Route::post('/admin/maintenance/salesagent/ardelete', 'SalesAgentController@ardelete_bank');
+
+//mainte-vehiclemake
+Route::get('/admin/maintenance/vehicle/make', 'VehicleMakeController@index');
+
+Route::post('/admin/maintenance/vehicle/make/submit', 'VehicleMakeController@add_bank');
+
+Route::post('/admin/maintenance/vehicle/make/update', 'VehicleMakeController@update_bank');
+
+Route::post('/admin/maintenance/vehicle/make/delete', 'VehicleMakeController@delete_bank');
+
+Route::post('/admin/maintenance/vehicle/make/ardelete', 'VehicleMakeController@ardelete_bank');
+
+//mainte-vehicletype
+Route::get('/admin/maintenance/vehicle/type', 'VehicleTypeController@index');
+
+Route::post('/admin/maintenance/vehicle/type/submit', 'VehicleTypeController@add_bank');
+
+Route::post('/admin/maintenance/vehicle/type/update', 'VehicleTypeController@update_bank');
+
+Route::post('/admin/maintenance/vehicle/type/delete', 'VehicleTypeController@delete_bank');
+
+Route::post('/admin/maintenance/vehicle/type/ardelete', 'VehicleTypeController@ardelete_bank');
+
+//mainte-vehiclemodel
+Route::get('/admin/maintenance/vehicle/model', 'VehicleModelController@index');
+
+Route::post('/admin/maintenance/vehicle/model/submit', 'VehicleModelController@add_bank');
+
+Route::post('/admin/maintenance/vehicle/model/update', 'VehicleModelController@update_bank');
+
+Route::post('/admin/maintenance/vehicle/model/delete', 'VehicleModelController@delete_bank');
+
+Route::post('/admin/maintenance/vehicle/model/ardelete', 'VehicleModelController@ardelete_bank');
+
+
 //TRANSACTION
 
 //QUERIES

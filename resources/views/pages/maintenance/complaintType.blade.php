@@ -9,88 +9,12 @@
 @section('body')
     <section class="content">
         <div class="container-fluid">
-
-            <!-- Exportable Table -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2><b>
-                                COMPLAINT TYPE
-                            </b></h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="modal" data-target="#addCTypeModal">
-                                    <i class="material-icons">contacts</i>
-                                    <span>Add Complaint Type</span>
-                                </button>
-                                </li>
-                                <li>
-                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
-                                    <i class="material-icons">delete</i>
-                                    <span>Delete</span>
-                                </button>
-                                </li>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
-                                <thead>
-                                    <tr class="bg-blue-grey">
-                                        <th class="col-md-1"></th>
-                                        <th>Complaint Type</th>
-                                        <th class="col-md-2">Date Created</th>
-                                        <th class="col-md-2">Last Update</th>
-                                        <th class="col-md-1">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                  $index = 1;
-                                  ?>
-                                  @foreach($complainttype as $ctype)
-                                    @if($ctype->del_flag == 0)
-                                        <tr>
-                                            <td><input type="checkbox" id="{{ $ctype->complaintType_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                            data-id = "{{ $ctype->complaintType_ID }}"/>
-                                            <label for="{{ $ctype->complaintType_ID }}"></label></td>
-                                            <td>{{ $ctype->complaintType_name }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($ctype->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($ctype->created_at)->format('l, h:i:s A').")" }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($ctype->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($ctype->updated_at)->format('l, h:i:s A').")" }}</td>
-                                            <td>
-                                            <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
-                                            data-id = "{{ $ctype->complaintType_ID }}"
-                                            data-name = "{{ $ctype->complaintType_name }}"
-                                            data-desc = "{{ $ctype->complaintType_desc }}"
-                                            onclick= "
-
-                                            document.getElementById('id').value = $(this).data('id');
-                                            document.getElementById('aclientType_type').value = $(this).data('name');
-                                            document.getElementById('aclientType_desc').value = $(this).data('desc');
-                                            ">
-                                            <i class="material-icons">remove_red_eye</i>
-                                            <span>View</span>
-                                            </button>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                  @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Exportable Table -->
-
             <!-- ADD INST MODAL -->
-            <div class="modal fade" id="addCTypeModal" tabindex="-1" role="dialog">
+            <div class="collapse fade" id="addCTypeModal"role="dialog">
                 <div class="modal-dialog animated zoomInLeft active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-add">
-                            <h4><br/>Add Complaint Type</h4>
+                            <h4><br/>CREATE NEW COMPLAINT TYPE RECORD</h4>
                         </div><br/><br/>
                             <div class="modal-body">
                                 <form id="add" name = "add" action = "type/submit" method="POST">
@@ -107,15 +31,15 @@
 
                                     <div class="col-md-12">
                                       <div class="form-group form-float">
-                                          <div class="form-line">
+                                          
                                             <div class="form-group form-float">
-                                                <div class="form-line">
+                                            <div class="form-line">
                                                     <textarea id = "clientType_desc" name = "clientType_desc" rows="1" class="form-control no-resize auto-growth"></textarea>
                                                     <label class="form-label">Description </label>
-                                                </div>
+                                            </div>
                                             </div>
                                           </div>
-                                      </div>
+                                      
                                     </div>
                                 </div>
                                     <br/><br/>
@@ -154,20 +78,19 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCTypeModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
                 </div>
             </div>
             <!-- #END# ADD INST MODAL -->
-
             <!-- View INST MODAL-->
-            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+            <div class="collapse fade" id="largeModal" role="dialog">
                 <div class="modal-dialog animated zoomInRight active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-view">
-                            <h4><br/>Complaint Type Details
+                            <h4><br/>COMPLAINT TYPE DETAILS
                             </h4>
                         </div><br/>
                         <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
@@ -199,6 +122,28 @@
                         <br/>
                             <div class="modal-body">
                                 <form id = "view" name = "view" method="POST">
+                                <div class="row clearfix">
+                                                <div class="col-md-1">
+                                                   <label for="date_created"><small><small>Date Created</small></small></label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label for="last_update"><small><small>Last Update</small></small></label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="col-md-4" style = "display: none;">
                                   <input id = "id" type="text" class="form-control" name="id">
@@ -215,14 +160,15 @@
 
                                      <div class="col-md-12">
                                        <div class="form-group form-float">
-                                           <div class="form-line">
+                                           
                                              <div class="form-group form-float">
                                                  <div class="form-line">
+                                                 <label><small>Description :</small></label>
                                                      <textarea id = "aclientType_desc" name = "aclientType_desc" rows="1" class="form-control no-resize auto-growth" disabled></textarea>
-                                                     <label class="form-label">Description </label>
+                                                     
                                                  </div>
                                              </div>
-                                           </div>
+                                           
                                        </div>
                                     </div>
                                 </div>
@@ -259,13 +205,100 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
                 </div>
             </div>
             <!-- #END# VIEW INST MODAL -->
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2><b>
+                                MAINTENANCE - COMPLAINT TYPE
+                            </b></h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <li>
+                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCTypeModal">
+                                    <i class="material-icons">contacts</i>
+                                    <span>Add Complaint Type</span>
+                                </button>
+                                </li>
+                                <li>
+                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
+                                    <i class="material-icons">delete</i>
+                                    <span>Delete</span>
+                                </button>
+                                </li>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
+                                <thead>
+                                    <tr class="bg-blue-grey">
+                                        <th class="col-md-1"></th>
+                                        <th class="col-md-2">Complaint Type</th>
+                                        <th>Description</th>
+                                        <th class="col-md-1">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
+                                                data-id=""/>
+                                                <label for="pppp"></label></td>
+                                  <td>Huehue</td>
+                                  <td>huehuehueheuheuehue</td>
+                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
+                                                    <i class="material-icons">remove_red_eye</i>
+                                                    <span>View</span>
+                                                </button></td>
+                                </tr>
+
+                                <!-- COMMENT KO MUNA 
+                                    <?php
+                                  $index = 1;
+                                  ?>
+                                  @foreach($complainttype as $ctype)
+                                    @if($ctype->del_flag == 0)
+                                        <tr>
+                                            <td><input type="checkbox" id="{{ $ctype->complaintType_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox"
+                                            data-id = "{{ $ctype->complaintType_ID }}"/>
+                                            <label for="{{ $ctype->complaintType_ID }}"></label></td>
+                                            <td>{{ $ctype->complaintType_name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($ctype->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($ctype->created_at)->format('l, h:i:s A').")" }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($ctype->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($ctype->updated_at)->format('l, h:i:s A').")" }}</td>
+                                            <td>
+                                            <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
+                                            data-id = "{{ $ctype->complaintType_ID }}"
+                                            data-name = "{{ $ctype->complaintType_name }}"
+                                            data-desc = "{{ $ctype->complaintType_desc }}"
+                                            onclick= "
+
+                                            document.getElementById('id').value = $(this).data('id');
+                                            document.getElementById('aclientType_type').value = $(this).data('name');
+                                            document.getElementById('aclientType_desc').value = $(this).data('desc');
+                                            ">
+                                            <i class="material-icons">remove_red_eye</i>
+                                            <span>View</span>
+                                            </button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                  @endforeach -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
+            
         </div>
     </section>
 

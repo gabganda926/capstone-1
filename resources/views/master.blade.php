@@ -34,6 +34,9 @@
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="../../../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
+    <!-- Bootstrap Spinner Css -->
+    <link href="../../plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
+
     <!-- Wait Me Css -->
     <link href="../../../plugins/waitme/waitMe.css" rel="stylesheet" />
 
@@ -188,7 +191,7 @@
                                         </a>
                                     </li>
                                     <li class = "@yield('salesagent')">
-                                        <a href="/admin/maintenance/sales/agent">
+                                        <a href="/admin/maintenance/salesagent">
                                             <span>Sales Agent Profile</span>
                                         </a>
                                     </li>
@@ -243,7 +246,7 @@
                                             <span>Insurance Forms</span></a>
                                     </li>
                                     <li class = "@yield('policyno')">
-                                        <a href="/admin/maintenance//policyno">
+                                        <a href="/admin/maintenance/policyno">
                                             <span>Insurance - Policy Number</span></a>
                                     </li>
 
@@ -495,7 +498,8 @@
     <!-- Dropzone Plugin Js -->
     <script src="../../../plugins/dropzone/dropzone.js"></script>
 
-
+    <!-- Jquery Spinner Plugin Js -->
+    <script src="../../plugins/jquery-spinner/js/jquery.spinner.js"></script>
 
     <script>
         $.ajaxSetup({
