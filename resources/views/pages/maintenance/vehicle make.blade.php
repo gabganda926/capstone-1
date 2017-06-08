@@ -11,93 +11,12 @@
 @section('body')
     <section class="content">
         <div class="container-fluid">
-
-            <!-- Exportable Table -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2><b>
-                                MAINTENANCE - VEHICLE MAKE
-                            </b></h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="modal" data-target="#addVModModal">
-                                    <i class="material-icons">add_circle_outline</i>
-                                    <span>Add Vehicle Make</span>
-                                </button>
-                                </li>
-                                <li>
-                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
-                                    <i class="material-icons">delete</i>
-                                    <span>Delete</span>
-                                </button>
-                                </li>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
-                                <thead>
-                                    <tr class="bg-blue-grey">
-                                        <th class="col-md-1"> </th>
-                                        <th class="col-md-4">Vehicle Make</th>
-                                        <th class="col md-2">Vehicle Model</th>
-                                        <th class="col-md-2">Date Created</th>
-                                        <th class="col-md-2">Last Update</th>
-                                        <th class="col-md-1">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  @foreach($make as $mke)
-                                  @if($mke->del_flag == 0)
-                                  <tr>
-                                    <td><input type="checkbox" id="{{ $mke->vehicle_make_ID }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $mke->vehicle_make_ID }}"/>
-                                    <label for="{{ $mke->vehicle_make_ID }}"></label></td>
-                                    <td>{{ $mke->vehicle_make_name }}</td>
-                                    <td><div class="icon-button-demo">
-                                        <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#modelList"
-                                        onclick = "
-                                        var table = $('#view_list').DataTable();
-                                        table.column(3).search({{ $mke->vehicle_make_ID }}).draw();">
-                                            <i class="material-icons">list</i>
-                                            <span>View List</span>
-                                        </button>
-                                    </div></td>
-                                    <td>{{ \Carbon\Carbon::parse($mke->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mke->created_at)->format('l, h:i:s A').")" }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($mke->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mke->updated_at)->format('l, h:i:s A').")" }}</td>
-                                    <td>
-                                    <div class="icon-button-demo">
-                                        <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
-                                        data-id = "{{ $mke->vehicle_make_ID }}"
-                                        data-name = "{{ $mke->vehicle_make_name  }}"
-                                        onclick= "
-                                        document.getElementById('id').value = $(this).data('id');
-                                        document.getElementById('avehicle_make_name').value = $(this).data('name');
-                                        ">
-                                            <i class="material-icons">remove_red_eye</i>
-                                            <span>View</span>
-                                        </button>
-                                    </div>
-                                    </td>
-                                  </tr>
-                                  @endif
-                                  @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Exportable Table -->
-
             <!-- ADD INST MODAL -->
-            <div class="modal fade" id="addVModModal" tabindex="-1" role="dialog">
+            <div class="collapse fade" id="addVModModal" role="dialog">
                 <div class="modal-dialog animated zoomInLeft active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-add">
-                            <h4><br/>Add Vehicle Make</h4>
+                            <h4><br/>CREATE NEW VEHICLE MAKE RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
                             <form id="add" name = "add" action = "make/submit" method="POST">
@@ -108,6 +27,14 @@
                                             <div class="form-line">
                                                 <input id = "vehicle_make_name" name = "vehicle_make_name" type="text" class="form-control" pattern="[A-Za-z'-]" required>
                                                 <label class="form-label">Vehicle Make Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input id = "vehicle_make_name" name = "vehicle_make_name" type="text" class="form-control" pattern="[A-Za-z'-]" required>
+                                                <label class="form-label">Description</label>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +73,7 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addVModModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -155,11 +82,11 @@
             <!-- #END# ADD INST MODAL -->
 
             <!-- View INST MODAL-->
-              <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+              <div class="collapse fade" id="largeModal" role="dialog">
                 <div class="modal-dialog animated zoomInRight active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-view">
-                            <h4><br/>Vehicle Make Details
+                            <h4><br/>VEHICLE MAKE DETAILS
                             </h4>
                         </div><br/>
                         <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
@@ -201,6 +128,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                            <label><small>Description :</small></label>
+                                                <input id = "avehicle_make_name" name = "avehicle_make_name" type="text" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <br/><br/><br/>
                                 <div class="col-md-4" style = "display: none;">
@@ -235,7 +170,7 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -248,7 +183,7 @@
                 <div class="modal-dialog modal-lg animated zoomInRight active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-view-list">
-                            <h4><br/>Vehicle Model List
+                            <h4><br/>VEHICLE MODEL LIST
                             </h4>
                         </div><br/>
                         </button>
@@ -286,6 +221,103 @@
                 </div>
             </div>
             <!-- #END# VIEW INST MODAL -->
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2><b>
+                                MAINTENANCE - VEHICLE MAKE
+                            </b></h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <li>
+                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addVModModal">
+                                    <i class="material-icons">add_circle_outline</i>
+                                    <span>Add Vehicle Make</span>
+                                </button>
+                                </li>
+                                <li>
+                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
+                                    <i class="material-icons">delete</i>
+                                    <span>Delete</span>
+                                </button>
+                                </li>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
+                                <thead>
+                                    <tr class="bg-blue-grey">
+                                        <th class="col-md-1"> </th>
+                                        <th class="col-md-1">Vehicle Make</th>
+                                        <th> Description </th>
+                                        <th class="col md-2">Vehicle Model</th>
+                                        <th class="col-md-1">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
+                                                data-id=""/>
+                                                <label for="pppp"></label></td>
+                                  <td>Toyota</td>
+                                  <td>Toyota Motor Corporation is a Japanese multinational automotive manufacturer headquartered in Toyota, Aichi, Japan.</td>
+                                  <td><div class="icon-button-demo">
+                                        <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#modelList">
+                                            <i class="material-icons">list</i>
+                                            <span>View List</span>
+                                        </button>
+                                    </div></td>
+                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
+                                                    <i class="material-icons">remove_red_eye</i>
+                                                    <span>View</span>
+                                                </button></td>
+                                </tr>
+                                <!-- COMMENTTTTZZ
+                                  @foreach($make as $mke)
+                                  @if($mke->del_flag == 0)
+                                  <tr>
+                                    <td><input type="checkbox" id="{{ $mke->vehicle_make_ID }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $mke->vehicle_make_ID }}"/>
+                                    <label for="{{ $mke->vehicle_make_ID }}"></label></td>
+                                    <td>{{ $mke->vehicle_make_name }}</td>
+                                    <td><div class="icon-button-demo">
+                                        <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#modelList"
+                                        onclick = "
+                                        var table = $('#view_list').DataTable();
+                                        table.column(3).search({{ $mke->vehicle_make_ID }}).draw();">
+                                            <i class="material-icons">list</i>
+                                            <span>View List</span>
+                                        </button>
+                                    </div></td>
+                                    <td>{{ \Carbon\Carbon::parse($mke->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mke->created_at)->format('l, h:i:s A').")" }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($mke->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mke->updated_at)->format('l, h:i:s A').")" }}</td>
+                                    <td>
+                                    <div class="icon-button-demo">
+                                        <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
+                                        data-id = "{{ $mke->vehicle_make_ID }}"
+                                        data-name = "{{ $mke->vehicle_make_name  }}"
+                                        onclick= "
+                                        document.getElementById('id').value = $(this).data('id');
+                                        document.getElementById('avehicle_make_name').value = $(this).data('name');
+                                        ">
+                                            <i class="material-icons">remove_red_eye</i>
+                                            <span>View</span>
+                                        </button>
+                                    </div>
+                                    </td>
+                                  </tr>
+                                  @endif
+                                  @endforeach
+                                  -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
 
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {

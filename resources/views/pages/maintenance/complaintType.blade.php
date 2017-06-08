@@ -122,7 +122,7 @@
                         <br/>
                             <div class="modal-body">
                                 <form id = "view" name = "view" method="POST">
-                                <div class="row clearfix">
+                                            <div class="row clearfix">
                                                 <div class="col-md-1">
                                                    <label for="date_created"><small><small>Date Created</small></small></label>
                                                 </div>

@@ -22,6 +22,6 @@ class ClientCompanyController extends Controller
 {
     public function index()
     {
-      return view('/pages/maintenance/client/company');//page link from local drive
+      return view('/pages/maintenance/clientCompany');
     }
 }

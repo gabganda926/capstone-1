@@ -11,85 +11,12 @@
 @section('body')
     <section class="content">
         <div class="container-fluid">
-
-            <!-- Exportable Table -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2><b>
-                                MAINTENANCE - VEHICLE TYPE
-                            </b></h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="modal" data-target="#addVTypeModal">
-                                    <i class="material-icons">add_circle_outline</i>
-                                    <span>Add Vehicle Type</span>
-                                </button>
-                                </li>
-                                <li>
-                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
-                                    <i class="material-icons">delete</i>
-                                    <span>Delete</span>
-                                </button>
-                                </li>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
-                                <thead>
-                                    <tr class="bg-blue-grey">
-                                        <th class="col-md-1"> </th>
-                                        <th>Vehicle Type</th>
-                                        <th class="col-md-2">Date Created</th>
-                                        <th class="col-md-2">Last Update</th>
-                                        <th class="col-md-1">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($typ as $type)
-                                    @if($type->del_flag == 0)
-                                    <tr>
-                                      <td><input type="checkbox" id="{{ $type->vehicle_type_ID }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $type->vehicle_type_ID }}"/>
-                                      <label for="{{ $type->vehicle_type_ID }}"></label></td>
-                                      <td>{{ $type->vehicle_type_name }}</td>
-                                      <td>{{ \Carbon\Carbon::parse($type->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($type->created_at)->format('l, h:i:s A').")" }}</td>
-                                      <td>{{ \Carbon\Carbon::parse($type->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($type->updated_at)->format('l, h:i:s A').")" }}</td>
-                                      <td>
-                                      <div class="icon-button-demo">
-                                          <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
-                                          data-id = "{{ $type->vehicle_type_ID }}"
-                                          data-name = "{{ $type->vehicle_type_name }}"
-                                          data-desc = "{{ $type->vehicle_type_desc }}"
-                                          onclick= "
-                                          document.getElementById('id').value = $(this).data('id');
-                                          document.getElementById('avehicle_type_name').value = $(this).data('name');
-                                          document.getElementById('avehicle_type_desc').value = $(this).data('desc');
-                                          ">
-                                              <i class="material-icons">remove_red_eye</i>
-                                              <span>View</span>
-                                          </button>
-                                      </div>
-                                      </td>
-                                    </tr>
-                                    @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Exportable Table -->
-
             <!-- ADD INST MODAL -->
-            <div class="modal fade" id="addVTypeModal" tabindex="-1" role="dialog">
+            <div class="collapse fade" id="addVTypeModal" role="dialog">
                 <div class="modal-dialog animated zoomInLeft active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-add">
-                            <h4><br/>Add Vehicle Type</h4>
+                            <h4><br/>CREATE NEW VEHICLE TYPE RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
                             <form id="add" name = "add" action = "types/submit" method="POST">
@@ -101,7 +28,6 @@
                                                 <input id = "vehicle_type_name" name = "vehicle_type_name" type="text" class="form-control" pattern="[A-Za-z'-]" required>
                                                 <label class="form-label">Vehicle Type Name</label>
                                             </div>
-                                            <div class="help-info">Ex.: truck, tricycle, car, etc.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -148,7 +74,7 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addVTypeModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -157,11 +83,11 @@
             <!-- #END# ADD INST MODAL -->
 
             <!-- View INST MODAL-->
-              <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+              <div class="collapse fade" id="largeModal" role="dialog">
                 <div class="modal-dialog animated zoomInRight active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-view">
-                            <h4><br/>Vehicle Type Details
+                            <h4><br/>VEHICLE TYPE DETAILS
                             </h4>
                         </div><br/>
                         <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
@@ -192,6 +118,28 @@
                         </button>
                         <div class="modal-body">
                             <form id="view" name = "view" method="POST">
+                              <div class="row clearfix">
+                                                <div class="col-md-1">
+                                                   <label for="date_created"><small><small>Date Created</small></small></label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label for="last_update"><small><small>Last Update</small></small></label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="col-md-4" style = "display: none;">
                                   <input id = "id" type="text" class="form-control" name="id" pattern="[A-Za-z'-]">
@@ -208,8 +156,8 @@
                                     <div class="col-md-12">
                                       <div class="form-group form-float">
                                           <div class="form-line">
+                                              <label><small>Description :</small></label>
                                               <textarea id = "avehicle_type_desc" name = "avehicle_type_desc" rows="1" class="form-control no-resize auto-growth" disabled></textarea>
-                                              <label class="form-label">Description </label>
                                           </div>
                                       </div>
                                     </div>
@@ -247,13 +195,96 @@
                               }
                             });
                           }">SAVE CHANGES</button>
-                          <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
                         </div>
                     </form>
                     </div>
                 </div>
             </div>
             <!-- #END# VIEW INST MODAL -->
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2><b>
+                                MAINTENANCE - VEHICLE TYPE
+                            </b></h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <li>
+                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addVTypeModal">
+                                    <i class="material-icons">add_circle_outline</i>
+                                    <span>Add Vehicle Type</span>
+                                </button>
+                                </li>
+                                <li>
+                                <button type="button" id = "delete_many" style = "display:none;" class="btn bg-red waves-effect">
+                                    <i class="material-icons">delete</i>
+                                    <span>Delete</span>
+                                </button>
+                                </li>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
+                                <thead>
+                                    <tr class="bg-blue-grey">
+                                        <th class="col-md-1"> </th>
+                                        <th class="col-md-2">Vehicle Type</th>
+                                        <th>Description</th>
+                                        <th class="col-md-1">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
+                                                data-id=""/>
+                                                <label for="pppp"></label></td>
+                                  <td>Typetype</td>
+                                  <td>asdasd</td>
+                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
+                                                    <i class="material-icons">remove_red_eye</i>
+                                                    <span>View</span>
+                                                </button></td>
+                                </tr>
+                                <!-- COMMENT
+                                    @foreach($typ as $type)
+                                    @if($type->del_flag == 0)
+                                    <tr>
+                                      <td><input type="checkbox" id="{{ $type->vehicle_type_ID }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $type->vehicle_type_ID }}"/>
+                                      <label for="{{ $type->vehicle_type_ID }}"></label></td>
+                                      <td>{{ $type->vehicle_type_name }}</td>
+                                      <td>{{ \Carbon\Carbon::parse($type->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($type->created_at)->format('l, h:i:s A').")" }}</td>
+                                      <td>{{ \Carbon\Carbon::parse($type->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($type->updated_at)->format('l, h:i:s A').")" }}</td>
+                                      <td>
+                                      <div class="icon-button-demo">
+                                          <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
+                                          data-id = "{{ $type->vehicle_type_ID }}"
+                                          data-name = "{{ $type->vehicle_type_name }}"
+                                          data-desc = "{{ $type->vehicle_type_desc }}"
+                                          onclick= "
+                                          document.getElementById('id').value = $(this).data('id');
+                                          document.getElementById('avehicle_type_name').value = $(this).data('name');
+                                          document.getElementById('avehicle_type_desc').value = $(this).data('desc');
+                                          ">
+                                              <i class="material-icons">remove_red_eye</i>
+                                              <span>View</span>
+                                          </button>
+                                      </div>
+                                      </td>
+                                    </tr>
+                                    @endif
+                                    @endforeach
+                                    -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
         </div>
     </section>
 

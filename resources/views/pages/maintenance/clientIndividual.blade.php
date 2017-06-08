@@ -1,12 +1,12 @@
 @extends('master')
 
-@section('title','Maintenance - Employee | CIMIS')
+@section('title','Maintenance - Client - Individual | CIMIS')
 
 @section('maintenance','active')
 
-@section('personnel','active')
+@section('client','active')
 
-@section('employee','active')
+@section('clientindividual','active')
 
 @section('body')
     <section class="content">
@@ -16,7 +16,7 @@
                 <div class="modal-dialog modal-lg animated zoomInLeft active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-add">
-                            <h4><br/>CREATE NEW EMPLOYEE RECORD</h4>
+                            <h4><br/>CREATE NEW CLIENT (INDIVIDUAL) RECORD</h4>
                         </div>
                         <div class="modal-body">
                             <form id="emp_add" name = "emp_add" action = "employee/submit" method="POST" enctype="multipart/form-data">
@@ -158,47 +158,15 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group form-float">
-                                                <label><small>Employee Role :</small></label>
+                                                <label><small>Sales Agent :</small></label>
                                                     <select id = "add_region" name = "add_region" class="form-control show-tick" readonly="true">
-                                                  <option selected value = "" style = "display: none;">-- Employee Role --</option>
-                                                        <option value = "I">Accounting Staff</option>
-                                                        <option value = "II">Underwriter</option>
+                                                  <option selected value = "" style = "display: none;">-- Select Sales Agent --</option>
+                                                        <option value = "I">Jeon, Jung Kook</option>
+                                                        <option value = "II">Ha, Eun Woo</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                            <div class="form-group form-float">
-                                            <input type="checkbox" id="ppppp" name = "del_check" class="filled-in chk-col-green checkCheckbox"
-                                                data-id=""/>
-                                                <label for="ppppp">Sales Agent?</label>
-                                            </div>
-                                            </div>
                                         </div><br/>
-                                <div><h3><small><b>SYSTEM ACCOUNT INFORMATION</b></small></h3></div>
-                                    
-                                        <div class="row clearfix">
-                                                <div class="col-md-2 form-control-label">
-                                                   <label for="date_created"><small>Username</small></label>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" value="auto generated dapat pero pwde iedit, combination ng pangalan at bday"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 form-control-label">
-                                                    <label for="last_update"><small>Password</small></label>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" value="samesame"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div><br/>
-                                    
                                 <h3> <small><b>RESIDENTIAL ADDRESS</b></small></h3>
                                         <br/>
                                         <div class="row clearfix">
@@ -592,47 +560,15 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group form-float">
-                                                <label><small>Employee Role :</small></label>
+                                                <label><small>Sales Agent :</small></label>
                                                     <select id = "add_region" name = "add_region" class="form-control show-tick" readonly="true">
-                                                  <option selected value = "" style = "display: none;">-- Employee Role --</option>
-                                                        <option value = "I">Accounting Staff</option>
-                                                        <option value = "II">Underwriter</option>
+                                                  <option selected value = "" style = "display: none;">-- Select Sales Agent --</option>
+                                                        <option value = "I">Jeon, Jung Kook</option>
+                                                        <option value = "II">Ha, Eun Woo</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                            <div class="form-group form-float">
-                                            <input type="checkbox" id="ppppp" name = "del_check" class="filled-in chk-col-green checkCheckbox"
-                                                data-id=""/>
-                                                <label for="ppppp">Sales Agent?</label>
-                                            </div>
-                                            </div>
                                         </div><br/>
-                                        <div><h3><small><b>SYSTEM ACCOUNT INFORMATION</b></small></h3></div>
-                                    
-                                        <div class="row clearfix">
-                                                <div class="col-md-2 form-control-label">
-                                                   <label for="date_created"><small>Username</small></label>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" value="auto generated dapat pero pwde iedit, combination ng pangalan at bday"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 form-control-label">
-                                                    <label for="last_update"><small>Password</small></label>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" value="samesame"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div><br/>
-                                
                                         <h3> <small><b>RESIDENTIAL ADDRESS</b></small></h3>
                                         <br/>
                                         <div class="row clearfix">
@@ -784,13 +720,13 @@
                     <div class="card">
                         <div class="header">
                             <h2><b>
-                                MAINTENANCE - EMPLOYEE
+                                MAINTENANCE - CLIENT (INDIVIDUAL)
                             </b></h2>
                             <ul class="header-dropdown m-r--5">
                                 <li>
                                 <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addEmpModal">
                                     <i class="material-icons">group_add</i>
-                                    <span>Add Employee</span>
+                                    <span>Add Client</span>
                                 </button>
                                 </li>
                                 <li>
@@ -808,7 +744,6 @@
                                         <th class="col-md-1"></th>
                                         <th>Image</th>
                                         <th>Name</th>
-                                        <th>Employee Role</th>
                                         <th>Address</th>
                                         <th>Contact Details</th>
                                         <th class="col-md-1">Action</th>
@@ -821,7 +756,6 @@
                                                 <label for="pppp"></label></td>
                                   <td><img src="{!! '/image/'.'default-image.png' !!}" onerror="this.onerror=null;this.src='/image/default-image.png';" style="border:1px solid black;width:150px;height:150px;"></td>
                                   <td>Rola, Ma. Gabriella Tan</td>
-                                  <td>Accounting Staff</td>
                                   <td>B 5 L 18 Spiderlily St. Brgy San Luis, Antipolo City, Rizal</td>
                                   <td><ul>
                                       <li>09353084708</li>
@@ -834,167 +768,6 @@
                                                     <span>View</span>
                                                 </button></td>
                                 </tr>
-                                    <!-- COMMENT KO MUNA
-                                    @foreach($emp as $empdata)
-                                    @if($empdata->del_flag == 0)
-                                      @foreach($pnf as $pInfo)
-                                        @if($empdata->personal_info_ID == $pInfo->pinfo_ID)
-                                         @foreach($emptype as $type)
-                                          @if($empdata->emp_type == $type->emptype_ID)
-                                            @foreach($job as $title)
-                                            @if($empdata->job_title == $title->jobtitle_ID)
-                                        <tr>
-                                        <td><input type="checkbox" id="{{$empdata->emp_ID}}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{$empdata->emp_ID}}"/>
-                                        <label for="{{$empdata->emp_ID}}"></label></td>
-                                        @if($pInfo->pinfo_picture == null)
-                                        <td><img src="{!! '/image/'.'default-image.png' !!}" onerror="this.onerror=null;this.src='/image/default-image.png';" style="border:1px solid black;width:150px;height:150px;"></td>
-                                        @else
-                                        <td><img src="{!! '/image/'.$pInfo->pinfo_picture !!}" onerror="this.onerror=null;this.src='/image/default-image.png';" style="border:1px solid black;width:150px;height:150px;"></td>
-                                        @endif
-                                        <td>
-                                          @if($pInfo->pinfo_middle_name == null)
-                                          {{ $pInfo->pinfo_last_name.", ".$pInfo->pinfo_first_name}}
-                                          @else
-                                          {{ $pInfo->pinfo_last_name.", ".$pInfo->pinfo_first_name." ".$pInfo->pinfo_middle_name }}
-                                          @endif
-                                        </td>
-                                        <td>{{ $title->jobtitle_Name }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($empdata->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($empdata->created_at)->format('l, h:i:s A').")" }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($empdata->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($empdata->updated_at)->format('l, h:i:s A').")" }}</td>
-                                        <td>
-                                        <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
-                                        class="btn btn-success btn-xs waves-effect"
-                                        data-empid='{{ $empdata->emp_ID }}'
-                                        data-fname='{{ $pInfo->pinfo_first_name }}'
-                                        data-mname='{{ $pInfo->pinfo_middle_name }}'
-                                        data-lname='{{ $pInfo->pinfo_last_name }}'
-                                        data-contact='{{ $pInfo->pinfo_contact }}'
-                                        data-mail='{{ $pInfo->pinfo_mail }}'
-                                        data-add='{{ $empdata->emp_add_ID }}'
-                                        data-pinfo = '{{ $empdata->personal_info_ID }}'
-                                        data-emptype = '{{ $empdata->emp_type }}'
-                                        data-jobtitle = '{{ $empdata->job_title }}'
-                                        if('{{ $pInfo->pinfo_picture }}' == null)
-                                        {
-                                          data-source = '{!! '/image/'.'default-image.png' !!}'
-                                        }
-                                        else{
-                                          data-source = '{!! '/image/'.$pInfo->pinfo_picture !!}'
-                                        }
-
-                                        data-lnumb='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_blcknum }}
-                                          @endif
-                                        @endforeach'
-                                        data-strt='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_street }}
-                                          @endif
-                                        @endforeach'
-                                        data-sdiv='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_subdivision }}
-                                          @endif
-                                        @endforeach'
-                                        data-brg='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_brngy }}
-                                          @endif
-                                        @endforeach'
-                                        data-distr='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_district }}
-                                          @endif
-                                        @endforeach'
-                                        data-city='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_city }}
-                                          @endif
-                                        @endforeach'
-                                        data-prov='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_province }}
-                                          @endif
-                                        @endforeach'
-                                        data-regn='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_region }}
-                                          @endif
-                                        @endforeach'
-                                        data-zip='
-                                        @foreach($add as $addata)
-                                          @if($addata->add_ID == $empdata->emp_add_ID)
-                                          {{ $addata->add_zipcode }}
-                                          @endif
-                                        @endforeach'
-
-                                        onclick = "
-
-                                        var id = $(this).data('empid');
-                                        var addid = $(this).data('empid');
-                                        var fname = $(this).data('fname');
-                                        var mname = $(this).data('mname');
-                                        var lname = $(this).data('lname');
-                                        var contact = $(this).data('contact');
-                                        var mail = $(this).data('mail');
-                                        var src = $(this).data('source');
-
-                                        var addid = $(this).data('add');
-                                        var lotnum = $(this).data('lnumb').replace(/^\s+|\s+$/g, '');
-                                        var strt = $(this).data('strt').replace(/^\s+|\s+$/g, '');
-                                        var subdiv = $(this).data('sdiv').replace(/^\s+|\s+$/g, '');
-                                        var brngy = $(this).data('brg').replace(/^\s+|\s+$/g, '');
-                                        var dist = $(this).data('distr').replace(/^\s+|\s+$/g, '');
-                                        var city = $(this).data('city').replace(/^\s+|\s+$/g, '');
-                                        var prov = $(this).data('prov').replace(/^\s+|\s+$/g, '');
-                                        var reg = $(this).data('regn').replace(/^\s+|\s+$/g, '');
-                                        var zipcode = $(this).data('zip').replace(/^\s+|\s+$/g, '');
-
-                                        document.getElementById('aemp_id').value = id;
-                                        document.getElementById('aemp_first_name').value = fname;
-                                        document.getElementById('aemp_middle_name').value = mname;
-                                        document.getElementById('aemp_last_name').value = lname;
-                                        document.getElementById('aemp_contact').value = contact;
-                                        document.getElementById('aemp_mail').value = mail;
-
-                                        document.getElementById('aadd_id').value = addid;
-                                        document.getElementById('pInfo_ID').value = $(this).data('pinfo');
-                                        document.getElementById('aadd_blcknum').value = lotnum;
-                                        document.getElementById('aadd_street').value = strt;
-                                        document.getElementById('aadd_subdivision').value = subdiv;
-                                        document.getElementById('aadd_brngy').value = brngy;
-                                        document.getElementById('aadd_district').value = dist;
-                                        document.getElementById('aadd_city').value = city;
-                                        document.getElementById('aadd_province').value = prov;
-                                        document.getElementById('aadd_region').value = reg;
-                                        $('#aadd_region').val(reg).change();
-                                        document.getElementById('aadd_zipcode').value = zipcode;
-                                        $('#aemp_type').val($(this).data('emptype')).change();
-                                        $('#ajobtitle').val($(this).data('jobtitle')).change();
-                                        $('#editImg').attr('src', src);
-                                        ">
-                                            <i class="material-icons">remove_red_eye</i>
-                                            <span>View</span>
-                                        </button>
-                                        </td>
-                                    </tr>
-                                        @endif
-                                       @endforeach
-                                        @endif
-                                       @endforeach
-                                      @endif
-                                    @endforeach
-                                    @endif
-                                    @endforeach -->
                                 </tbody>
                             </table>
                         </div>
@@ -1003,399 +776,4 @@
             </div>
         </section>
             <!-- #END# Exportable Table -->
-    <script>
-            $.validator.addMethod("alphanumeric", function(value, element) {
-                return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
-             }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
-            $.validator.addMethod("alpha", function(value, element) {
-                return this.optional(element) || /^[A-Za-z][A-Za-z '-.]*$/i.test(value);
-             }, "This field must contain only letters, space, dash, apostrophe or dot.");
-            $.validator.addMethod("blcknumber", function(value, element) {
-                return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
-             }, "This field must contain only letters, numbers, space, dash, apostrophe or dot.");
-
-
-        // Wait for the DOM to be ready
-            $(function() {
-              // Initialize form validation on the registration form.
-              // It has the name attribute "registration"
-              $("form[name='emp_add']").validate({
-                // Specify validation rules
-                rules: {
-                  // The key name on the left side is the name attribute
-                  // of an input field. Validation rules are defined
-                  // on the right side
-                  emp_first_name:{
-                    required: true,
-                    alpha:true,
-                    maxlength: 30
-                  },
-                  emp_middle_name:{
-                    alpha:true,
-                    maxlength: 20
-                  },
-                  emp_last_name:{
-                    required: true,
-                    alpha:true,
-                    maxlength: 20
-                  },
-                  emp_contact:{
-                    required: true,
-                    digits: true,
-                    minlength: 7,
-                    maxlength: 11
-                  },
-                  emp_type:{
-                    required: true
-                  },
-                  emp_mail:{
-                    required: true,
-                    email: true,
-                    maxlength: 50
-                  },
-                  jobtitle:{
-                    required: true
-                  },
-                  add_blcknum:{
-                      blcknumber: true,
-                      maxlength: 10
-                  },
-                  add_street:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  add_subdivision:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  add_brngy:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  add_district:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  add_city:
-                  {
-                      required: true,
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  add_province:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  add_region:
-                  {
-                      required: true,
-                      alphanumeric: true,
-                  },
-                  add_zipcode:
-                  {
-                      digits: true,
-                      maxlength: 4
-                  }
-                },
-                // Specify validation error messages
-                messages: {
-                    emp_first_name:{
-                        required: "Empty First Name"
-                    },
-                    emp_last_name:{
-                        required: "Empty Last Name"
-                    },
-                    emp_contact:{
-                        required: "Empty Contact Number",
-                        digits: "This field is Digits only",
-                        minlength: "This field requires minimum length of 7",
-                        maxlength: "This field requires max length of 11"
-                    },
-                    add_blcknum:{
-                        digits: "This field is Digits only"
-                    },
-                    add_zipcode:
-                    {
-                       digits: "This field is Digits only"
-                    }
-
-                },
-                // Make sure the form is submitted to the destination defined
-                // in the "action" attribute of the form when valid
-                submitHandler: function(form) {
-                  form.submit();
-                }
-              });
-
-              $("form[name='emp_view']").validate({
-                // Specify validation rules
-                rules: {
-                  // The key name on the left side is the name attribute
-                  // of an input field. Validation rules are defined
-                  // on the right side
-                  aemp_first_name:{
-                    required: true,
-                    alpha:true,
-                    maxlength: 30
-                  },
-                  aemp_middle_name:{
-                    alpha:true,
-                    maxlength: 20
-                  },
-                  aemp_last_name:{
-                    required: true,
-                    alpha:true,
-                    maxlength: 20
-                  },
-                  aemp_contact:{
-                    required: true,
-                    digits: true,
-                    minlength: 7,
-                    maxlength: 11
-                  },
-                  aemp_type:{
-                    required: true
-                  },
-                  aemp_mail:{
-                    required: true,
-                    email: true,
-                    maxlength: 50
-                  },
-                  ajobtitle:{
-                    required: true
-                  },
-                  aadd_blcknum:{
-                      blcknumber: true,
-                      maxlength: 10
-                  },
-                  aadd_street:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  aadd_subdivision:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  aadd_brngy:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  aadd_district:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  aadd_city:
-                  {
-                      required: true,
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  aadd_province:
-                  {
-                      alphanumeric: true,
-                      maxlength: 20
-                  },
-                  aadd_region:
-                  {
-                      required: true,
-                      alphanumeric: true,
-                  },
-                  aadd_zipcode:
-                  {
-                      digits: true,
-                      maxlength: 4
-                  }
-                },
-                // Specify validation error messages
-                messages: {
-                    aemp_first_name:{
-                        required: "Empty First Name"
-                    },
-                    aemp_last_name:{
-                        required: "Empty Last Name"
-                    },
-                    aemp_contact:{
-                        required: "Empty Contact Number",
-                        digits: "This field is Digits only",
-                        minlength: "This field requires minimum length of 7",
-                        maxlength: "This field requires max length of 11"
-                    },
-                    aadd_zipcode:
-                    {
-                       digits: "This field is Digits only"
-                    }
-                },
-                // Make sure the form is submitted to the destination defined
-                // in the "action" attribute of the form when valid
-                submitHandler: function(form) {
-                  form.submit();
-                }
-              });
-            });
-
-    </script>
-
-    <script>
-        $(document).ready(function()
-        {
-          $('emp_add').validate();
-          $('emp_view').validate();
-          if ($('.checkCheckbox:checked').length > 0)
-          {
-               $("#delete_many").show();
-          }
-          else
-          {
-              $("#delete_many").hide();
-          }
-
-          $(".checkCheckbox").change(
-            function()
-            {
-              if ($('.checkCheckbox:checked').length > 0)
-              {
-                   $("#delete_many").show();
-              }
-              else
-              {
-                  $("#delete_many").hide();
-              }
-             }
-          );
-          function areadURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#addImg').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#picture").change(function(){
-            areadURL(this);
-        });
-
-        function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#editImg').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#apicture").change(function(){
-            readURL(this);
-        });
-        });
-
-        $(".checkCheckbox").change(
-            function()
-            {
-              if ($('.checkCheckbox:checked').length > 0)
-              {
-                   $("#delete_many").show();
-              }
-              else
-              {
-                   $("#delete_many").hide();
-              }
-             }
-          );
-
-          $('#addEmpModal').on('hidden.bs.modal', function() {
-            $('#emp_add').trigger('reset');
-          });
-
-          $('#largeModal').on('hidden.bs.modal', function() {
-              $('#emp_view').trigger('reset');
-              $('#Edit').prop('disabled', false);
-              $('#Delete').prop('disabled', false);
-              $('#schange').hide();
-              $('#aadd_blcknum').prop('disabled', true);
-              $('#aadd_street').prop('disabled', true);
-              $('#aadd_subdivision').prop('disabled', true);
-              $('#aadd_brngy').prop('disabled', true);
-              $('#aadd_district').prop('disabled', true);
-              $('#aadd_city').prop('disabled', true);
-              $('#aadd_province').prop('disabled', true);
-              $('#aadd_region').prop('disabled', true);
-              $('#aadd_zipcode').prop('disabled', true);
-              $('#aemp_first_name').prop('disabled', true);
-              $('#aemp_middle_name').prop('disabled', true);
-              $('#aemp_last_name').prop('disabled', true);
-              $('#aemp_mail').prop('disabled', true);
-              $('#aemp_contact').prop('disabled', true);
-          });
-
-        function addZero(i) {
-            if (i < 10) {
-                i = "0" + i;
-            }
-            return i;
-        }
-
-        function formatDate(date)
-        {
-          var monthNames = [
-            "January", "February", "March",
-            "April", "May", "June", "July",
-            "August", "September", "October",
-            "November", "December"
-          ];
-
-          var day = date.getDate();
-          var monthIndex = date.getMonth() + 1;
-          var year = date.getFullYear();
-          var h = addZero(date.getHours());
-          var m = addZero(date.getMinutes());
-          var s = addZero(date.getSeconds());
-
-          return year + '-' + monthIndex + '-' + day + ' ' + h + ':' + m + ':' + s;
-        }
-
-        var IDS;
-        var timenow = formatDate(new Date());
-        $('#delete_many').click(function(event){
-          IDS = $(".checkCheckbox:checked").map(function ()
-          {
-              return $(this).data('id')
-          }).get();
-        });
-
-        $('#delete_many').click(function(event){
-          event.preventDefault();
-              $.ajax({
-
-                  type: 'POST',
-                  url: '/admin/maintenance/employee/ardelete',
-                  data: {asd:IDS, time:timenow},
-                  success:function(xhr){
-                      console.log('success');
-                      console.log(xhr.responseText);
-                      window.location.reload();
-                  },
-                    error:function(xhr, ajaxOptions, thrownError,data){
-                      console.log(xhr.status);
-                      console.log(xhr.responseText);
-                  }
-              });
-          });
-    </script>
-
 @endsection

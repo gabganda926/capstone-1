@@ -12,5 +12,8 @@ use Redirect;
 
 class VehicleListController extends Controller
 {
-    //
+    public function index()
+    {
+      return view('/pages/maintenance/vehicle list');
+    }
 }

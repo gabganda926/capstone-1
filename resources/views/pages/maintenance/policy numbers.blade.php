@@ -101,7 +101,7 @@
             <!-- #END# ADD INST MODAL -->
 
             <!-- View INST MODAL-->
-              <div class="collapse fade" id="largeModal" tabindex="-1" role="dialog">
+              <div class="collapse fade" id="largeModal" role="dialog">
                 <div class="modal-dialog animated zoomInRight active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-view">
