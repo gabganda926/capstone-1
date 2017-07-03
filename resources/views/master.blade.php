@@ -12,6 +12,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
+
+    <!--<link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/lib/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico">-->
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
     <!-- Favicon-->
     <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
 
@@ -21,6 +29,9 @@
 
     <!-- Bootstrap Core Css -->
     <link href="../../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Multi Select Css -->
+    <link href="../../../plugins/multi-select/css/multi-select.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
     <link href="../../../plugins/node-waves/waves.css" rel="stylesheet" />
@@ -34,8 +45,8 @@
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="../../../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
-    <!-- Bootstrap Spinner Css -->
-    <link href="../../plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
+    <!-- Bootstrap Spinner Css 
+    <link href="../../plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet"> -->
 
     <!-- Wait Me Css -->
     <link href="../../../plugins/waitme/waitMe.css" rel="stylesheet" />
@@ -125,10 +136,6 @@
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li><a href="javascript:void(0);"><i class="material-icons">person</i>My Account</a></li>
-                            <li role="seperator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Switch Account</a></li>
-                            <!-- <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li> -->
                             <li role="seperator" class="divider"></li>
                             <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
@@ -259,7 +266,7 @@
                             <li class = "@yield('bank')">
                                 <a href="/admin/maintenance/bank">
                                     <i class="material-icons">account_balance</i>
-                                    <span>Bank</span></a>
+                                    <span>BANK</span></a>
                             </li>
                             <li class = "@yield('ctype')">
                                 <a href="/admin/maintenance/complaint">
@@ -268,162 +275,152 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class = "@yield('trans')">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">work</i>
                             <span>TRANSACTIONS</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
+                            <li class = "@yield('transIns')">
                                 <a href="/admin/transaction/adm/insurance">
                                     <i class="material-icons">account_balance_wallet</i>
-                                    <span>Insurance Accounts</span>
+                                    <span>INSURANCE ACCOUNTS</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class = "@yield('transClaims')">
                                 <a href="/admin/transaction/adm/claims">
                                     <i class="material-icons">queue</i>
-                                    <span>Claims</span>
+                                    <span>CLAIMS</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class = "@yield('transTally')">
                                 <a href="/admin/transaction/adm/tally">
                                     <i class="material-icons">multiline_chart</i>
-                                    <span>Tally</span>
+                                    <span>TALLY</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class = "@yield('transTrans')">
                                 <a href="/admin/transaction/adm/transmittal">
                                     <i class="material-icons">folder_shared</i>
-                                    <span>Transmittal</span>
+                                    <span>TRANSMITTAL</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class = "@yield('transComplaint')">
                                 <a href="/admin/transaction/adm/complaint">
                                     <i class="material-icons">error_outline</i>
-                                    <span>Complaint</span>
+                                    <span>COMPLAINT</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class = "@yield('archives')">
+                    <li class = "@yield('queries')">
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">library_books</i>
-                            <span>ARCHIVES</span>
+                            <i class="material-icons">pageview</i>
+                            <span>QUERIES</span>
                         </a>
                         <ul class="ml-menu">
-                            <li class = "@yield('aquote')">
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <i class="material-icons">question_answer</i>
-                                    <span>QUOTATION</span>
+                            <li class = "@yield('topInd')">
+                                <a href="/admin/queries/top-individual-client">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>TOP INDIVIDUAL CLIENT</span>
                                 </a>
-                                <ul class="ml-menu">
-                                    <li class = "@yield('avtype')">
-                                        <a href="/admin/archives/vehicle/type">
-                                            <i class="material-icons">directions_car</i>
-                                            <span>Vehicle Type</span>
-                                        </a>
-                                    </li>
-                                    <li class = "@yield('aiItems')">
-                                        <a href="javascript:void(0);" class="menu-toggle">
-                                            <i class="material-icons">view_comfy</i>
-                                            <span>Insurance Items</span>
-                                        </a>
-                                        <ul class="ml-menu">
-                                            <li class = "@yield('avmake')">
-                                                <a href="/admin/archives/vehicle/make">Vehicle Make</a>
-                                            </li>
-                                            <li class = "@yield('avmodel')">
-                                                <a href="/admin/archives/vehicle/model">Vehicle Model</a>
-                                            </li>
-                                            <li class = "@yield('avacce')">
-                                                <a href="/admin/archives/vehicle/accessories">Vehicle Accessories</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            </li>
+                            <li class = "@yield('topComp')">
+                                <a href="/admin/queries/top-company-client">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>TOP COMPANY CLIENT</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('activeInd')">
+                                <a href="/admin/queries/most-active-individual-client">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>MOST ACTIVE CLIENT - INDIVIDUAL</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('activeComp')">
+                                <a href="/admin/queries/most-active-company-client">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>MOST ACTIVE CLIENT - COMPANY</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('topIns')">
+                                <a href="/admin/queries/top-insurance-company">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>TOP INSURANCE COMPANY</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('topAgent')">
+                                <a href="/admin/queries/top-sales-agent">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>TOP SALES AGENT</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('topVehicle')">
+                                <a href="/admin/queries/top-insured-vehicle">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>TOP INSURED VEHICLE</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('compType')">
+                                <a href="/admin/queries/complaint-type">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>COMPLAINTS - COMPLAINT TYPE</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('compIns')">
+                                <a href="/admin/queries/complaint-insurance">
+                                    <i class="material-icons">radio_button_checked</i>
+                                    <span>COMPLAINTS - INSURANCE COMPANY</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class = "@yield('reports')">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">assessment</i>
+                            <span>REPORTS</span>
+                        </a>
+                        <ul class="ml-menu">
+                            
+                        </ul>
+                    </li>
+                    <li class = "@yield('utilities')">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">settings</i>
+                            <span>UTILITIES</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class = "@yield('general')">
+                                <a href="/admin/utilities/adm/generalSettings">
+                                    <i class="material-icons">settings_applications</i>
+                                    <span>GENERAL SETTINGS</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('tax')">
+                                <a href="/admin/utilities/adm/taxSettings">
+                                    <i class="material-icons">attach_money</i>
+                                    <span>TAX SETTINGS</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('comp')">
+                                <a href="/admin/utilities/adm/computationSettings">
+                                    <i class="material-icons">create</i>
+                                    <span>PREMIUM COMPUTATION SETTINGS</span>
+                                </a>
+                            </li>
+                            <li class = "@yield('formtemp')">
+                                <a href="/admin/utilities/adm/templates">
+                                    <i class="material-icons">layers</i>
+                                    <span>DOCUMENT TEMPLATE</span>
+                                </a>
                             </li>
 
-                            <li class = "@yield('abilling')">
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <i class="material-icons">credit_card</i>
-                                    <span>BILLING</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li class = "@yield('ainstype')">
-                                        <a href="/admin/archives/installment/type">
-                                            <i class="material-icons">dns</i>
-                                            <span>Installment Type</span>
-                                        </a>
-                                    </li>
-                                    <li class = "@yield('abank')">
-                                        <a href="/admin/archives/bank">
-                                            <i class="material-icons">account_balance</i>
-                                            <span>Bank</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class = "@yield('acomtrans')">
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <i class="material-icons">view_agenda</i>
-                                    <span>COMPLAINTS AND TRANSMITTAL</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li class = "@yield('acomtype')">
-                                        <a href="/admin/archives/complaint/type">
-                                            <i class="material-icons">subject</i>
-                                            <span>Complaint Type</span></a>
-                                    </li>
-
-                                    <li class = "@yield('acourier')">
-                                        <a href="/admin/archives/courier">
-                                            <i class="material-icons">person_outline</i>
-                                            <span>Courier</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class = "@yield('ainscomp')">
-                                <a href="/admin/archives/insurance/company">
-                                    <i class="material-icons">business</i>
-                                    <span>Insurance Company</span></a>
-                            </li>
-                            <li class = "@yield('apolicyno')">
-                                <a href="/admin/archives/policyno">
-                                    <i class="material-icons">confirmation_number</i>
-                                    <span>Policy Number</span></a>
-                            </li>
-                            <li class = "@yield('asalesagent')">
-                                <a href="/admin/archives/salesagent">
-                                    <i class="material-icons">perm_identity</i>
-                                    <span>Sales Agent</span>
+                            <li class = "@yield('archives')">
+                                <a href="/admin/utilities/adm/archives">
+                                    <i class="material-icons">restore</i>
+                                    <span>ARCHIVES</span>
                                 </a>
                             </li>
-                            <li class = "@yield('aemptype')">
-                                <a href="/admin/archives/employee/type">
-                                    <i class="material-icons">person_outline</i>
-                                    <span>Employee Type</span>
-                                </a>
-                            </li>
-                            <li class = "@yield('ajobtitle')">
-                                <a href="/admin/archives/job/title">
-                                    <i class="material-icons">person_outline</i>
-                                    <span>Job Title</span>
-                                </a>
-                            </li>
-                            <li class = "@yield('aemployee')">
-                                <a href="/admin/archives/employee">
-                                    <i class="material-icons">supervisor_account</i>
-                                    <span>Employee</span>
-                                </a>
-                            </li>
-                            <li class = "@yield('actype')">
-                            <a href="/admin/archives/client/type">
-                                <i class="material-icons">people_outline</i>
-                                <span>Client Type</span>
-                            </a>
-                        </li>
                         </ul>
                     </li>
                 </ul>
@@ -452,6 +449,21 @@
 
     <!-- Select Plugin Js -->
     <script src="../../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Bootstrap Colorpicker Js -->
+    <script src="../../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+
+    <!-- Dropzone Plugin Js -->
+    <script src="../../../plugins/dropzone/dropzone.js"></script>
+
+    <!-- Input Mask Plugin Js -->
+    <script src="../../../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+
+    <!-- Multi Select Plugin Js -->
+    <script src="../../../plugins/multi-select/js/jquery.multi-select.js"></script>
+
+    <!-- noUISlider Plugin Js -->
+    <script src="../../../plugins/nouislider/nouislider.js"></script>
 
     <!-- Slimscroll Plugin Js -->
     <script src="../../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
@@ -495,11 +507,11 @@
     <!-- Demo Js -->
     <script src="../../../js/demo.js"></script>
 
-    <!-- Dropzone Plugin Js -->
-    <script src="../../../plugins/dropzone/dropzone.js"></script>
+    <!-- JQuery Steps Plugin Js -->
+    <script src="../../../plugins/jquery-steps/jquery.steps.js"></script>
 
-    <!-- Jquery Spinner Plugin Js -->
-    <script src="../../plugins/jquery-spinner/js/jquery.spinner.js"></script>
+    <!-- Jquery Spinner Plugin Js 
+    <script src="../../plugins/jquery-spinner/js/jquery.spinner.js"></script>-->
 
     <script>
         $.ajaxSetup({

@@ -19,18 +19,14 @@
                             <h4><br/>CREATE NEW INSURANCE COMPANY RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
-                             <form id="bank_add" name="bank_add" action = "bank/submit" method="POST" >
+                             <form id="comp_add" name="comp_add" action = "company/submit" method="POST" >
                                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <h3> <small><b>INSURANCE COMPANY INFORMATION</b></small></h3><br/>
                                         <div class="row clearfix">
-                                            <div class="col-md-4" style = "display: none;">
-                                                <input id = "bnkid" name = "bnkid" type="text" class="form-control">
-                                            </div>
                                             <div class="col-md-7">
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
-
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control">
+                                                        <input id = "comp_name" name = "comp_name" type="text" class="form-control">
                                                         <label class="form-label">Insurance Company Name</label>
                                                     </div>
                                                 </div>
@@ -38,8 +34,7 @@
                                             <div class="col-md-5">
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
-
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control">
+                                                        <input id = "comp_email" name = "comp_email" type="text" class="form-control">
                                                         <label class="form-label">E-mail</label>
                                                     </div>
                                                 </div>
@@ -50,7 +45,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
 
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control">
+                                                        <input id = "comp_telnum" name = "comp_telnum" type="text" class="form-control">
                                                         <label class="form-label">Telephone Number</label>
                                                     </div>
                                                 </div>
@@ -59,7 +54,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
 
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control">
+                                                        <input id = "comp_faxnum" name = "comp_faxnum" type="text" class="form-control">
                                                         <label class="form-label">Fax Number</label>
                                                     </div>
                                                 </div>
@@ -170,9 +165,6 @@
                                                 </div>
                                             </div>
                                         </div> <br/>
-                                        <div class="col-md-4" style = "display: none;">
-                                           <input id = "time" name = "time" type="text" class="form-control" pattern="[A-Za-z'-]">
-                                        </div>
                                         <h3> <small><b>CONTACT PERSON</b></small></h3><br/>
                                         <div align="center"><h4><small><b>Personal Information</b></small></h4></div>
                                         <div class="row clearfix">
@@ -220,10 +212,10 @@
                                             <div class="col-md-2">
                                                 <div class="form-group form-float">
                                                 <label><small>Gender :</small></label>
-                                                    <select id = "add_region" name = "add_region" class="form-control show-tick">
+                                                    <select id = "pinfo_gender" name = "pinfo_gender" class="form-control show-tick">
                                                   <option selected value = "" style = "display: none;">-- Gender --</option>
-                                                        <option value = "I">Male</option>
-                                                        <option value = "II">Female</option>
+                                                        <option value = "0">Male</option>
+                                                        <option value = "1">Female</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -231,57 +223,25 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Age :</small></label>
-                                                        <input id = "aadd_district" name = "aadd_district" type="text" class="form-control" readonly="true"  >
+                                                        <input id = "age" name = "age" type="text" class="form-control" readonly="true"  >
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                   <div class="form-group form-float">
-                                                      <div class="form-line"> 
-                                                              
-                                                              <label><small>Birthmonth:</small></label>
-                                                                  <select id = "add_region" name = "add_region" class="form-control show-tick" data-live-search="true">
-                                                                <option selected value = "" style = "display: none;">-- Month --</option>
-                                                                      <option value = "I">January</option>
-                                                                      <option value = "II">February</option>
-                                                                      <option value = "II">March</option>
-                                                                      <option value = "II">April</option>
-                                                                      <option value = "II">May</option>
-                                                                      <option value = "II">June</option>
-                                                                      <option value = "II">July</option>
-                                                                      <option value = "II">August</option>
-                                                                      <option value = "II">September</option>
-                                                                      <option value = "II">October</option>
-                                                                      <option value = "II">November</option>
-                                                                      <option value = "II">December</option>
-                                                                  </select>
-                                                              
-                                                      </div>
+                                                        <label><small>Birthdate:</small></label>
+                                                        <div class="form-row show-inputbtns">
+                                                                <input id = "pinfo_bday" name = "pinfo_bday" type="date" data-date-inline-picker="false" data-date-open-on-focus="true" />
+                                                        </div>
                                                   </div>
-                                            </div> 
-                                             <div class="col-md-2">
-                                                  <div class="input-group spinner" data-trigger="spinner">
-                                                      <div class="form-line">
-                                                      <label><small>Birthdate: </small></label>
-                                                          <input id="1" type="number" class="form-control text-center" min="1" max="31" data-rule="quantity">
-                                                      </div>
-                                                  </div>
-                                              </div>  
-                                              <div class="col-md-3">
-                                                  <div class="input-group spinner" data-trigger="spinner">
-                                                      <div class="form-line">
-                                                      <label><small>Birthyear: </small></label>
-                                                          <input id="2" type="number" class="form-control text-center" min="1800" max="2017" data-rule="quantity">
-                                                      </div>
-                                                  </div>
-                                              </div>                            
+                                            </div>                           
                                         </div> <!-- end of rowclearfix -->
                                         <div class="row clearfix">
                                             <div class="col-md-3">
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label class="form-label">Cellphone Number</label>
-                                                        <input id = "cPerson_contact" name = "cPerson_contact" type="text" class="form-control" >
+                                                        <input id = "pinfo_cpnum_1" name = "pinfo_cpnum_1" type="text" class="form-control" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -289,7 +249,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label class="form-label">Cellphone Number (Alternate)</label>
-                                                        <input id = "cPerson_contact" name = "cPerson_contact" type="text" class="form-control" >
+                                                        <input id = "pinfo_cpnum_2" name = "pinfo_cpnum_2" type="text" class="form-control" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -297,7 +257,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label class="form-label">Tel Num</label>
-                                                        <input id = "cPerson_contact" name = "cPerson_contact" type="text" class="form-control" >
+                                                        <input id = "pinfo_tpnum" name = "pinfo_tpnum" type="text" class="form-control" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -306,7 +266,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label class="form-label">E-mail</label>
-                                                        <input id = "cPerson_email" name = "cPerson_email" type="email" class="form-control" >
+                                                        <input id = "pinfo_mail" name = "pinfo_mail" type="email" class="form-control" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -383,21 +343,30 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
-                        $('#aadd_blcknum').prop('disabled', false);
-                        $('#aadd_street').prop('disabled', false);
-                        $('#aadd_subdivision').prop('disabled', false);
-                        $('#aadd_brngy').prop('disabled', false);
-                        $('#aadd_district').prop('disabled', false);
-                        $('#aadd_city').prop('disabled', false);
-                        $('#aadd_province').prop('disabled', false);
-                        $('#aadd_zipcode').prop('disabled', false);
-                        $('#acPerson_first_name').prop('disabled', false);
-                        $('#acPerson_middle_name').prop('disabled', false);
-                        $('#acPerson_last_name').prop('disabled', false);
-                        $('#acPerson_email').prop('disabled', false);
-                        $('#acPerson_contact').prop('disabled', false);
-                        $('#acomp_name').prop('disabled', false);
-                        $('#schange').html('SAVE CHANGES');
+                        $('#aadd_blcknum').prop('readonly', false);
+                        $('#aadd_street').prop('readonly', false);
+                        $('#aadd_subdivision').prop('readonly', false);
+                        $('#aadd_brngy').prop('readonly', false);
+                        $('#aadd_district').prop('readonly', false);
+                        $('#aadd_city').prop('readonly', false);
+                        $('#aadd_province').prop('readonly', false);
+                        $('#aadd_region').prop('readonly', false);
+                        $('#aadd_zipcode').prop('readonly', false);
+                        $('#acPerson_first_name').prop('readonly', false);
+                        $('#acPerson_middle_name').prop('readonly', false);
+                        $('#acPerson_last_name').prop('readonly', false);
+                        $('#apinfo_mail').prop('readonly', false);
+                        $('#apinfo_cpnum_1').prop('readonly', false);
+                        $('#apinfo_cpnum_2').prop('readonly', false);
+                        $('#apinfo_tpnum').prop('readonly', false);
+                        $('#apinfo_bday').prop('readonly', false);
+                        $('#apinfo_gender').prop('readonly', false);
+                        $('#acomp_name').prop('readonly', false);
+                        $('#acomp_telnum').prop('readonly', false);
+                        $('#acomp_faxnum').prop('readonly', false);
+                        $('#acomp_email').prop('readonly', false);
+                        $('#apicture').prop('disabled', false);
+                        $('#schange').html('Save Changes');
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -408,61 +377,78 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
-                        $('#aadd_blcknum').prop('disabled', true);
-                        $('#aadd_street').prop('disabled', true);
-                        $('#aadd_subdivision').prop('disabled', true);
-                        $('#aadd_brngy').prop('disabled', true);
-                        $('#aadd_district').prop('disabled', true);
-                        $('#aadd_city').prop('disabled', true);
-                        $('#aadd_province').prop('disabled', true);
-                        $('#aadd_zipcode').prop('disabled', true);
-                        $('#acPerson_first_name').prop('disabled', true);
-                        $('#acPerson_middle_name').prop('disabled', true);
-                        $('#acPerson_last_name').prop('disabled', true);
-                        $('#acPerson_email').prop('disabled', true);
-                        $('#acPerson_contact').prop('disabled', true);
-                        $('#acomp_name').prop('disabled', true);
-                        $('#schange').html('DELETE RECORD');
+                        $('#aadd_blcknum').prop('readonly', true);
+                        $('#aadd_street').prop('readonly', true);
+                        $('#aadd_subdivision').prop('readonly', true);
+                        $('#aadd_brngy').prop('readonly', true);
+                        $('#aadd_district').prop('readonly', true);
+                        $('#aadd_city').prop('readonly', true);
+                        $('#aadd_province').prop('readonly', true);
+                        $('#aadd_region').prop('readonly', true);
+                        $('#aadd_zipcode').prop('readonly', true);
+                        $('#acPerson_first_name').prop('readonly', true);
+                        $('#acPerson_middle_name').prop('readonly', true);
+                        $('#acPerson_last_name').prop('readonly', true);
+                        $('#apinfo_mail').prop('readonly', true);
+                        $('#apinfo_cpnum_1').prop('readonly', true);
+                        $('#apinfo_cpnum_2').prop('readonly', true);
+                        $('#apinfo_tpnum').prop('readonly', true);
+                        $('#apinfo_bday').prop('readonly', true);
+                        $('#apinfo_gender').prop('readonly', true);
+                        $('#acomp_name').prop('readonly', true);
+                        $('#acomp_telnum').prop('readonly', true);
+                        $('#acomp_faxnum').prop('readonly', true);
+                        $('#acomp_email').prop('readonly', true);
+                        $('#apicture').prop('disabled', true);
+                        $('#schange').html('Delete Record');
                         ">
                             <i class="material-icons">delete_sweep</i>
                             <span>Delete</span>
-                        </button>
-                        <br/>
+                        </button>  <br/>
                         <div class="modal-body">
-                            <form id="comp_view" name = "comp_view" method="POST">
-                            <div class="row clearfix">
-                                                <div class="col-md-1">
-                                                   <label for="date_created"><small><small>Date Created</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <label for="last_update"><small><small>Last Update</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            <form id="comp_view" name = "comp_view" method="POST" enctype="multipart/form-data">
+                             <div class="row clearfix">
+                                    <div class="col-md-1">
+                                       <label for="date_created"><small><small>Date Created</small></small></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="last_update"><small><small>Last Update</small></small></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              <h3> <small><b>INSURANCE COMPANY INFORMATION</b></small></h3><br/>
+                              <h3> <small><b>COMPANY INFORMATION</b></small></h3><br/>
                                         <div class="row clearfix">
                                             <div class="col-md-4" style = "display: none;">
                                                 <input id = "bnkid" name = "bnkid" type="text" class="form-control" readonly="true">
                                             </div>
+                                            <div class="col-md-4" style = "display: none;">
+                                               <input id = "atime" name = "atime" type="text" class="form-control">
+                                            </div>
+                                            <div class="col-md-4" style = "display: none;">
+                                               <input id = "aaddid" name = "aaddid" type="text" class="form-control">
+                                            </div>
+                                            <div class="col-md-4" style = "display: none;">
+                                               <input id = "apinfo_ID" name = "apinfo_ID" type="text" class="form-control">
+                                            </div>
                                             <div class="col-md-7">
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
-                                                        <label><small>Insurance Company Name :</small></label>
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control" readonly="true">
+                                                        <label><small>Company Name :</small></label>
+                                                        <input id = "acomp_name" name = "acomp_name" type="text" class="form-control" readonly="true">
                                                        
                                                     </div>
                                                 </div>
@@ -471,7 +457,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                         <label><small>E-mail:</small></label>
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control" readonly="true">
+                                                        <input id = "acomp_email" name = "acomp_email" type="text" class="form-control" readonly="true">
                                                         
                                                     </div>
                                                 </div>
@@ -482,7 +468,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                         <label><small>Telephone Number:</small></label>
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control" readonly="true">
+                                                        <input id = "acomp_telnum" name = "acomp_telnum" type="text" class="form-control" readonly="true">
                                                         
                                                     </div>
                                                 </div>
@@ -491,21 +477,21 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                         <label><small>Fax Number:</small></label>
-                                                        <input id = "bank_name" name = "bank_name" type="text" class="form-control" readonly="true">
+                                                        <input id = "acomp_faxnum" name = "acomp_faxnum" type="text" class="form-control" readonly="true">
                                                      
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <br/><br/>
-                                        <h3> <small><b>INSURANCE COMPANY ADDRESS</b></small></h3>
+                                        <h3> <small><b>COMPANY ADDRESS</b></small></h3>
                                         <br/>
                                         <div class="row clearfix">
                                             <div class="col-md-4">
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Blk&Lot/Bldg/Unit: </small></label>
-                                                        <input id = "add_blcknum" name = "add_blcknum" type="text" class="form-control" readonly="true">
+                                                        <input id = "aadd_blcknum" name = "aadd_blcknum" type="text" class="form-control" readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -514,7 +500,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Street:</small></label>
-                                                        <input id = "add_street" name = "add_street" type="text" class="form-control" readonly="true" >
+                                                        <input id = "aadd_street" name = "aadd_street" type="text" class="form-control" readonly="true" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -523,7 +509,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Subdivision:</small></label>
-                                                        <input id = "add_subdivision" name = "add_subdivision" type="text" class="form-control"  readonly="true">
+                                                        <input id = "aadd_subdivision" name = "aadd_subdivision" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -534,7 +520,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Barangay:</small></label>
-                                                        <input id = "add_brngy" name = "add_brngy" type="text" class="form-control" readonly="true">
+                                                        <input id = "aadd_brngy" name = "aadd_brngy" type="text" class="form-control" readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -543,7 +529,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>District:</small></label>
-                                                        <input id = "add_district" name = "add_district" type="text" class="form-control"  readonly="true">
+                                                        <input id = "aadd_district" name = "aadd_district" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -552,7 +538,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>City/Municipality:</small></label>
-                                                        <input id = "add_city" name = "add_city" type="text" class="form-control"  readonly="true">
+                                                        <input id = "aadd_city" name = "aadd_city" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -563,7 +549,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Province:</small></label>
-                                                        <input id = "add_province" name = "add_province" type="text" class="form-control"  readonly="true">
+                                                        <input id = "aadd_province" name = "aadd_province" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -571,7 +557,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group form-float">
                                                 <label><small>Region:</small></label>
-                                                    <select id = "add_region" name = "add_region" class="form-control show-tick" data-live-search="true" readonly="true">
+                                                    <select id = "aadd_region" name = "aadd_region" class="form-control show-tick" data-live-search="true" readonly="true">
                                                   <option selected value = "" style = "display: none;">-- Select Region --</option>
                                                         <option value = "I">Region I</option>
                                                         <option value = "II">Region II</option>
@@ -598,14 +584,11 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Zip Code:</small></label>
-                                                        <input id = "add_zipcode" name = "add_zipcode" type="text" class="form-control"  readonly="true">
+                                                        <input id = "aadd_zipcode" name = "aadd_zipcode" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div> <br/>
-                                        <div class="col-md-4" style = "display: none;">
-                                           <input id = "time" name = "time" type="text" class="form-control" pattern="[A-Za-z'-]">
-                                        </div>
                                         <h3> <small><b>CONTACT PERSON</b></small></h3><br/>
                                         <div align="center"><h4><small><b>Personal Information</b></small></h4></div>
                                         <div class="row clearfix">
@@ -613,9 +596,9 @@
                                             <div>
                                                 <div class="body" align="center">
                                                     <div class="fallback">
-                                                        <img id="addImg" src="#" alt="your image" style="height: 210px; width: 215px; border-style: solid; border-width: 2px;">
+                                                        <img id="editImg" src="#" alt="your image" style="height: 210px; width: 215px; border-style: solid; border-width: 2px;">
                                                     </div><br/>
-                                                        <input id = "picture" name = "picture" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*" readonly="true">
+                                                        <input id = "apicture" name = "apicture" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*" readonly="true">
                                                 </div>
                                             </div>
                                         </div>
@@ -627,7 +610,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                         <label><small>First Name:</small></label>
-                                                        <input id = "cPerson_first_name" name = "cPerson_first_name" type="text" class="form-control" readonly="true">
+                                                        <input id = "acPerson_first_name" name = "acPerson_first_name" type="text" class="form-control" readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -636,7 +619,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                      <label><small>Middle Name:</small></label>
-                                                        <input id = "cPerson_middle_name" name = "cPerson_middle_name" type="text" class="form-control" readonly="true">
+                                                        <input id = "acPerson_middle_name" name = "acPerson_middle_name" type="text" class="form-control" readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -645,7 +628,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                      <label><small>Last Name:</small></label>
-                                                        <input id = "cPerson_last_name" name = "cPerson_last_name" type="text" class="form-control" readonly="true">
+                                                        <input id = "acPerson_last_name" name = "acPerson_last_name" type="text" class="form-control" readonly="true">
 
                                                     </div>
                                                 </div>
@@ -653,10 +636,10 @@
                                             <div class="col-md-2">
                                                 <div class="form-group form-float">
                                                 <label><small>Gender :</small></label>
-                                                    <select id = "add_region" name = "add_region" class="form-control show-tick" readonly="true">
+                                                    <select id = "apinfo_gender" name = "apinfo_gender" class="form-control show-tick" readonly="true">
                                                   <option selected value = "" style = "display: none;">-- Gender --</option>
-                                                        <option value = "I">Male</option>
-                                                        <option value = "II">Female</option>
+                                                        <option value = "0">Male</option>
+                                                        <option value = "1">Female</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -664,57 +647,25 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Age :</small></label>
-                                                        <input id = "aadd_district" name = "aadd_district" type="text" class="form-control" readonly="true"   readonly="true">
+                                                        <input id = "aage" name = "aage" type="text" class="form-control" readonly="true"   readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                   <div class="form-group form-float">
-                                                      <div class="form-line"> 
-                                                              
-                                                              <label><small>Birthmonth:</small></label>
-                                                                  <select id = "add_region" name = "add_region" class="form-control show-tick" data-live-search="true" readonly="true">
-                                                                <option selected value = "" style = "display: none;">-- Month --</option>
-                                                                      <option value = "I">January</option>
-                                                                      <option value = "II">February</option>
-                                                                      <option value = "II">March</option>
-                                                                      <option value = "II">April</option>
-                                                                      <option value = "II">May</option>
-                                                                      <option value = "II">June</option>
-                                                                      <option value = "II">July</option>
-                                                                      <option value = "II">August</option>
-                                                                      <option value = "II">September</option>
-                                                                      <option value = "II">October</option>
-                                                                      <option value = "II">November</option>
-                                                                      <option value = "II">December</option>
-                                                                  </select>
-                                                              
-                                                      </div>
+                                                        <label><small>Birthdate:</small></label>
+                                                        <div class="form-row show-inputbtns">
+                                                                <input id = "apinfo_bday" name = "apinfo_bday" type="date" data-date-inline-picker="false" data-date-open-on-focus="true" />
+                                                        </div>
                                                   </div>
-                                            </div> 
-                                             <div class="col-md-2">
-                                                  <div class="input-group spinner" data-trigger="spinner">
-                                                      <div class="form-line">
-                                                      <label><small>Birthdate: </small></label>
-                                                          <input id="1" type="number" class="form-control text-center" min="1" max="31" data-rule="quantity" readonly="true">
-                                                      </div>
-                                                  </div>
-                                              </div>  
-                                              <div class="col-md-3">
-                                                  <div class="input-group spinner" data-trigger="spinner">
-                                                      <div class="form-line">
-                                                      <label><small>Birthyear: </small></label>
-                                                          <input id="2" type="number" class="form-control text-center" min="1800" max="2017" data-rule="quantity" readonly="true">
-                                                      </div>
-                                                  </div>
-                                              </div>                            
+                                            </div>                        
                                         </div> <!-- end of rowclearfix -->
                                         <div class="row clearfix">
                                             <div class="col-md-3">
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Cellphone Number:</small></label>
-                                                        <input id = "cPerson_contact" name = "cPerson_contact" type="text" class="form-control"  readonly="true">
+                                                        <input id = "apinfo_cpnum_1" name = "apinfo_cpnum_1" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -722,7 +673,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Cellphone Number(Alternate):</small></label>
-                                                        <input id = "cPerson_contact" name = "cPerson_contact" type="text" class="form-control"  readonly="true">
+                                                        <input id = "apinfo_cpnum_2" name = "apinfo_cpnum_2" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -730,7 +681,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Tel. Num.:</small></label>
-                                                        <input id = "cPerson_contact" name = "cPerson_contact" type="text" class="form-control"  readonly="true">
+                                                        <input id = "apinfo_tpnum" name = "apinfo_tpnum" type="text" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
@@ -739,11 +690,12 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>E-mail:</small></label>
-                                                        <input id = "cPerson_email" name = "cPerson_email" type="email" class="form-control"  readonly="true">
+                                                        <input id = "apinfo_mail" name = "apinfo_mail" type="email" class="form-control"  readonly="true">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                <br/><br/><br/>
                                 <div class="col-md-4" style = "display: none;">
                                     <input id = "aadd_id" name = "aadd_id" type="text" class="form-control">
                                 </div>
@@ -817,6 +769,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -830,231 +783,317 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                                data-id=""/>
-                                                <label for="pppp"></label></td>
-                                  <td>FPG Insurance</td>
-                                  <td>B 5 L 18 Spiderlily St. Brgy San Luis, Antipolo City, Rizal</td>
-                                  <td><button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#pnList">
-                                                <i class="material-icons">list</i>
+                                @foreach($company as $comp)
+                                 @if($comp->del_flag == 0)
+                                  @if($comp->comp_type == 0)
+                                  @foreach($add as $address)
+                                   @if($address->add_ID == $comp->comp_add_ID)
+                                    @foreach($cpr as $cper)
+                                     @if($cper->cPerson_ID == $comp->comp_cperson_ID)
+                                      @foreach($pInfo as $Info)
+                                       @if($Info->pinfo_ID == $cper->personal_info_ID)
+                                        <td>
+                                            <input type="checkbox" id="{{$comp->comp_ID}}" class="filled-in chk-col-red checkCheckbox" data-id = "{{$comp->comp_ID}}"/>
+                                            <label for="{{$comp->comp_ID}}"></label>
+                                        </td>
+                                        <td>
+                                         {{ $comp->comp_name }}
+                                        </td>
+                                        <td>
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_blcknum }}
+                                                  @endif
+                                                @endforeach
+
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_street }}
+                                                  @endif
+                                                @endforeach
+
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_subdivision }}
+                                                  @endif
+                                                @endforeach
+
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_brngy }}
+                                                  @endif
+                                                @endforeach
+
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_district }}
+                                                  @endif
+                                                @endforeach
+
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_city }}
+                                                  @endif
+                                                @endforeach
+
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_province }}
+                                                  @endif
+                                                @endforeach
+
+                                                @foreach($add as $addata)
+                                                  @if($addata->add_ID == $comp->comp_add_ID)
+                                                  {{ $addata->add_region }}
+                                          @endif
+                                        @endforeach
+                                        </td>
+                                        <td><button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#pnList"
+                                        onclick = "
+                                            var table = $('#view_list').DataTable();
+                                            table.column(3).search({{ $comp->comp_ID }}).draw();">
+                                            <i class="material-icons">list</i>
                                                 <span>View List</span>
-                                            </button></td>
-                                  <td>Rola, Ma. Gabriella Tan</td>
-                                  <td><ul>
-                                      <li>09353084708</li>
-                                      <li>09123453234</li>
-                                      <li>212-8133</li>
-                                      <li>gab@gmail.com</li>
-                                      </ul></td>
-                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
+                                        </button></td>
+                                        <td>
+                                        @foreach($cpr as $cperson)
+                                          @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
+                                           @foreach($pInfo as $Info)
+                                            @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                              {{ $Info->pinfo_last_name.', ' }}
+                                            @endif
+                                           @endforeach
+                                          @endif
+                                        @endforeach
+                                        @foreach($cpr as $cperson)
+                                          @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
+                                           @foreach($pInfo as $Info)
+                                            @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                              {{ $Info->pinfo_first_name.' ' }}
+                                            @endif
+                                           @endforeach
+                                          @endif
+                                        @endforeach
+                                        @foreach($cpr as $cperson)
+                                          @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
+                                           @foreach($pInfo as $Info)
+                                            @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                              {{ $Info->pinfo_middle_name }}
+                                            @endif
+                                           @endforeach
+                                          @endif
+                                        @endforeach
+                                        </td>
+                                        <td>
+                                        <ul>
+                                        @foreach($cpr as $cperson)
+                                          @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
+                                           @foreach($pInfo as $Info)
+                                            @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                              <li>{{ $Info->pinfo_cpnum_1 }}</li>
+                                            @endif
+                                           @endforeach
+                                          @endif
+                                        @endforeach
+                                        @foreach($cpr as $cperson)
+                                          @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
+                                           @foreach($pInfo as $Info)
+                                            @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                              <li>{{ $Info->pinfo_cpnum_2 }}</li>
+                                            @endif
+                                           @endforeach
+                                          @endif
+                                        @endforeach
+                                        @foreach($cpr as $cperson)
+                                          @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
+                                           @foreach($pInfo as $Info)
+                                            @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                              <li>{{ $Info->pinfo_tpnum }}</li>
+                                            @endif
+                                           @endforeach
+                                          @endif
+                                        @endforeach
+                                        @foreach($cpr as $cperson)
+                                          @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
+                                           @foreach($pInfo as $Info)
+                                            @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                              <li>{{ $Info->pinfo_mail }}</li>
+                                            @endif
+                                           @endforeach
+                                          @endif
+                                        @endforeach
+                                        </ul>
+                                        </td> 
+                                        <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
+                                        data-compid='{{ $comp->comp_ID }}'
+                                        data-cname='{{ $comp->comp_name }}'
+                                        data-ctelnum='{{ $comp->comp_telnum }}'
+                                        data-cfaxnum='{{ $comp->comp_faxnum }}'
+                                        data-cemail='{{ $comp->comp_email }}'
+                                        data-fname='{{ $Info->pinfo_first_name }}'
+                                        data-mname='{{ $Info->pinfo_middle_name }}'
+                                        data-lname='{{ $Info->pinfo_last_name }}'
+                                        data-contact1='{{ $Info->pinfo_cpnum_1 }}'
+                                        data-contact2='{{ $Info->pinfo_cpnum_2 }}'
+                                        data-bday='{{ $Info->pinfo_age }}'
+                                        data-telnum='{{ $Info->pinfo_tpnum }}'
+                                        data-mail='{{ $Info->pinfo_mail }}'
+                                        data-gender='{{ $Info->pinfo_gender }}'
+                                        data-add='{{ $comp->comp_add_ID }}'
+                                        data-pinfo='{{ $cper->personal_info_ID }}'
+                                        data-source = '{!! "/image/".$Info->pinfo_picture !!}'
+
+                                        data-created = '{{ \Carbon\Carbon::parse($comp->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($comp->created_at)->format("l, h:i:s A").")" }}'
+
+                                        data-updated = '{{ \Carbon\Carbon::parse($comp->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($comp->updated_at)->format("l, h:i:s A").")" }}'
+
+                                        data-lnumb='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_blcknum }}
+                                          @endif
+                                        @endforeach'
+                                        data-strt='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_street }}
+                                          @endif
+                                        @endforeach'
+                                        data-sdiv='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_subdivision }}
+                                          @endif
+                                        @endforeach'
+                                        data-brg='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_brngy }}
+                                          @endif
+                                        @endforeach'
+                                        data-distr='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_district }}
+                                          @endif
+                                        @endforeach'
+                                        data-city='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_city }}
+                                          @endif
+                                        @endforeach'
+                                        data-prov='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_province }}
+                                          @endif
+                                        @endforeach'
+                                        data-regn='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_region }}
+                                          @endif
+                                        @endforeach'
+                                        data-zip='
+                                        @foreach($add as $addata)
+                                          @if($addata->add_ID == $comp->comp_add_ID)
+                                          {{ $addata->add_zipcode }}
+                                          @endif
+                                        @endforeach'
+
+                                        onclick = "
+
+                                        var id = $(this).data('compid');
+                                        var comp_name = $(this).data('cname');
+                                        var comp_telnum = $(this).data('ctelnum');
+                                        var comp_faxnum = $(this).data('cfaxnum');
+                                        var comp_email = $(this).data('cemail');
+                                        var fname = $(this).data('fname');
+                                        var mname = $(this).data('mname');
+                                        var lname = $(this).data('lname');
+                                        var contact1 = $(this).data('contact1');
+                                        var contact2 = $(this).data('contact2');
+                                        var telnum = $(this).data('telnum');
+                                        var gender = $(this).data('gender');
+                                        var bday = $(this).data('bday');
+                                        var mail = $(this).data('mail');
+                                        var pinfo = $(this).data('pinfo');
+                                        var src = $(this).data('source');
+                                        var created = $(this).data('created');
+                                        var updated = $(this).data('updated');
+
+
+                                        var add = $(this).data('add');
+                                        var lotnum = $(this).data('lnumb').replace(/^\s+|\s+$/g, '');
+                                        var strt = $(this).data('strt').replace(/^\s+|\s+$/g, '');
+                                        var subdiv = $(this).data('sdiv').replace(/^\s+|\s+$/g, '');
+                                        var brngy = $(this).data('brg').replace(/^\s+|\s+$/g, '');
+                                        var dist = $(this).data('distr').replace(/^\s+|\s+$/g, '');
+                                        var city = $(this).data('city').replace(/^\s+|\s+$/g, '');
+                                        var prov = $(this).data('prov').replace(/^\s+|\s+$/g, '');
+                                        var reg = $(this).data('regn').replace(/^\s+|\s+$/g, '');
+                                        var zipcode = $(this).data('zip').replace(/^\s+|\s+$/g, '');
+
+                                        document.getElementById('acomp_name').value = comp_name;
+                                        document.getElementById('acomp_faxnum').value = comp_faxnum;
+                                        document.getElementById('acomp_telnum').value = comp_telnum;
+                                        document.getElementById('acomp_email').value = comp_email;
+                                        document.getElementById('bnkid').value = id;
+                                        document.getElementById('acPerson_first_name').value = fname;
+                                        document.getElementById('acPerson_middle_name').value = mname;
+                                        document.getElementById('acPerson_last_name').value = lname;
+                                        document.getElementById('apinfo_cpnum_1').value = contact1;
+                                        document.getElementById('apinfo_cpnum_2').value = contact2;
+                                        document.getElementById('apinfo_mail').value = mail;
+                                        document.getElementById('apinfo_bday').value = bday;
+                                        $('#apinfo_gender').val(gender).change();
+                                        document.getElementById('aaddid').value = add;
+                                        document.getElementById('apinfo_ID').value = pinfo;
+                                        document.getElementById('aadd_blcknum').value = lotnum;
+                                        document.getElementById('aadd_street').value = strt;
+                                        document.getElementById('aadd_subdivision').value = subdiv;
+                                        document.getElementById('aadd_brngy').value = brngy;
+                                        document.getElementById('aadd_district').value = dist;
+                                        document.getElementById('aadd_city').value = city;
+                                        document.getElementById('date_created').value = created;
+                                        document.getElementById('last_update').value = updated;
+                                        $('#aadd_region').val(reg).change();
+                                        document.getElementById('aadd_zipcode').value = zipcode;
+                                        $('#editImg').attr('src', src);
+                                        var bday = document.getElementById('apinfo_bday').value.split('-');
+                                        var today = new Date();
+                                        if(bday[0] != 0)
+                                        {
+                                            if((today.getMonth() + 1) < bday[1])
+                                            {
+                                              document.getElementById('aage').value = today.getFullYear() - bday[0] - 1;
+                                            }
+                                            else
+                                            {
+                                              document.getElementById('aage').value = today.getFullYear() - bday[0];
+                                            }
+                                        }
+                                        else
+                                        {
+                                            document.getElementById('aage').value = 'Invalid Input';
+                                        }
+                                        ">
                                                     <i class="material-icons">remove_red_eye</i>
                                                     <span>View</span>
-                                                </button></td>
-                                </tr>
-                                <!-- COMMENT MUNA
-                                  @foreach($cmp as $companydata)
-                                  @if($companydata->del_flag == 0)
-                                    @foreach($cpr as $cper)
-                                      @if($cper->cPerson_ID == $companydata->comp_cperson_ID)
-                                       @foreach($pInfo as $Info)
-                                        @if($Info->pinfo_ID == $cper->personal_info_ID)
-                                  <?php
-                                      $index = 1;
-                                  ?>
-                                      <tr>
-                                          <td><input type="checkbox" id="{{ $companydata->comp_ID  }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $companydata->comp_ID  }}"/>
-                                          <label for="{{ $companydata->comp_ID  }}"></label></td>
-                                          <td>{{ $companydata->comp_name }}</td>
-                                          <td>
-                                          @if($Info->pinfo_middle_name == null)
-                                          {{ $Info->pinfo_last_name.", ".$Info->pinfo_first_name}}
-                                          @else
-                                          {{ $Info->pinfo_last_name.", ".$Info->pinfo_first_name." ".$Info->pinfo_middle_name }}
-                                          @endif
-                                          </td>
-                                          <td><div class="icon-button-demo">
-                                            <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#pnList"
-                                            onclick = "
-                                            var table = $('#view_list').DataTable();
-                                            table.column(3).search({{ $companydata->comp_ID }}).draw();">
-                                                <i class="material-icons">list</i>
-                                                <span>View List</span>
-                                            </button>
-                                            </div></td>
-                                          <td>{{ \Carbon\Carbon::parse($companydata->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($companydata->created_at)->format('l, h:i:s A').")" }}</td>
-                                          <td>{{ \Carbon\Carbon::parse($companydata->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($companydata->updated_at)->format('l, h:i:s A').")" }}</td>
-                                          <td>
-                                          <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
-                                          data-id = '{{ $companydata->comp_ID }}'
-                                          data-cname='{{ $companydata->comp_name }}'
-                                          data-cpr='{{ $companydata->comp_cperson_ID }}'
-                                          data-add='{{ $companydata->comp_add_ID }}'
-                                          data-pinfo = '{{ $cper->personal_info_ID }}'
-
-                                          data-lnumb='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_blcknum }}
-                                            @endif
-                                          @endforeach'
-                                          data-strt='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_street }}
-                                            @endif
-                                          @endforeach'
-                                          data-sdiv='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_subdivision }}
-                                            @endif
-                                          @endforeach'
-                                          data-brg='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_brngy }}
-                                            @endif
-                                          @endforeach'
-                                          data-distr='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_district }}
-                                            @endif
-                                          @endforeach'
-                                          data-city='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_city }}
-                                            @endif
-                                          @endforeach'
-                                          data-prov='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_province }}
-                                            @endif
-                                          @endforeach'
-                                          data-regn='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_region }}
-                                            @endif
-                                          @endforeach'
-                                          data-zip='
-                                          @foreach($add as $addata)
-                                            @if($addata->add_ID == $companydata->comp_add_ID )
-                                            {{ $addata->add_zipcode }}
-                                            @endif
-                                          @endforeach'
-
-                                          data-cfname='
-                                          @foreach($cpr as $cperson)
-                                            @if($cperson->cPerson_ID == $companydata->comp_cperson_ID)
-                                             @foreach($pInfo as $Info)
-                                              @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                                {{ $Info->pinfo_first_name }}
-                                              @endif
-                                             @endforeach
-                                            @endif
-                                          @endforeach'
-                                          data-cmname='
-                                          @foreach($cpr as $cperson)
-                                            @if($cperson->cPerson_ID == $companydata->comp_cperson_ID)
-                                             @foreach($pInfo as $Info)
-                                              @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                                {{ $Info->pinfo_middle_name }}
-                                              @endif
-                                             @endforeach
-                                            @endif
-                                          @endforeach'
-                                          data-clname='
-                                          @foreach($cpr as $cperson)
-                                            @if($cperson->cPerson_ID == $companydata->comp_cperson_ID)
-                                             @foreach($pInfo as $Info)
-                                              @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                                {{ $Info->pinfo_last_name }}
-                                              @endif
-                                             @endforeach
-                                            @endif
-                                          @endforeach'
-                                          data-ccont='
-                                          @foreach($cpr as $cperson)
-                                            @if($cperson->cPerson_ID == $companydata->comp_cperson_ID)
-                                             @foreach($pInfo as $Info)
-                                              @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                                {{ $Info->pinfo_contact }}
-                                              @endif
-                                             @endforeach
-                                            @endif
-                                          @endforeach'
-                                          data-cmail='
-                                          @foreach($cpr as $cperson)
-                                            @if($cperson->cPerson_ID == $companydata->comp_cperson_ID)
-                                             @foreach($pInfo as $Info)
-                                              @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                                {{ $Info->pinfo_mail }}
-                                              @endif
-                                             @endforeach
-                                            @endif
-                                          @endforeach'
-
-                                          onclick = "
-
-                                          var id = $(this).data('id');
-                                          var cname = $(this).data('cname');
-
-                                          var addid = $(this).data('add');
-                                          var lotnum = $(this).data('lnumb').replace(/^\s+|\s+$/g, '');
-                                          var strt = $(this).data('strt').replace(/^\s+|\s+$/g, '');
-                                          var subdiv = $(this).data('sdiv').replace(/^\s+|\s+$/g, '');
-                                          var brngy = $(this).data('brg').replace(/^\s+|\s+$/g, '');
-                                          var dist = $(this).data('distr').replace(/^\s+|\s+$/g, '');
-                                          var city = $(this).data('city').replace(/^\s+|\s+$/g, '');
-                                          var prov = $(this).data('prov').replace(/^\s+|\s+$/g, '');
-                                          var reg = $(this).data('regn').replace(/^\s+|\s+$/g, '');
-                                          var zipcode = $(this).data('zip').replace(/^\s+|\s+$/g, '');
-
-                                          var cfname = $(this).data('cfname').replace(/^\s+|\s+$/g, '');
-                                          var cmname = $(this).data('cmname').replace(/^\s+|\s+$/g, '');
-                                          var clname = $(this).data('clname').replace(/^\s+|\s+$/g, '');
-                                          var cmail = $(this).data('cmail').replace(/^\s+|\s+$/g, '');
-                                          var ccont = $(this).data('ccont').replace(/^\s+|\s+$/g, '');
-
-                                          document.getElementById('acopid').value = id;
-                                          document.getElementById('acomp_name').value = cname;
-
-                                          document.getElementById('cpersonID').value = $(this).data('cpr');
-                                          document.getElementById('acPerson_first_name').value = cfname;
-                                          document.getElementById('acPerson_middle_name').value = cmname;
-                                          document.getElementById('acPerson_last_name').value = clname;
-                                          document.getElementById('acPerson_email').value = cmail;
-                                          document.getElementById('acPerson_contact').value = ccont;
-
-                                          document.getElementById('aadd_id').value = addid;
-                                          document.getElementById('pinfo_ID').value = $(this).data('pinfo');
-                                          document.getElementById('aadd_blcknum').value = lotnum;
-                                          document.getElementById('aadd_street').value = strt;
-                                          document.getElementById('aadd_subdivision').value = subdiv;
-                                          document.getElementById('aadd_brngy').value = brngy;
-                                          document.getElementById('aadd_district').value = dist;
-                                          document.getElementById('aadd_city').value = city;
-                                          document.getElementById('aadd_province').value = prov;
-                                          document.getElementById('aadd_region').value = reg;
-                                          $('#aadd_region').val(reg).change();
-                                          document.getElementById('aadd_zipcode').value = zipcode;">
-                                              <i class="material-icons">remove_red_eye</i>
-                                              <span>View</span>
-                                          </button>
-                                          </td>
-                                      </tr>
+                                        </button></td>
                                        @endif
                                       @endforeach
                                      @endif
                                     @endforeach
                                    @endif
-                                  @endforeach -->
+                                  @endforeach
+                                 @endif
+                                 @endif
+                                @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1107,6 +1146,7 @@
         </div>
     </section>
 
+@push('scripts')
     <script>
         $.validator.addMethod("alphanumeric", function(value, element) {
             return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -1131,7 +1171,19 @@
               // on the right side
               comp_name: {
                 required: true,
-                alpha:true,
+                alpha:true
+              },
+              comp_telnum: {
+                required: true,
+                digits: true,
+                maxlength: 11
+              },
+              comp_faxnum: {
+                maxlength: 30
+              },
+              comp_email: {
+                required: true,
+                email:true,
                 maxlength: 30
               },
               cPerson_first_name:{
@@ -1148,17 +1200,35 @@
                 alpha:true,
                 maxlength: 20
               },
-              cPerson_contact:{
+              pinfo_cpnum_1:{
                 required: true,
                 digits: true,
                 minlength: 7,
                 maxlength: 11
               },
-              cPerson_email:
+              pinfo_cpnum_2:{
+                digits: true,
+                minlength: 7,
+                maxlength: 11
+              },
+              pinfo_telnum:{
+                digits: true,
+                minlength: 7,
+                maxlength: 11
+              },
+              pinfo_mail:
               {
                 required: true,
                 email: true,
                 maxlength: 50
+              },
+              pinfo_bday:
+              {
+                required: true,
+              },
+              pinfo_gender:
+              {
+                required: true,
               },
               add_blcknum:{
                   blcknumber: true,
@@ -1209,28 +1279,9 @@
             },
             // Specify validation error messages
             messages: {
-                comp_name: {
-                    required: "Empty Bank Name"
+                pinfo_bday: {
+                    required: "Empty or Invalid Date."
                 },
-                cPerson_first_name:{
-                    required: "Empty First Name"
-                },
-                cPerson_last_name:{
-                    required: "Empty Last Name"
-                },
-                cPerson_contact:{
-                    required: "Empty Contact Number",
-                    digits: "This field is Digits only",
-                    minlength: "This field requires minimum length of 7",
-                    maxlength: "This field requires max length of 11"
-                },
-                add_blcknum:{
-                    digits: "This field is Digits only"
-                },
-                add_zipcode:
-                {
-                   digits: "This field is Digits only"
-                }
 
             },
             // Make sure the form is submitted to the destination defined
@@ -1264,17 +1315,35 @@
                 alpha:true,
                 maxlength: 20
               },
-              acPerson_contact:{
+              apinfo_cpnum_1:{
                 required: true,
                 digits: true,
                 minlength: 7,
                 maxlength: 11
               },
-              acPerson_email:
+              apinfo_cpnum_2:{
+                digits: true,
+                minlength: 7,
+                maxlength: 11
+              },
+              apinfo_telnum:{
+                digits: true,
+                minlength: 7,
+                maxlength: 11
+              },
+              apinfo_mail:
               {
                 required: true,
                 email: true,
                 maxlength: 50
+              },
+              apinfo_bday:
+              {
+                required: true,
+              },
+              apinfo_gender:
+              {
+                required: true,
               },
               aadd_blcknum:{
                   blcknumber: true,
@@ -1356,6 +1425,39 @@
 </script>
 
 <script>
+
+    function areadURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#addImg').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#picture").change(function(){
+        areadURL(this);
+    });
+
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#editImg').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#apicture").change(function(){
+        readURL(this);
+    });
+
     $( document ).ready(function()
     {
       $('comp_add').validate();
@@ -1483,5 +1585,5 @@
       });
 
 </script>
-
+@endpush
 @endsection

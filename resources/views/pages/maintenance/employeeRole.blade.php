@@ -19,13 +19,13 @@
                             <h4><br/>CREATE NEW EMPLOYEE ROLE RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
-                            <form id="add" name = "add" action = "title/submit" method="POST">
+                            <form id="add" name = "add" action = "role/submit" method="POST">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="row clearfix">
                                     <div class="col-md-12">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "Employee_type" name = "Employee_type" type="text" class="form-control" required>
+                                                    <input id = "emp_role_Name" name = "emp_role_Name" type="text" class="form-control" required>
                                                     <label class="form-label">Employee Role Name </label>
                                                 </div>
                                             </div>
@@ -34,7 +34,7 @@
                                     <div class="col-md-12">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "EmployeeType_desc" name = "EmployeeType_desc" type="text" class="form-control">
+                                                    <textarea id = "emp_role_desc" name = "emp_role_desc" type="text" rows="4" class="form-control"></textarea>
                                                     <label class="form-label">Description </label>
                                                 </div>
                                             </div>
@@ -64,8 +64,8 @@
                                 if (isConfirm) {
                                   $('#add').submit();
 
-                                    document.getElementById('Employee_type').value = '';
-                                    document.getElementById('EmployeeType_desc').value = '';
+                                    document.getElementById('emp_role_Name').value = '';
+                                    document.getElementById('emp_role_desc').value = '';
                                 } else {
                                     swal({
                                     title: 'Cancelled',
@@ -94,12 +94,12 @@
                         </div><br/>
                         <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
                         onclick = "
-                        document.getElementById('view').action = 'title/update';
+                        document.getElementById('view').action = 'role/update';
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
-                        $('#aEmployee_type').prop('disabled', false);
-                        $('#aEmployeeType_desc').prop('disabled', false);
+                        $('#aemp_role_Name').prop('disabled', false);
+                        $('#aemp_role_desc').prop('disabled', false);
                         $('#schange').html('SAVE CHANGES');
                         ">
                         <i class="material-icons">create</i>
@@ -107,12 +107,12 @@
                         </button>
                         <button id = "Delete" type="button" class="btn bg-red btn-lg waves-effect"
                         onclick = "
-                        document.getElementById('view').action = 'title/delete';
+                        document.getElementById('view').action = 'role/delete';
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
-                        $('#aEmployee_type').prop('disabled', true);
-                        $('#aEmployeeType_desc').prop('disabled', true);
+                        $('#aemp_role_Name').prop('disabled', true);
+                        $('#aemp_role_desc').prop('disabled', true);
                         $('#schange').html('DELETE RECORD');
                         ">
                         <i class="material-icons">delete_sweep</i>
@@ -122,27 +122,23 @@
                         <div class="modal-body">
                             <form id="view" name = "view" method="POST">
                             <div class="row clearfix">
-                                                <div class="col-md-1">
-                                                   <label for="date_created"><small><small>Date Created</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <label for="last_update"><small><small>Last Update</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                             <div class="col-md-12">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                    <label for="date_created"><small><small>Date Created</small></small></label>
+                                        <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                    </div>
+                                </div>
+                             </div>
+                             <div class="col-md-12">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                    <label><small><small>Last Update</small></small></label>
+                                        <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                    </div>
+                                </div>
+                             </div>
+                            </div>
                               <div class="col-md-4" style = "display: none;">
                                 <input id = "id" type="text" class="form-control" name="id" pattern="[A-Za-z'-]">
                               </div>
@@ -152,7 +148,7 @@
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                 <label><small>Employee Role Name :</small></label>
-                                                    <input id = "aEmployee_type" name = "aEmployee_type" type="text" class="form-control" disabled="disable" required>
+                                                    <input id = "aemp_role_Name" name = "aemp_role_Name" type="text" class="form-control" disabled="disable" required>
                                                 </div>
                                             </div>
                                     </div>
@@ -161,7 +157,7 @@
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                 <label><small>Description :</small></label>
-                                                    <input id = "aEmployeeType_desc" name = "aEmployeeType_desc" type="text" class="form-control" disabled="disable">
+                                                    <textarea id = "aemp_role_desc" name = "aemp_role_desc" type="text" rows="4" class="form-control" disabled="disable"></textarea>
                                                 </div>
                                             </div>
                                     </div>
@@ -244,57 +240,44 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    <tr>
-                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                                data-id=""/>
-                                                <label for="pppp"></label></td>
-                                  <td>Accounting Staff</td>
-                                  <td>The one who chuchu the churva</td>
-                                  <td><div class="icon-button-demo">
-                                            <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#empList">
-                                                <i class="material-icons">list</i>
-                                                <span>View List</span>
-                                            </button>
-                                            </div></td>
-
-                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                    <span>View</span>
-                                                </button></td>
-                                </tr>
-                                  <!-- COMMENT KO MUNA
-                                  <?php
-                                      $index = 1;
-                                  ?>
-                                  @foreach($jobtitle as $emp)
-                                  @if($emp->del_flag == 0)
+                                  @foreach($role as $emprole)
+                                   @if($emprole->del_flag == 0)
                                       <tr>
-                                          <td><input type="checkbox" id="{{ $emp->jobtitle_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $emp->jobtitle_ID }}"/>
-                                          <label for="{{ $emp->jobtitle_ID }}"></label></td>
-                                          <td>{{ $emp->jobtitle_Name }}</td>
+                                          <td><input type="checkbox" id="{{ $emprole->jobtitle_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $emprole->jobtitle_ID }}"/>
+                                          <label for="{{ $emprole->jobtitle_ID }}"></label></td>
+                                          <td>{{ $emprole->emp_role_Name }}</td>
+                                          <td>{{ $emprole->emp_role_desc }}</td>
                                           <td><div class="icon-button-demo">
                                             <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#empList"
                                             onclick = "
                                             var table = $('#view_list').DataTable();
-                                            table.column(3).search({{ $emp->jobtitle_ID }}).draw();">
+                                            table.column(3).search({{ $emprole->emp_role_ID }}).draw();">
                                                 <i class="material-icons">list</i>
                                                 <span>View List</span>
                                             </button>
-                                            </div></td>
-                                            <td>{{ \Carbon\Carbon::parse($emp->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($emp->created_at)->format('l, h:i:s A').")" }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($emp->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($emp->updated_at)->format('l, h:i:s A').")" }}</td>
+                                            </div>
+                                            </td>
                                             <td>
                                             <div class="icon-button-demo">
                                                 <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
-                                                data-id = "{{ $emp->jobtitle_ID }}"
-                                                data-name = "{{ $emp->jobtitle_Name }}"
-                                                data-desc = "{{ $emp->jobtitle_Desc }}"
+                                                data-id = "{{ $emprole->emp_role_ID }}"
+                                                data-name = "{{ $emprole->emp_role_Name }}"
+                                                data-desc = "{{ $emprole->emp_role_desc }}"
+
+                                                data-created = '{{ \Carbon\Carbon::parse($emprole->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($emprole->created_at)->format("l, h:i:s A").")" }}'
+
+                                                data-updated = '{{ \Carbon\Carbon::parse($emprole->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($emprole->updated_at)->format("l, h:i:s A").")" }}'
+
                                                 onclick= "
 
+                                                var created = $(this).data('created');
+                                                var updated = $(this).data('updated');
+
                                                 document.getElementById('id').value = $(this).data('id');
-                                                document.getElementById('aEmployee_type').value = $(this).data('name');
-                                                document.getElementById('aEmployeeType_desc').value = $(this).data('desc');
+                                                document.getElementById('aemp_role_Name').value = $(this).data('name');
+                                                document.getElementById('aemp_role_desc').value = $(this).data('desc');
+                                                document.getElementById('date_created').value = created;
+                                                document.getElementById('last_update').value = updated; 
                                                 ">
                                                     <i class="material-icons">remove_red_eye</i>
                                                     <span>View</span>
@@ -302,8 +285,8 @@
                                             </div>
                                           </td>
                                       </tr>
-                                  @endif
-                                  @endforeach -->
+                                   @endif
+                                  @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -338,10 +321,10 @@
                                       @foreach($pnf as $Info)
                                         @if($empdata->personal_info_ID == $Info->pinfo_ID)
                                         <tr>
-                                          <td>{{ $Info->pinfo_first_name." ".$Info->pinfo_last_name }}</td>
+                                          <td>{{ $Info->pinfo_last_name.", ".$Info->pinfo_first_name." ".$Info->pinfo_middle_name }}</td>
                                           <td>{{ \Carbon\Carbon::parse($empdata->created_at)->format('M-d-Y') }} {{ '('.\Carbon\Carbon::parse($empdata->created_at)->format('l, h:i:s A').')' }}</td>
                                           <td>{{ \Carbon\Carbon::parse($empdata->updated_at)->format('M-d-Y') }} {{ '('.\Carbon\Carbon::parse($empdata->updated_at)->format('l, h:i:s A').')' }}</td>
-                                          <td>{{ $empdata->job_title }}</td>
+                                          <td>{{ $empdata->emp_role_ID }}</td>
                                         </tr>
                                         @endif
                                       @endforeach
@@ -360,8 +343,9 @@
             </div>
             <!-- #END# VIEW INST MODAL -->
     </section>
-
-    <script>
+    
+@push('scripts')
+    <script type="text/javascript" src="../../../../public/js/scripts/">
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
              }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
@@ -424,6 +408,7 @@
     </script>
 
     <script>
+
         $(document).ready(function()
         {
           $('add').validate();
@@ -538,5 +523,6 @@
           });
 
     </script>
+    @endpush
 
     @endsection

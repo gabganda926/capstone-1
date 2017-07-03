@@ -19,7 +19,7 @@
                             <h4><br/>CREATE NEW INSTALLMENT TYPE RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
-                            <form id="add" name = "add" action = "type/submit" method="POST">
+                            <form id="add" name = "add" action = "installment/submit" method="POST">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="row clearfix">
                                     <div class="col-md-12">
@@ -38,7 +38,7 @@
                                       <div class="form-group form-float">
                                           <div class="form-line">
                                             <label><small>Description :</small></label><br/>
-                                              Payment every <input id = "num" name = "num" type="number" min="1" max="12"> (number of) month/s.        
+                                              Payment every <input id = "installment_desc" name = "installment_desc" type="number" min="1" max="12"> (number of) month/s.        
                                           </div>
                                       </div>
                                     </div>
@@ -96,7 +96,7 @@
                         </div><br/>
                           <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
                           onclick = "
-                          document.getElementById('view').action = 'type/update';
+                          document.getElementById('view').action = 'installment/update';
                           $('#Edit').prop('disabled', true);
                           $('#Delete').prop('disabled', false);
                           $('#schange').show();
@@ -109,7 +109,7 @@
                           </button>
                           <button id = "Delete" type="button" class="btn bg-red btn-lg waves-effect"
                           onclick = "
-                          document.getElementById('view').action = 'type/delete';
+                          document.getElementById('view').action = 'installment/delete';
                           $('#Edit').prop('disabled', false);
                           $('#Delete').prop('disabled', true);
                           $('#schange').show();
@@ -165,7 +165,7 @@
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <label><small>Description :</small></label><br/>
-                                              Payment every <input id = "num" name = "num" type="number" min="1" max="12" disabled="disable"> (number of) month/s.
+                                              Payment every <input id = "ainstallment_desc" name = "ainstallment_desc" type="number" min="1" max="12" disabled="disable"> (number of) month/s.
                                         </div>
                                     </div>
                                   </div>
@@ -237,6 +237,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -247,30 +248,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                                data-id=""/>
-                                                <label for="pppp"></label></td>
-                                  <td>Three term installment</td>
-                                  <td>Payment every 3 (number of) month/s.</td>
-                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                    <span>View</span>
-                                                </button></td>
-                                </tr>
-                                <!-- COMMENT MUNAAAA
-                                  <?php
-                                      $index = 1;
-                                  ?>
-                                  @foreach($ins as $install)
+                                @foreach($ins as $install)
                                   @if($install->del_flag == 0)
                                       <tr>
                                           <td><input type="checkbox" id="{{ $install->installment_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $install->installment_ID }}"/>
                                           <label for="{{ $install->installment_ID }}"></label>
                                           </td>
                                           <td>{{$install->installment_type}}</td>
-                                          <td>{{ \Carbon\Carbon::parse($install->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($install->created_at)->format('l, h:i:s A').")" }}</td>
-                                          <td>{{ \Carbon\Carbon::parse($install->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($install->updated_at)->format('l, h:i:s A').")" }}</td>
+                                          <td>Payment every {{ $install->installment_desc }} (number of) month/s.</td>
                                           <td>
                                           <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
 
@@ -291,9 +276,10 @@
                                           </td>
                                       </tr>
                                   @endif
-                                  @endforeach -->
+                                  @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -302,7 +288,7 @@
 
         </div>
     </section>
-
+@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -328,10 +314,10 @@
                   installment_type:{
                     required: true,
                     blcknumber: true,
-                    maxlength: 20
+                    maxlength: 50
                   },
                   installment_desc:{
-                    maxlength: 50
+                    max: 12
                   }
                 },
                 // Make sure the form is submitted to the destination defined
@@ -350,10 +336,10 @@
                   ainstallment_type:{
                     required: true,
                     blcknumber: true,
-                    maxlength: 20
+                    maxlength: 50
                   },
                   ainstallment_desc:{
-                    maxlength: 50
+                    max: 12
                   }
                 },
                 // Make sure the form is submitted to the destination defined
@@ -477,5 +463,5 @@
           });
 
     </script>
-
+@endpush
 @endsection

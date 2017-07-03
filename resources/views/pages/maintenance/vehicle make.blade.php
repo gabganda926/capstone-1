@@ -33,7 +33,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group form-float">
                                             <div class="form-line">
-                                                <input id = "vehicle_make_name" name = "vehicle_make_name" type="text" class="form-control" pattern="[A-Za-z'-]" required>
+                                                <textarea rows="4" id = "vehicle_make_desc" name = "vehicle_make_desc" type="text" class="form-control" pattern="[A-Za-z'-]" required></textarea>
                                                 <label class="form-label">Description</label>
                                             </div>
                                         </div>
@@ -96,6 +96,7 @@
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
                         $('#avehicle_make_name').prop('disabled', false);
+                        $('#avehicle_make_desc').prop('disabled', false);
                         $('#schange').html('SAVE CHANGES');
                         ">
                         <i class="material-icons">create</i>
@@ -107,7 +108,8 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
-                        $('#avehicle_make_name').prop('disabled', false);
+                        $('#avehicle_make_name').prop('disabled', true);
+                        $('#avehicle_make_desc').prop('disabled', true);
                         $('#schange').html('DELETE RECORD');
                         ">
                         <i class="material-icons">delete_sweep</i>
@@ -132,7 +134,7 @@
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                             <label><small>Description :</small></label>
-                                                <input id = "avehicle_make_name" name = "avehicle_make_name" type="text" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required>
+                                                <textarea rows="4" id = "avehicle_make_desc" name = "avehicle_make_desc" type="text" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -258,30 +260,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                                data-id=""/>
-                                                <label for="pppp"></label></td>
-                                  <td>Toyota</td>
-                                  <td>Toyota Motor Corporation is a Japanese multinational automotive manufacturer headquartered in Toyota, Aichi, Japan.</td>
-                                  <td><div class="icon-button-demo">
-                                        <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#modelList">
-                                            <i class="material-icons">list</i>
-                                            <span>View List</span>
-                                        </button>
-                                    </div></td>
-                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                    <span>View</span>
-                                                </button></td>
-                                </tr>
-                                <!-- COMMENTTTTZZ
                                   @foreach($make as $mke)
                                   @if($mke->del_flag == 0)
                                   <tr>
                                     <td><input type="checkbox" id="{{ $mke->vehicle_make_ID }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $mke->vehicle_make_ID }}"/>
                                     <label for="{{ $mke->vehicle_make_ID }}"></label></td>
-                                    <td>{{ $mke->vehicle_make_name }}</td>
+                                    <td>
+                                        {{ $mke->vehicle_make_name }}
+                                    </td>
+                                    <td>
+                                        {{ $mke->vehicle_make_desc }}
+                                    </td>
                                     <td><div class="icon-button-demo">
                                         <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#modelList"
                                         onclick = "
@@ -291,16 +280,24 @@
                                             <span>View List</span>
                                         </button>
                                     </div></td>
-                                    <td>{{ \Carbon\Carbon::parse($mke->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mke->created_at)->format('l, h:i:s A').")" }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($mke->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mke->updated_at)->format('l, h:i:s A').")" }}</td>
                                     <td>
                                     <div class="icon-button-demo">
-                                        <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
+                                        <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
                                         data-id = "{{ $mke->vehicle_make_ID }}"
                                         data-name = "{{ $mke->vehicle_make_name  }}"
+                                        data-desc = "{{ $mke->vehicle_make_desc  }}"
+
+                                        data-created = '{{ \Carbon\Carbon::parse($mke->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($mke->created_at)->format("l, h:i:s A").")" }}'
+
+                                        data-updated = '{{ \Carbon\Carbon::parse($mke->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($mke->updated_at)->format("l, h:i:s A").")" }}'
+
                                         onclick= "
                                         document.getElementById('id').value = $(this).data('id');
                                         document.getElementById('avehicle_make_name').value = $(this).data('name');
+                                        document.getElementById('avehicle_make_desc').value = $(this).data('desc');
+
+                                        document.getElementById('date_created').value = $(this).data('created');
+                                        document.getElementById('last_update').value = $(this).data('updated'); 
                                         ">
                                             <i class="material-icons">remove_red_eye</i>
                                             <span>View</span>
@@ -310,7 +307,6 @@
                                   </tr>
                                   @endif
                                   @endforeach
-                                  -->
                                 </tbody>
                             </table>
                         </div>
@@ -319,6 +315,7 @@
             </div>
             <!-- #END# Exportable Table -->
 
+@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -343,7 +340,6 @@
                   // on the right side
                   vehicle_make_name:{
                     required: true,
-                    alpha: true,
                     maxlength: 20
                   }
                 },
@@ -362,7 +358,6 @@
                   // on the right side
                   avehicle_make_name:{
                     required: true,
-                    alpha: true,
                     maxlength: 20
                   }
                 },
@@ -487,7 +482,7 @@
                   }
               });
           });
-
     </script>
+@endpush
 
 @endsection

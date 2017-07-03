@@ -33,188 +33,313 @@ Route::post('/sign-up/submit', 'SignUpController@create_account');
 //MAINTENANCE
 
 //mainte-bank
-Route::get('/admin/maintenance/bank', 'BankController@index');
+Route::get('/admin/maintenance/bank', 'maint_bankController@index');
 
-Route::post('/admin/maintenance/bank/submit', 'BankController@add_bank');
+Route::post('/admin/maintenance/bank/submit', 'maint_bankController@add_bank');
 
-Route::post('/admin/maintenance/bank/update', 'BankController@update_bank');
+Route::post('/admin/maintenance/bank/update', 'maint_bankController@update_bank');
 
-Route::post('/admin/maintenance/bank/delete', 'BankController@delete_bank');
+Route::post('/admin/maintenance/bank/delete', 'maint_bankController@delete_bank');
 
-Route::post('/admin/maintenance/bank/ardelete', 'BankController@ardelete_bank');
+Route::post('/admin/maintenance/bank/ardelete', 'maint_bankController@ardelete_bank');
 
 //mainte-complaint-type
-Route::get('/admin/maintenance/complaint', 'ComplaintTypeController@index');
+Route::get('/admin/maintenance/complaint', 'maint_complaintTypeController@index');
 
-Route::post('/admin/maintenance/complaint/submit', 'ComplaintTypeController@add_ctype');
+Route::post('/admin/maintenance/complaint/submit', 'maint_complaintTypeController@add_ctype');
 
-Route::post('/admin/maintenance/complaint/update', 'ComplaintTypeController@update_ctype');
+Route::post('/admin/maintenance/complaint/update', 'maint_complaintTypeController@update_ctype');
 
-Route::post('/admin/maintenance/complaint/delete', 'ComplaintTypeController@delete_ctype');
+Route::post('/admin/maintenance/complaint/delete', 'maint_complaintTypeController@delete_ctype');
 
-Route::post('/admin/maintenance/complaint/ardelete', 'ComplaintTypeController@ardelete_ctype');
+Route::post('/admin/maintenance/complaint/ardelete', 'maint_complaintTypeController@ardelete_ctype');
 
 //mainte-courier
-Route::get('/admin/maintenance/courier', 'CourierController@index');
+Route::get('/admin/maintenance/courier', 'maint_courierController@index');
 
-Route::post('/admin/maintenance/courier/submit', 'CourierController@add_courier');
+Route::post('/admin/maintenance/courier/submit', 'maint_courierController@add_courier');
 
-Route::post('/admin/maintenance/courier/update', 'CourierController@update_courier');
+Route::post('/admin/maintenance/courier/update', 'maint_courierController@update_courier');
 
-Route::post('/admin/maintenance/courier/delete', 'CourierController@delete_courier');
+Route::post('/admin/maintenance/courier/delete', 'maint_courierController@delete_courier');
 
-Route::post('/admin/maintenance/courier/ardelete', 'CourierController@ardelete_courier');
+Route::post('/admin/maintenance/courier/ardelete', 'maint_courierController@ardelete_courier');
 
 //mainte-employee
-Route::get('/admin/maintenance/employee', 'EmployeeController@index');
+Route::get('/admin/maintenance/employee', 'maint_employeeController@index');
 
-Route::post('/admin/maintenance/employee/submit', 'EmployeeController@add_employee');
+Route::post('/admin/maintenance/employee/submit', 'maint_employeeController@add_employee');
 
-Route::post('/admin/maintenance/employee/update', 'EmployeeController@update_employee');
+Route::post('/admin/maintenance/employee/update', 'maint_employeeController@update_employee');
 
-Route::post('/admin/maintenance/employee/delete', 'EmployeeController@delete_employee');
+Route::post('/admin/maintenance/employee/delete', 'maint_employeeController@delete_employee');
 
-Route::post('/admin/maintenance/employee/ardelete', 'EmployeeController@ardelete_employee');
+Route::post('/admin/maintenance/employee/ardelete', 'maint_employeeController@ardelete_employee');
 
 //mainte-employee-role
-Route::get('/admin/maintenance/employee/role', 'EmployeeRoleController@index');
+Route::get('/admin/maintenance/employee/role', 'maint_employeeRoleController@index');
 
-Route::post('/admin/maintenance/employee/role/submit', 'EmployeeRoleController@add_employee');
+Route::post('/admin/maintenance/employee/role/submit', 'maint_employeeRoleController@add_employee');
 
-Route::post('/admin/maintenance/employee/role/update', 'EmployeeRoleController@update_employee');
+Route::post('/admin/maintenance/employee/role/update', 'maint_employeeRoleController@update_employee');
 
-Route::post('/admin/maintenance/employee/role/delete', 'EmployeeRoleController@delete_employee');
+Route::post('/admin/maintenance/employee/role/delete', 'maint_employeeRoleController@delete_employee');
 
-Route::post('/admin/maintenance/employee/role/ardelete', 'EmployeeRoleController@ardelete_employee');
+Route::post('/admin/maintenance/employee/role/ardelete', 'maint_employeeRoleController@ardelete_employee');
 
 //mainte-inst-type
-Route::get('/admin/maintenance/installment', 'InstallmentTypeController@index');
+Route::get('/admin/maintenance/installment', 'maint_installmentTypeController@index');
 
-Route::post('/admin/maintenance/installment/submit', 'InstallmentTypeController@add_installment');
+Route::post('/admin/maintenance/installment/submit', 'maint_installmentTypeController@add_installment');
 
-Route::post('/admin/maintenance/installment/update', 'InstallmentTypeController@update_installment');
+Route::post('/admin/maintenance/installment/update', 'maint_installmentTypeController@update_installment');
 
-Route::post('/admin/maintenance/installment/delete', 'InstallmentTypeController@delete_installment');
+Route::post('/admin/maintenance/installment/delete', 'maint_installmentTypeController@delete_installment');
 
-Route::post('/admin/maintenance/installment/ardelete', 'InstallmentTypeController@ardelete_installment');
+Route::post('/admin/maintenance/installment/ardelete', 'maint_installmentTypeController@ardelete_installment');
 
 //mainte-insurance-comp
-Route::get('/admin/maintenance/insurance/company', 'InsuranceCompanyController@index');
+Route::get('/admin/maintenance/insurance/company', 'maint_insuranceCompanyController@index');
 
-Route::post('/admin/maintenance/insurance/company/submit', 'InsuranceCompanyController@add_inscomp');
+Route::post('/admin/maintenance/insurance/company/submit', 'maint_insuranceCompanyController@add_inscomp');
 
-Route::post('/admin/maintenance/insurance/company/update', 'InsuranceCompanyController@update_inscomp');
+Route::post('/admin/maintenance/insurance/company/update', 'maint_insuranceCompanyController@update_inscomp');
 
-Route::post('/admin/maintenance/insurance/company/delete', 'InsuranceCompanyController@delete_inscomp');
+Route::post('/admin/maintenance/insurance/company/delete', 'maint_insuranceCompanyController@delete_inscomp');
 
-Route::post('/admin/maintenance/insurance/company/ardelete', 'InsuranceCompanyController@ardelete_inscomp');
+Route::post('/admin/maintenance/insurance/company/ardelete', 'maint_insuranceCompanyController@ardelete_inscomp');
 
 //mainte-policynum
-Route::get('/admin/maintenance/policyno', 'PolicyNumberController@index');
+Route::get('/admin/maintenance/policyno', 'maint_policyNumberController@index');
 
-Route::post('/admin/maintenance/policyno/submit', 'PolicyNumberController@add_inscomp');
+Route::post('/admin/maintenance/policyno/submit', 'maint_policyNumberController@add_inscomp');
 
-Route::post('/admin/maintenance/policyno/update', 'PolicyNumberController@update_inscomp');
+Route::post('/admin/maintenance/policyno/update', 'maint_policyNumberController@update_inscomp');
 
-Route::post('/admin/maintenance/policyno/delete', 'PolicyNumberController@delete_inscomp');
+Route::post('/admin/maintenance/policyno/delete', 'maint_policyNumberController@delete_inscomp');
 
-Route::post('/admin/maintenance/policyno/ardelete', 'PolicyNumberController@ardelete_inscomp');
+Route::post('/admin/maintenance/policyno/ardelete', 'maint_policyNumberController@ardelete_inscomp');
 
 //mainte-forms
-Route::get('/admin/maintenance/insurance/forms', 'FormsController@index');
+Route::get('/admin/maintenance/insurance/forms', 'maint_FormsController@index');
 
-Route::post('/admin/maintenance/insurance/forms/submit', 'FormsController@add_iforms');
+Route::post('/admin/maintenance/insurance/forms/submit', 'maint_FormsController@add_iforms');
 
-Route::post('/admin/maintenance/insurance/forms/update', 'FormsController@update_iforms');
+Route::post('/admin/maintenance/insurance/forms/update', 'maint_FormsController@update_iforms');
 
-Route::post('/admin/maintenance/insurance/forms/delete', 'FormsController@delete_iforms');
+Route::post('/admin/maintenance/insurance/forms/delete', 'maint_FormsController@delete_iforms');
 
-Route::post('/admin/maintenance/insurance/forms/ardelete', 'FormsController@ardelete_iforms');
+Route::post('/admin/maintenance/insurance/forms/ardelete', 'maint_FormsController@ardelete_iforms');
 
 //mainte-salesagent
-Route::get('/admin/maintenance/salesagent', 'SalesAgentController@index');
+Route::get('/admin/maintenance/salesagent', 'maint_salesAgentController@index');
 
-Route::post('/admin/maintenance/salesagent/submit', 'SalesAgentController@add_agent');
+Route::post('/admin/maintenance/salesagent/submit', 'maint_salesAgentController@add_agent');
 
-Route::post('/admin/maintenance/salesagent/update', 'SalesAgentController@update_agent');
+Route::post('/admin/maintenance/salesagent/update', 'maint_salesAgentController@update_agent');
 
-Route::post('/admin/maintenance/salesagent/delete', 'SalesAgentController@delete_agent');
+Route::post('/admin/maintenance/salesagent/delete', 'maint_salesAgentController@delete_agent');
 
-Route::post('/admin/maintenance/salesagent/ardelete', 'SalesAgentController@ardelete_agent');
+Route::post('/admin/maintenance/salesagent/ardelete', 'maint_salesAgentController@ardelete_agent');
 
 //mainte-vehiclemake
-Route::get('/admin/maintenance/vehicle/make', 'VehicleMakeController@index');
+Route::get('/admin/maintenance/vehicle/make', 'maint_vMakeController@index');
 
-Route::post('/admin/maintenance/vehicle/make/submit', 'VehicleMakeController@add_vMake');
+Route::post('/admin/maintenance/vehicle/make/submit', 'maint_vMakeController@add_vMake');
 
-Route::post('/admin/maintenance/vehicle/make/update', 'VehicleMakeController@update_vMake');
+Route::post('/admin/maintenance/vehicle/make/update', 'maint_vMakeController@update_vMake');
 
-Route::post('/admin/maintenance/vehicle/make/delete', 'VehicleMakeController@delete_vMake');
+Route::post('/admin/maintenance/vehicle/make/delete', 'maint_vMakeController@delete_vMake');
 
-Route::post('/admin/maintenance/vehicle/make/ardelete', 'VehicleMakeController@ardelete_vMake');
+Route::post('/admin/maintenance/vehicle/make/ardelete', 'maint_vMakeController@ardelete_vMake');
 
 //mainte-vehicletype
-Route::get('/admin/maintenance/vehicle/type', 'VehicleTypeController@index');
+Route::get('/admin/maintenance/vehicle/type', 'maint_vTypeController@index');
 
-Route::post('/admin/maintenance/vehicle/type/submit', 'VehicleTypeController@add_vType');
+Route::post('/admin/maintenance/vehicle/type/submit', 'maint_vTypeController@add_vType');
 
-Route::post('/admin/maintenance/vehicle/type/update', 'VehicleTypeController@update_vType');
+Route::post('/admin/maintenance/vehicle/type/update', 'maint_vTypeController@update_vType');
 
-Route::post('/admin/maintenance/vehicle/type/delete', 'VehicleTypeController@delete_vType');
+Route::post('/admin/maintenance/vehicle/type/delete', 'maint_vTypeController@delete_vType');
 
-Route::post('/admin/maintenance/vehicle/type/ardelete', 'VehicleTypeController@ardelete_vType');
+Route::post('/admin/maintenance/vehicle/type/ardelete', 'maint_vTypeController@ardelete_vType');
 
 //mainte-vehiclemodel
-Route::get('/admin/maintenance/vehicle/model', 'VehicleModelController@index');
+Route::get('/admin/maintenance/vehicle/model', 'maint_vModelController@index');
 
-Route::post('/admin/maintenance/vehicle/model/submit', 'VehicleModelController@add_vModel');
+Route::post('/admin/maintenance/vehicle/model/submit', 'maint_vModelController@add_vModel');
 
-Route::post('/admin/maintenance/vehicle/model/update', 'VehicleModelController@update_vModel');
+Route::post('/admin/maintenance/vehicle/model/update', 'maint_vModelController@update_vModel');
 
-Route::post('/admin/maintenance/vehicle/model/delete', 'VehicleModelController@delete_vModel');
+Route::post('/admin/maintenance/vehicle/model/delete', 'maint_vModelController@delete_vModel');
 
-Route::post('/admin/maintenance/vehicle/model/ardelete', 'VehicleModelController@ardelete_vModel');
+Route::post('/admin/maintenance/vehicle/model/ardelete', 'maint_vModelController@ardelete_vModel');
 
 //mainte-vehiclelist
-Route::get('/admin/maintenance/vehicle/list', 'VehicleListController@index');
+Route::get('/admin/maintenance/vehicle/list', 'maint_vListController@index');
 
-Route::post('/admin/maintenance/vehicle/list/submit', 'VehicleListController@add_vList');
+Route::post('/admin/maintenance/vehicle/list/submit', 'maint_vListController@add_vList');
 
-Route::post('/admin/maintenance/vehicle/list/update', 'VehicleListController@update_vList');
+Route::post('/admin/maintenance/vehicle/list/update', 'maint_vListController@update_vList');
 
-Route::post('/admin/maintenance/vehicle/list/delete', 'VehicleListController@delete_vList');
+Route::post('/admin/maintenance/vehicle/list/delete', 'maint_vListController@delete_vList');
 
-Route::post('/admin/maintenance/vehicle/list/ardelete', 'VehicleListController@ardelete_vList');
+Route::post('/admin/maintenance/vehicle/list/ardelete', 'maint_vListController@ardelete_vList');
 
 //mainte-client-ind
-Route::get('/admin/maintenance/client/individual', 'ClientIndividualController@index');
+Route::get('/admin/maintenance/client/individual', 'maint_ClientIndividualController@index');
 
-Route::post('/admin/maintenance/client/individual/submit', 'ClientIndividualController@add_clientInd');
+Route::post('/admin/maintenance/client/individual/submit', 'maint_ClientIndividualController@add_client');
 
-Route::post('/admin/maintenance/client/individual/update', 'ClientIndividualController@update_clientInd');
+Route::post('/admin/maintenance/client/individual/update', 'maint_ClientIndividualController@update_client');
 
-Route::post('/admin/maintenance/client/individual/delete', 'ClientIndividualController@delete_clientInd');
+Route::post('/admin/maintenance/client/individual/delete', 'maint_ClientIndividualController@delete_client');
 
-Route::post('/admin/maintenance/client/individual/ardelete', 'ClientIndividualController@ardelete_clientInd');
+Route::post('/admin/maintenance/client/individual/ardelete', 'maint_ClientIndividualController@ardelete_client');
 
 //mainte-client-company
-Route::get('/admin/maintenance/client/company', 'ClientCompanyController@index');
+Route::get('/admin/maintenance/client/company', 'maint_ClientCompanyController@index');
 
-Route::post('/admin/maintenance/client/company/submit', 'ClientCompanyController@add_clientComp');
+Route::post('/admin/maintenance/client/company/submit', 'maint_ClientCompanyController@add_client_comp');
 
-Route::post('/admin/maintenance/client/company/update', 'ClientCompanyController@update_clientComp');
+Route::post('/admin/maintenance/client/company/update', 'maint_ClientCompanyController@update_client_comp');
 
-Route::post('/admin/maintenance/client/company/delete', 'ClientCompanyController@delete_clientComp');
+Route::post('/admin/maintenance/client/company/delete', 'maint_ClientCompanyController@delete_client_comp');
 
-Route::post('/admin/maintenance/client/company/ardelete', 'ClientCompanyController@ardelete_clientComp');
-
+Route::post('/admin/maintenance/client/company/ardelete', 'maint_ClientCompanyController@ardelete_client_comp');
 
 
 //TRANSACTION
+//Insurance
+Route::get('/admin/transaction/adm/insurance', function (){
+   return view('pages.transaction.adm.insurance');
+});
+
+//Insurance - Notify Client
+Route::get('/admin/transaction/adm/insurance-notify-client', function (){
+   return view('pages.transaction.adm.insurance-notify-client');
+});
+
+//Insurance - Client Info
+Route::get('/admin/transaction/adm/insurance-client-info-fpg', function (){
+   return view('pages.transaction.adm.insurance-client-info-fpg');
+});
+
+
+//Insurance - Expiring Accounts
+Route::get('/admin/transaction/adm/insurance-expiring-accounts', function (){
+   return view('pages.transaction.adm.insurance-expiring-accounts');
+});
+
+//Insurance - Sent notifications
+Route::get('/admin/transaction/adm/insurance-notification-list', function (){
+   return view('pages.transaction.adm.insurance-notification-list');
+});
+
+//Claims
+Route::get('/admin/transaction/adm/claims', function (){
+   return view('pages.transaction.adm.claims');
+});
+
+//Claims - claim request
+Route::get('/admin/transaction/adm/claim-request', function (){
+   return view('pages.transaction.adm.claim-request');
+});
+
+//Claims - validate
+Route::get('/admin/transaction/adm/claim-validate', function (){
+   return view('pages.transaction.adm.claim-validate');
+});
+
+//Claims - request info
+Route::get('/admin/transaction/adm/claim-info', function (){
+   return view('pages.transaction.adm.claim-info');
+});
+
+//Claims - approved info
+Route::get('/admin/transaction/adm/claim-info-approved', function (){
+   return view('pages.transaction.adm.claim-info-approved');
+});
+
+//Complaint
+Route::get('/admin/transaction/adm/complaint', function (){
+   return view('pages.transaction.adm.complaint');
+});
+
+//Complaint-info
+Route::get('/admin/transaction/adm/complaint-info', function (){
+   return view('pages.transaction.adm.complaint-info');
+});
+
+//Complaint-validate
+Route::get('/admin/transaction/adm/complaint-validate', function (){
+   return view('pages.transaction.adm.complaint-validate');
+});
+
+//Tally
+Route::get('/admin/transaction/adm/tally', function (){
+   return view('pages.transaction.adm.tally');
+});
+
+//Tally
+Route::get('/admin/transaction/adm/tally-info', function (){
+   return view('pages.transaction.adm.tally-info');
+});
+
+//Transmittal
+Route::get('/admin/transaction/adm/transmittal', function (){
+   return view('pages.transaction.adm.transmittal');
+});
+
+//Transmittal - documents
+Route::get('/admin/transaction/adm/transmittal-documents', function (){
+   return view('pages.transaction.adm.transmittal-documents');
+});
+
+//Transmittal - request
+Route::get('/admin/transaction/adm/transmittal-request', function (){
+   return view('pages.transaction.adm.transmittal-request');
+});
+
+//Transmittal - validate
+Route::get('/admin/transaction/adm/transmittal-validate', function (){
+   return view('pages.transaction.adm.transmittal-validate');
+});
+
+//Transmittal - info
+Route::get('/admin/transaction/adm/transmittal-info-approved', function (){
+   return view('pages.transaction.adm.transmittal-info-approved');
+});
 
 //QUERIES
+Route::get('/admin/queries/most-active-company-client', 'z_Queries_activeCompanyClientController@index');
+
+Route::get('/admin/queries/most-active-individual-client', 'z_Queries_activeIndividualClientController@index');
+
+Route::get('/admin/queries/complaint-insurance', 'z_Queries_complaintInsuranceController@index');
+
+Route::get('/admin/queries/complaint-type', 'z_Queries_complaintTypeController@index');
+
+Route::get('/admin/queries/top-company-client', 'z_Queries_topCompanyClientController@index');
+
+Route::get('/admin/queries/top-individual-client', 'z_Queries_topIndividualClientController@index');
+
+Route::get('/admin/queries/top-insurance-company', 'z_Queries_topInsuranceCompanyController@index');
+
+Route::get('/admin/queries/top-insured-vehicle', 'z_Queries_topInsuredVehicleController@index');
+
+Route::get('/admin/queries/top-sales-agent', 'z_Queries_topmaint_salesAgentController@index');
 
 //REPORTS
 
 //UTILITIES
+Route::get('/admin/utilities/adm/archives', 'z_Utilities_ArchivesController@index');
+
+Route::get('/admin/utilities/adm/computationSettings', 'z_Utilities_ComputationSettingsController@index');
+
+Route::get('/admin/utilities/adm/generalSettings', 'z_Utilities_GeneralSettingsController@index');
+
+Route::get('/admin/utilities/adm/taxSettings', 'z_Utilities_TaxSettingsController@index');
+
+Route::get('/admin/utilities/adm/templates', 'z_Utilities_TemplatesController@index');
 ?>

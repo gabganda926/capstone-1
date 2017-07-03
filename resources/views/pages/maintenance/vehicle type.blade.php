@@ -19,7 +19,7 @@
                             <h4><br/>CREATE NEW VEHICLE TYPE RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
-                            <form id="add" name = "add" action = "types/submit" method="POST">
+                            <form id="add" name = "add" action = "type/submit" method="POST">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="row clearfix">
                                     <div class="col-md-12">
@@ -33,7 +33,7 @@
                                     <div class="col-md-12">
                                       <div class="form-group form-float">
                                           <div class="form-line">
-                                              <textarea id = "vehicle_type_desc" name = "vehicle_type_desc" rows="1" class="form-control no-resize auto-growth"></textarea>
+                                              <textarea id = "vehicle_type_desc" name = "vehicle_type_desc" rows="4" class="form-control no-resize auto-growth"></textarea>
                                               <label class="form-label">Description </label>
                                           </div>
                                       </div>
@@ -92,7 +92,7 @@
                         </div><br/>
                         <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
                         onclick = "
-                        document.getElementById('view').action = 'types/update';
+                        document.getElementById('view').action = 'type/update';
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
@@ -105,12 +105,12 @@
                         </button>
                         <button id = "Delete" type="button" class="btn bg-red btn-lg waves-effect"
                         onclick = "
-                        document.getElementById('view').action = 'types/delete';
+                        document.getElementById('view').action = 'type/delete';
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
-                        $('#avehicle_type_name').prop('disabled', false);
-                        $('#avehicle_type_desc').prop('disabled', false);
+                        $('#avehicle_type_name').prop('disabled', true);
+                        $('#avehicle_type_desc').prop('disabled', true);
                         $('#schange').html('DELETE RECORD');
                         ">
                         <i class="material-icons">delete_sweep</i>
@@ -119,27 +119,27 @@
                         <div class="modal-body">
                             <form id="view" name = "view" method="POST">
                               <div class="row clearfix">
-                                                <div class="col-md-1">
-                                                   <label for="date_created"><small><small>Date Created</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <label for="last_update"><small><small>Last Update</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="col-md-1">
+                                   <label for="date_created"><small><small>Date Created</small></small></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="last_update"><small><small>Last Update</small></small></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="col-md-4" style = "display: none;">
                                   <input id = "id" type="text" class="form-control" name="id" pattern="[A-Za-z'-]">
@@ -157,7 +157,7 @@
                                       <div class="form-group form-float">
                                           <div class="form-line">
                                               <label><small>Description :</small></label>
-                                              <textarea id = "avehicle_type_desc" name = "avehicle_type_desc" rows="1" class="form-control no-resize auto-growth" disabled></textarea>
+                                              <textarea id = "avehicle_type_desc" name = "avehicle_type_desc" rows="4" class="form-control no-resize auto-growth" disabled></textarea>
                                           </div>
                                       </div>
                                     </div>
@@ -228,6 +228,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -238,36 +239,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                                data-id=""/>
-                                                <label for="pppp"></label></td>
-                                  <td>Typetype</td>
-                                  <td>asdasd</td>
-                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                    <span>View</span>
-                                                </button></td>
-                                </tr>
-                                <!-- COMMENT
                                     @foreach($typ as $type)
                                     @if($type->del_flag == 0)
                                     <tr>
                                       <td><input type="checkbox" id="{{ $type->vehicle_type_ID }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $type->vehicle_type_ID }}"/>
                                       <label for="{{ $type->vehicle_type_ID }}"></label></td>
-                                      <td>{{ $type->vehicle_type_name }}</td>
-                                      <td>{{ \Carbon\Carbon::parse($type->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($type->created_at)->format('l, h:i:s A').")" }}</td>
-                                      <td>{{ \Carbon\Carbon::parse($type->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($type->updated_at)->format('l, h:i:s A').")" }}</td>
+                                      <td>
+                                        {{ $type->vehicle_type_name }}
+                                      </td>
+                                      <td>
+                                        {{ $type->vehicle_type_desc}}
+                                      </td>
                                       <td>
                                       <div class="icon-button-demo">
-                                          <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
+                                          <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
                                           data-id = "{{ $type->vehicle_type_ID }}"
                                           data-name = "{{ $type->vehicle_type_name }}"
                                           data-desc = "{{ $type->vehicle_type_desc }}"
+
+                                          data-created = '{{ \Carbon\Carbon::parse($type->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($type->created_at)->format("l, h:i:s A").")" }}'
+
+                                          data-updated = '{{ \Carbon\Carbon::parse($type->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($type->updated_at)->format("l, h:i:s A").")" }}'
+
                                           onclick= "
+
                                           document.getElementById('id').value = $(this).data('id');
                                           document.getElementById('avehicle_type_name').value = $(this).data('name');
                                           document.getElementById('avehicle_type_desc').value = $(this).data('desc');
+
+                                          document.getElementById('date_created').value = $(this).data('created');
+                                          document.getElementById('last_update').value = $(this).data('updated'); 
                                           ">
                                               <i class="material-icons">remove_red_eye</i>
                                               <span>View</span>
@@ -277,9 +278,9 @@
                                     </tr>
                                     @endif
                                     @endforeach
-                                    -->
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -288,6 +289,7 @@
         </div>
     </section>
 
+@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -460,5 +462,5 @@
           });
 
     </script>
-
+@endpush
 @endsection

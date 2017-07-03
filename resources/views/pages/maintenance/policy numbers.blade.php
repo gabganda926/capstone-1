@@ -26,9 +26,11 @@
                                         <select id = "compdrop" name = "compdrop" class="form-control show-tick" data-live-search="true">
                                             <option value = "" style = "display:none;">-- Select Company --</option>
                                             @foreach($com as $company)
-                                            @if($company->del_flag == 0)
+                                             @if($company->del_flag == 0)
+                                              @if($company->company_type == 0)
                                                 <option value = "{{ $company->comp_ID }}">{{ $company->comp_name }}</option>
-                                            @endif
+                                              @endif
+                                             @endif
                                             @endforeach
                                         </select>
                                         <br/>
@@ -135,27 +137,27 @@
                         <div class="modal-body">
                             <form id="view" name = "view" method="POST">
                             <div class="row clearfix">
-                                                <div class="col-md-1">
-                                                   <label for="date_created"><small><small>Date Created</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <label for="last_update"><small><small>Last Update</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="col-md-1">
+                                   <label for="date_created"><small><small>Date Created</small></small></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="last_update"><small><small>Last Update</small></small></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="col-md-4" style = "display: none;">
                                   <input id = "pnid" type="text" class="form-control" name="pnid" pattern="[A-Za-z'-]">
@@ -263,6 +265,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -274,22 +277,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                  <tr>
-                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                                data-id=""/>
-                                                <label for="pppp"></label></td>
-                                  <td>MCAR-21343-00</td>
-                                  <td>FPG Insurance</td>
-                                  <td>Used</td>
-                                  
-                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                    <span>View</span>
-                                                </button></td>
-                                </tr>
-                                </tr>
-                                <!-- COMMENT AAAAAA
                                   @foreach($pnm as $pnumber)
                                     @if($pnumber->del_flag == 0)
                                       @foreach($com as $company)
@@ -309,20 +296,27 @@
                                                 @if($pnumber->policyStatus_ID == 2)
                                                   Used
                                                 @endif
-                                              </td>
-                                              <td>{{ \Carbon\Carbon::parse($pnumber->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($pnumber->created_at)->format('l, h:i:s A').")" }}</td>
-                                              <td>{{ \Carbon\Carbon::parse($pnumber->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($pnumber->updated_at)->format('l, h:i:s A').")" }}</td>
+                                              </td>                                              
                                               <td>
-                                              <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
+                                              <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
                                               data-pnum = "{{ $pnumber->policy_number }}"
                                               data-cmpid = "{{ $pnumber->insurance_compID }}"
                                               data-stat = "{{ $pnumber->policyStatus_ID }}"
+
+                                              data-created = '{{ \Carbon\Carbon::parse($pnumber->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($pnumber->created_at)->format("l, h:i:s A").")" }}'
+
+                                              data-updated = '{{ \Carbon\Carbon::parse($pnumber->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($pnumber->updated_at)->format("l, h:i:s A").")" }}'
+
                                               onclick= "
 
                                               document.getElementById('apnumbah').value = $(this).data('pnum');
                                               document.getElementById('pnid').value = $(this).data('pnum');
                                               $('#astatdrop').val($(this).data('stat')).change();
-                                              $('#acompdrop').val($(this).data('cmpid')).change();">
+                                              $('#acompdrop').val($(this).data('cmpid')).change();
+
+                                              document.getElementById('date_created').value = $(this).data('created');
+                                              document.getElementById('last_update').value = $(this).data('updated'); 
+                                              ">
 
                                               <i class="material-icons">remove_red_eye</i>
                                               <span>View</span>
@@ -332,9 +326,10 @@
                                         @endif
                                       @endforeach
                                     @endif
-                                  @endforeach -->
+                                  @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -343,6 +338,7 @@
         </div>
     </section>
 
+@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
@@ -521,4 +517,6 @@
           });
 
     </script>
+
+@endpush
 @endsection

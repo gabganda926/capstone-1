@@ -19,7 +19,7 @@
                             <h4><br/>CREATE NEW VEHICLE MODEL RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
-                            <form id="add" name = "add" action = "model/submit" method="POST">
+                            <form id="add" name = "add" action = "model/submit" method="POST" enctype="multipart/form-data">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="row clearfix">
                                         <div class="col-md-12">
@@ -32,22 +32,22 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div><br/>
+                                    </div>
                                 <div class="row clearfix">
                                     <div class="col-sm-6">
                                         <label><small>Vehicle Type :</small></label>
-                                            <select id = "make_name" name = "make_name" class="form-control show-tick" data-live-search="true" >
+                                            <select id = "vehicle_type" name = "vehicle_type" class="form-control show-tick" data-live-search="true" >
                                               <option selected value = "" style = "display: none;">-- Select Vehicle Type --</option>
-                                              @foreach($make as $mke)
-                                              @if($mke->del_flag == 0)
-                                                <option value = "{{ $mke->vehicle_make_ID }}">{{ $mke->vehicle_make_name }}</option>
+                                              @foreach($type as $vtype)
+                                              @if($vtype->del_flag == 0)
+                                                <option value = "{{ $vtype->vehicle_type_ID }}">{{ $vtype->vehicle_type_name }}</option>
                                               @endif
                                               @endforeach
                                             </select>
                                     </div>
                                     <div class="col-sm-6">
                                         <label><small>Vehicle Make :</small></label>
-                                            <select id = "make_name" name = "make_name" class="form-control show-tick" data-live-search="true" >
+                                            <select id = "vehicle_make" name = "vehicle_make" class="form-control show-tick" data-live-search="true" >
                                               <option selected value = "" style = "display: none;">-- Select Vehicle Make --</option>
                                               @foreach($make as $mke)
                                               @if($mke->del_flag == 0)
@@ -61,7 +61,7 @@
                                     <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "vehicle_model_name" name = "vehicle_model_name" type="text" class="form-control" pattern="[A-Za-z'-]" required>
+                                                    <input id = "vehicle_year" name = "vehicle_year" type="text" class="form-control" pattern="[A-Za-z'-]" required>
                                                     <label class="form-label">Vehicle Model Year</label>
                                                 </div>
                                             </div>
@@ -77,7 +77,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "vehicle_model_name" name = "vehicle_model_name" type="number" min="1" class="form-control" pattern="[A-Za-z'-]" required>
+                                                    <input id = "vehicle_value" name = "vehicle_value" type="number" min="1" class="form-control" pattern="[A-Za-z'-]" required>
                                                     <label class="form-label">Market Value (in PHP)</label>
                                                 </div>
                                             </div>
@@ -141,6 +141,8 @@
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
                         $('#avehicle_model_name').prop('disabled', false);
+                        $('#avehicle_year').prop('disabled', false);
+                        $('#avehicle_value').prop('disabled', false);
                         $('#schange').html('SAVE CHANGES');
                         ">
                         <i class="material-icons">create</i>
@@ -152,36 +154,38 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
-                        $('#avehicle_model_name').prop('disabled', false);
+                        $('#avehicle_model_name').prop('disabled', true);
+                        $('#avehicle_year').prop('disabled', true);
+                        $('#avehicle_value').prop('disabled', true);
                         $('#schange').html('DELETE RECORD');
                         ">
                         <i class="material-icons">delete_sweep</i>
                         <span>Delete</span>
                         </button>
                         <div class="modal-body">
-                            <form id="view" name = "view" method="POST">
+                            <form id="view" name = "view" method="POST" enctype="multipart/form-data">
                                 <div class="row clearfix">
-                                                <div class="col-md-1">
-                                                   <label for="date_created"><small><small>Date Created</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <label for="last_update"><small><small>Last Update</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="col-md-1">
+                                   <label for="date_created"><small><small>Date Created</small></small></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="last_update"><small><small>Last Update</small></small></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="col-md-4" style = "display: none;">
                                   <input id = "id" type="text" class="form-control" name="id" pattern="[A-Za-z'-]">
@@ -191,9 +195,9 @@
                                             <div>
                                                 <div class="body" align="center">
                                                     <div class="fallback">
-                                                        <img id="addImg" src="#" alt="your image" style="height: 210px; width: 215px; border-style: solid; border-width: 2px;">
+                                                        <img id="editImg" src="#" alt="your image" style="height: 210px; width: 215px; border-style: solid; border-width: 2px;">
                                                     </div><br/>
-                                                        <input id = "picture" name = "picture" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*">
+                                                        <input id = "apicture" name = "apicture" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*">
                                                 </div>
                                             </div>
                                         </div>
@@ -201,18 +205,18 @@
                                 <div class="row clearfix">
                                     <div class="col-sm-6">
                                         <label><small>Vehicle Type :</small></label>
-                                            <select id = "make_name" name = "make_name" class="form-control show-tick" data-live-search="true" >
+                                            <select id = "avehicle_type" name = "avehicle_type" class="form-control show-tick" data-live-search="true" >
                                               <option selected value = "" style = "display: none;">-- Select Vehicle Type --</option>
-                                              @foreach($make as $mke)
-                                              @if($mke->del_flag == 0)
-                                                <option value = "{{ $mke->vehicle_make_ID }}">{{ $mke->vehicle_make_name }}</option>
+                                              @foreach($type as $vtype)
+                                              @if($vtype->del_flag == 0)
+                                                <option value = "{{ $vtype->vehicle_type_ID }}">{{ $vtype->vehicle_type_name }}</option>
                                               @endif
                                               @endforeach
                                             </select>
                                     </div>
                                     <div class="col-sm-6">
                                         <label><small>Vehicle Make :</small></label>
-                                            <select id = "make_name" name = "make_name" class="form-control show-tick" data-live-search="true" >
+                                            <select id = "avehicle_make" name = "avehicle_make" class="form-control show-tick" data-live-search="true" >
                                               <option selected value = "" style = "display: none;">-- Select Vehicle Make --</option>
                                               @foreach($make as $mke)
                                               @if($mke->del_flag == 0)
@@ -227,7 +231,7 @@
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                             <label><small>Vehicle Model Year :</small></label>
-                                                <input id = "avehicle_model_name" name = "avehicle_model_name" type="text" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required>
+                                                <input id = "avehicle_year" name = "avehicle_year" type="text" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required>
                                             </div>
                                         </div>
                                     </div>
@@ -243,7 +247,7 @@
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                             <label><small>Market Value (in PHP) :</small></label>
-                                                <input id = "avehicle_model_name" name = "avehicle_model_name" type="number" min="1" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required>
+                                                <input id = "avehicle_value" name = "avehicle_value" type="number" min="1" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required>
                                             </div>
                                         </div>
                                     </div>
@@ -313,6 +317,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -327,22 +332,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                  <td><input type="checkbox" id="pppp" name = "del_check" class="filled-in chk-col-red checkCheckbox"
-                                                data-id=""/>
-                                                <label for="pppp"></label></td>
-                                  <td><img src="{!! '/image/'.'default-image.png' !!}" onerror="this.onerror=null;this.src='/image/default-image.png';" style="border:1px solid black;width:150px;height:150px;"></td>
-                                  <td>2007</td>
-                                  <td>MODELMODEL</td>
-                                  <td>MAKEMAKE</td>
-                                  <td>SUV</td>
-                                  <td>PHP 100,000.00</td>
-                                  <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
-                                                    <i class="material-icons">remove_red_eye</i>
-                                                    <span>View</span>
-                                                </button></td>
-                                </tr>
-                                <!-- COMMEEEENT
                                   @foreach($model as $mod)
                                   @if($mod->del_flag == 0)
                                   @foreach($make as $mke)
@@ -350,20 +339,43 @@
                                   <tr>
                                     <td><input type="checkbox" id="{{ $mod->vehicle_model_ID }}" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $mod->vehicle_model_ID }}"/>
                                     <label for="{{ $mod->vehicle_model_ID }}"></label></td>
+                                    <td><img src="{!! '/image/'.$mod->vehicle_picture !!}" onerror="this.onerror=null;this.src='/image/default-image.png';" style="border:1px solid black;width:150px;height:150px;"></td>
+                                    <td>{{ $mod->vehicle_year }}</td>
                                     <td>{{ $mod->vehicle_model_name }}</td>
                                     <td>{{ $mke->vehicle_make_name }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($mod->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mod->created_at)->format('l, h:i:s A').")" }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($mod->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($mod->updated_at)->format('l, h:i:s A').")" }}</td>
+                                    @foreach($type as $vtype)
+                                        @if($mod->vehicle_type == $vtype->vehicle_type_ID)
+                                            {{ $vtype->vehicle_type_name }}
+                                        @endif
+                                    @endforeach
+                                    <td>{{ $mod->type }}</td>
+                                    <td>{{ $mod->vehicle_value }}</td>
                                     <td>
                                     <div class="icon-button-demo">
-                                        <button type="button" class="btn bg-light-blue waves-effect" data-toggle="modal" data-target="#largeModal"
+                                        <button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
                                         data-id = "{{ $mod->vehicle_model_ID }}"
                                         data-name = "{{ $mod->vehicle_model_name  }}"
                                         data-make = "{{ $mod->vehicle_make_ID }}"
+                                        data-year = "{{ $mod->vehicle_year }}"
+                                        data-type = "{{ $mod->vehicle_type }}"
+                                        data-valu = "{{ $mod->vehicle_value }}"
+                                        data-source = '{!! "/image/".$mod->vehicle_picture !!}'
+
+                                        data-created = '{{ \Carbon\Carbon::parse($mod->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($mod->created_at)->format("l, h:i:s A").")" }}'
+
+                                        data-updated = '{{ \Carbon\Carbon::parse($mod->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($mod->updated_at)->format("l, h:i:s A").")" }}'
                                         onclick= "
+
+                                        $('#editImg').attr('src', $(this).data('source'));
                                         document.getElementById('id').value = $(this).data('id');
                                         document.getElementById('avehicle_model_name').value = $(this).data('name');
-                                        $('#amake_name').val($(this).data('make')).change();
+                                        document.getElementById('avehicle_year').value = $(this).data('year');
+                                        document.getElementById('avehicle_value').value = $(this).data('valu');
+                                        $('#avehicle_type').val($(this).data('type')).change();
+                                        $('#avehicle_make').val($(this).data('make')).change();
+
+                                        document.getElementById('date_created').value = $(this).data('created');
+                                        document.getElementById('last_update').value = $(this).data('updated'); 
                                         ">
                                             <i class="material-icons">remove_red_eye</i>
                                             <span>View</span>
@@ -375,15 +387,15 @@
                                   @endforeach
                                   @endif
                                   @endforeach
-                                  -->
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-
+@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -507,6 +519,38 @@
             }
             return i;
         }
+          
+        function areadURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#addImg').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#picture").change(function(){
+            areadURL(this);
+        });
+
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#editImg').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#apicture").change(function(){
+            readURL(this);
+        });
 
         function formatDate(date)
         {
@@ -555,5 +599,5 @@
               });
           });
     </script>
-
+@endpush
 @endsection

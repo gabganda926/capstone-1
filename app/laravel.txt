@@ -1,0 +1,15 @@
+app - models, controllers, logic
+bootstrap - bootstrap
+config - config for diff packages, laravel settings
+database - migrations, seeds
+public - assets
+resources - views
+routes - routes
+storage - logs
+tests - php unit test
+vendor - 3rd party vendor libraries
+composer.json - library files
+
+
+CONTROLLERS
+MODELS - para ma-connect ung db sa laravel (as reference)

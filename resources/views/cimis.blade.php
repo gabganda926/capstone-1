@@ -14,37 +14,37 @@
             <!-- Widgets -->
             <div class="row clearfix">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="info-box-4 hover-zoom-effect animated bounceInDown active" onclick="window.document.location='/admin/transaction/adm/insurance';" style="cursor: pointer;">
+                    <div class="info-box-4 hover-zoom-effect animated bounceInDown active" onclick="window.document.location='/admin/maintenance/client/individual';" style="cursor: pointer;">
                         <div class="icon">
-                            <i class="material-icons col-red">account_box</i>
+                            <i class="material-icons col-red">account_circle</i>
                         </div>
                         <div class="content">
-                            <div class="text">ACTIVE INSURANCE ACCOUNTS</div>
-                            <div class="number count-to" data-from="0" data-to="129" data-speed="15" data-fresh-interval="20"></div>
+                            <div class="text">TOTAL INDIVIDUAL CLIENTS</div>
+                            <div class="number count-to" data-from="0" data-to="129" data-speed="15" data-fresh-interval="20">100</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="info-box-4 hover-zoom-effect animated bounceInDown" onclick="window.document.location='/admin/transaction/adm/claim-request';" style="cursor: pointer;">
+                    <div class="info-box-4 hover-zoom-effect animated bounceInDown" onclick="window.document.location='/admin/maintenance/client/company';" style="cursor: pointer;">
                         <div class="icon">
-                            <i class="material-icons col-red">new_releases</i>
+                            <i class="material-icons col-red">location_city</i>
                         </div>
                         <div class="content">
-                            <div class="text">CLAIMS REQUESTS</div>
-                            <div class="number count-to" data-from="0" data-to="15" data-speed="15" data-fresh-interval="20"></div>
+                            <div class="text">TOTAL COMPANY CLIENTS</div>
+                            <div class="number count-to" data-from="0" data-to="15" data-speed="15" data-fresh-interval="20">200</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="info-box-4 hover-zoom-effect animated bounceInDown" onclick="window.document.location='/admin/transaction/adm/complaint';" style="cursor: pointer;">
+                    <div class="info-box-4 hover-zoom-effect animated bounceInDown" onclick="window.document.location='/admin/maintenance/salesagent';" style="cursor: pointer;">
                         <div class="icon">
-                            <i class="material-icons col-red">av_timer</i>
+                            <i class="material-icons col-red">group</i>
                         </div>
                         <div class="content">
-                            <div class="text">PENDING COMPLAINTS</div>
-                            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                            <div class="text">TOTAL ACTIVE SALES AGENTS</div>
+                            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">233</div>
                         </div>
                     </div>
                 </div>
