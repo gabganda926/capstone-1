@@ -33,7 +33,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group form-float">
                                             <div class="form-line">
-                                                <textarea rows="4" id = "vehicle_make_desc" name = "vehicle_make_desc" type="text" class="form-control" pattern="[A-Za-z'-]" required></textarea>
+                                                <textarea rows="4" id = "vehicle_make_desc" name = "vehicle_make_desc" type="text" class="form-control" pattern="[A-Za-z'-]"></textarea>
                                                 <label class="form-label">Description</label>
                                             </div>
                                         </div>
@@ -73,7 +73,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addVModModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addVModModal" onclick="
+                            $('#add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -95,9 +97,16 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
-                        $('#avehicle_make_name').prop('disabled', false);
-                        $('#avehicle_make_desc').prop('disabled', false);
+                        $('#avehicle_make_name').prop('readonly', false);
+                        $('#avehicle_make_desc').prop('readonly', false);
                         $('#schange').html('SAVE CHANGES');
+                          $( '#avehicle_make_name' ).focus();
+                          swal({
+                          title: 'You can now edit the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -108,9 +117,16 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
-                        $('#avehicle_make_name').prop('disabled', true);
-                        $('#avehicle_make_desc').prop('disabled', true);
+                        $('#avehicle_make_name').prop('readonly', true);
+                        $('#avehicle_make_desc').prop('readonly', true);
                         $('#schange').html('DELETE RECORD');
+                          $( '#schange' ).focus();
+                          swal({
+                          title: 'You can now delete the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                         <i class="material-icons">delete_sweep</i>
                         <span>Delete</span>
@@ -126,7 +142,7 @@
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                             <label><small>Vehicle Make Name :</small></label>
-                                                <input id = "avehicle_make_name" name = "avehicle_make_name" type="text" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required>
+                                                <input id = "avehicle_make_name" name = "avehicle_make_name" type="text" class="form-control" pattern="[A-Za-z'-]" readonly="true" required>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +150,7 @@
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                             <label><small>Description :</small></label>
-                                                <textarea rows="4" id = "avehicle_make_desc" name = "avehicle_make_desc" type="text" class="form-control" pattern="[A-Za-z'-]" disabled="disable" required></textarea>
+                                                <textarea rows="4" id = "avehicle_make_desc" name = "avehicle_make_desc" type="text" class="form-control" pattern="[A-Za-z'-]" readonly="true"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +188,12 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            $('#avehicle_make_name').prop('readonly', true);
+                            $('#avehicle_make_desc').prop('readonly', true);">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -234,7 +255,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addVModModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addVModModal" onclick="
+                                $('#addbtn').hide();">
                                     <i class="material-icons">add_circle_outline</i>
                                     <span>Add Vehicle Make</span>
                                 </button>
@@ -249,6 +271,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -309,13 +332,13 @@
                                   @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- #END# Exportable Table -->
 
-@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -482,7 +505,7 @@
                   }
               });
           });
+
     </script>
-@endpush
 
 @endsection

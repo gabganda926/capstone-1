@@ -312,7 +312,9 @@
                                         }
                                       });
                                     }">SUBMIT</button>
-                                    <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addBankModal">CLOSE</button>
+                                    <button id = "close" type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addBankModal" onclick="
+                                    $('#bank_add')[0].reset();
+                                    $('#addbtn').show();">CLOSE</button>
                                 </div>
                                 </form>
                             </div>
@@ -334,6 +336,9 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
+                        $('#apicture').show();
+                        document.getElementById('apinfo_gender').disabled=false;
+                        document.getElementById('aadd_region').disabled=false;
                         $('#aadd_blcknum').prop('readonly', false);
                         $('#aadd_street').prop('readonly', false);
                         $('#aadd_subdivision').prop('readonly', false);
@@ -351,10 +356,6 @@
                         $('#apinfo_tpnum').prop('readonly', false);
                         $('#apinfo_bday').prop('readonly', false);
                         $('#apinfo_gender').prop('readonly', false);
-                        $('#acomp_name').prop('readonly', false);
-                        $('#acomp_telnum').prop('readonly', false);
-                        $('#acomp_faxnum').prop('readonly', false);
-                        $('#acomp_email').prop('readonly', false);
                         $('#apicture').prop('disabled', false);
                         $('#abank_name').prop('readonly', false);
                         $('#abank_name_alt').prop('readonly', false);
@@ -362,6 +363,13 @@
                         $('#abank_faxnum').prop('readonly', false);
                         $('#abank_mail').prop('readonly', false);
                         $('#schange').html('SAVE CHANGES');
+                        $( '#abank_name' ).focus();
+                        swal({
+                        title: 'You can now edit the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -372,6 +380,9 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
+                        $('#apicture').hide();
+                        document.getElementById('apinfo_gender').disabled=true;
+                        document.getElementById('aadd_region').disabled=true;
                         $('#aadd_blcknum').prop('readonly', true);
                         $('#aadd_street').prop('readonly', true);
                         $('#aadd_subdivision').prop('readonly', true);
@@ -395,6 +406,13 @@
                         $('#abank_faxnum').prop('readonly', true);
                         $('#abank_mail').prop('readonly', true);
                         $('#schange').html('DELETE RECORD');
+                        $( '#schange' ).focus();
+                        swal({
+                        title: 'You can now delete the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                             <i class="material-icons">delete_sweep</i>
                             <span>Delete</span>
@@ -731,7 +749,35 @@
                             });
                           }">SAVE CHANGES</button>
 
-                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick = "
+                        $('#Edit').prop('disabled', false);
+                        $('#Delete').prop('disabled', false);
+                        $('#schange').hide();
+                        $('#apicture').hide();
+                        document.getElementById('apinfo_gender').disabled=true;
+                        document.getElementById('aadd_region').disabled=true;
+                        $('#aadd_blcknum').prop('readonly', true);
+                        $('#aadd_street').prop('readonly', true);
+                        $('#aadd_subdivision').prop('readonly', true);
+                        $('#aadd_brngy').prop('readonly', true);
+                        $('#aadd_district').prop('readonly', true);
+                        $('#aadd_city').prop('readonly', true);
+                        $('#aadd_province').prop('readonly', true);
+                        $('#aadd_zipcode').prop('readonly', true);
+                        $('#acPerson_first_name').prop('readonly', true);
+                        $('#acPerson_middle_name').prop('readonly', true);
+                        $('#acPerson_last_name').prop('readonly', true);
+                        $('#apinfo_mail').prop('readonly', true);
+                        $('#apinfo_cpnum_1').prop('readonly', true);
+                        $('#apinfo_cpnum_2').prop('readonly', true);
+                        $('#apinfo_tpnum').prop('readonly', true);
+                        $('#apinfo_bday').prop('readonly', true);
+                        $('#apinfo_gender').prop('readonly', true);
+                        $('#abank_name').prop('readonly', true);
+                        $('#abank_name_alt').prop('readonly', true);
+                        $('#abank_telnum').prop('readonly', true);
+                        $('#abank_faxnum').prop('readonly', true);
+                        $('#abank_mail').prop('readonly', true);">CLOSE</button>
                         </div>
                       </form>
                     </div>
@@ -749,7 +795,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addBankModal">
+                                <button id = "addbtn" form = "bank_add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addBankModal" onclick="
+                                    $('#addbtn').hide();">
                                     <i class="material-icons">business_center</i>
                                     <span>Add Bank</span>
                                 </button>
@@ -836,7 +883,7 @@
 
                                                 @foreach($add as $addata)
                                                   @if($addata->add_ID == $bnk->bank_add_ID)
-                                                  {{ $addata->add_region }}
+                                                  {{ 'Region '.$addata->add_region }}
                                                   @endif
                                                 @endforeach
                                                 </td>
@@ -875,7 +922,9 @@
                                                   @if($cperson->cPerson_ID == $bnk->bank_cperson_ID)
                                                    @foreach($pInfo as $Info)
                                                     @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                                      <li>{{ $Info->pinfo_cpnum_1 }}</li>
+                                                     @if($Info->pinfo_cpnum_1 != null)
+                                                      <li> {{ $Info->pinfo_cpnum_1 }} </li>
+                                                     @endif
                                                     @endif
                                                    @endforeach
                                                   @endif
@@ -884,7 +933,9 @@
                                                   @if($cperson->cPerson_ID == $bnk->bank_cperson_ID)
                                                    @foreach($pInfo as $Info)
                                                     @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                                     @if($Info->pinfo_cpnum_2 != null)
                                                       <li>{{ $Info->pinfo_cpnum_2 }}</li>
+                                                     @endif
                                                     @endif
                                                    @endforeach
                                                   @endif
@@ -893,7 +944,9 @@
                                                   @if($cperson->cPerson_ID == $bnk->bank_cperson_ID)
                                                    @foreach($pInfo as $Info)
                                                     @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                                     @if($Info->pinfo_tpnum != null)
                                                       <li>{{ $Info->pinfo_tpnum }}</li>
+                                                     @endif
                                                     @endif
                                                    @endforeach
                                                   @endif
@@ -902,7 +955,9 @@
                                                   @if($cperson->cPerson_ID == $bnk->bank_cperson_ID)
                                                    @foreach($pInfo as $Info)
                                                     @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                                     @if($Info->pinfo_mail != null)
                                                       <li>{{ $Info->pinfo_mail }}</li>
+                                                     @endif
                                                     @endif
                                                    @endforeach
                                                   @endif
@@ -1042,6 +1097,9 @@
                                                 @endforeach'
 
                                                 onclick = "
+                                                document.getElementById('apinfo_gender').disabled=true;
+                                                document.getElementById('aadd_region').disabled=true;
+
                                                 var lnum = $(this).data('lnumb').replace(/^\s+|\s+$/g, '');
                                                 var strt = $(this).data('strt').replace(/^\s+|\s+$/g, '');
                                                 var divi = $(this).data('sdiv').replace(/^\s+|\s+$/g, '');
@@ -1138,8 +1196,50 @@
         </div>
     </section>
 
-@push('scripts')
             <script>
+                        $.validator.addMethod("minAge", function(value, element) {
+                            var curDate = new Date();
+                            var inputDate = new Date(value);
+                            var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                            if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                            {      
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                                if((curDate.getDate()) >= inputDate.getDate())
+                                {
+                                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                                }
+                            }
+                            else
+                            {
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                            }
+                            if (age >= 18)
+                                return true;
+                            return false;
+                        }, "Age Limit is 18."); 
+                        $.validator.addMethod("maxAge", function(value, element) {
+                            var curDate = new Date();
+                            var inputDate = new Date(value);
+                            var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                            if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                            {      
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                                if((curDate.getDate()) >= inputDate.getDate())
+                                {
+                                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                                }
+                            }
+                            else
+                            {
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                            }
+                            if (age <= 130)
+                                return true;
+                            return false;
+                        }, "Maximum age is 130."); 
+                        $.validator.addMethod("cpValidator", function(value, element) {
+                            return this.optional(element) || /^((\+63)|0)\d{10}$/i.test(value);
+                         }, "Invalid Cellphone Format");
                         $.validator.addMethod("alphanumeric", function(value, element) {
                             return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
                          }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
@@ -1178,7 +1278,8 @@
                                   bank_telnum:
                                   {
                                     required: true,
-                                    maxlength: 11
+                                    minlength: 7,
+                                    maxlength: 7
                                   },
                                   bank_faxnum:
                                   {
@@ -1204,15 +1305,17 @@
                                   pinfo_cpnum_1:
                                   {
                                     required: true,
-                                    digits: true,
-                                    minlength: 7,
-                                    maxlength: 11
+                                    cpValidator: true
                                   },
                                   pinfo_cpnum_2:
                                   {
+                                    cpValidator: true
+                                  },
+                                  pinfo_tpnum:
+                                  {
                                     digits: true,
                                     minlength: 7,
-                                    maxlength: 11
+                                    maxlength: 7
                                   },
                                   pinfo_mail:
                                   {
@@ -1223,6 +1326,8 @@
                                   pinfo_bday:
                                   {
                                     required: true,
+                                    maxAge: true,
+                                    minAge: true
                                   },
                                   pinfo_gender:
                                   {
@@ -1315,7 +1420,8 @@
                                   abank_telnum:
                                   {
                                     required: true,
-                                    maxlength: 11
+                                    minlength: 7,
+                                    maxlength: 7
                                   },
                                   abank_faxnum:
                                   {
@@ -1341,15 +1447,29 @@
                                   apinfo_cpnum_1:
                                   {
                                     required: true,
+                                    cpValidator: true
+                                  },
+                                  apinfo_cpnum_2:
+                                  {
+                                    cpValidator: true
+                                  },
+                                  apinfo_tpnum:
+                                  {
                                     digits: true,
                                     minlength: 7,
-                                    maxlength: 11
+                                    maxlength: 7
                                   },
                                   apinfo_mail:
                                   {
                                     required: true,
                                     email: true,
                                     maxlength: 50
+                                  },
+                                  apinfo_bday:
+                                  {
+                                    required: true,
+                                    maxAge: true,
+                                    minAge: true
                                   },
                                   aadd_blcknum:
                                   {
@@ -1403,7 +1523,8 @@
                                 messages: {
                                     apinfo_bday:
                                     {
-                                       required: "Empty or Invalid Date."
+                                       required: "Empty or Invalid Date.",
+                                       max: "Age Limits Exceeded."
                                     }
                                 },
                                 // Make sure the form is submitted to the destination defined
@@ -1416,31 +1537,35 @@
             </script>
 
             <script>
+            function CheckValidation(){
+                var frmvalid = $("#bank_add").valid();
+                if (!frmvalid) {
+                    return false;
+                }
+            }
+                $('#apicture').hide();  
                 $('#pinfo_bday').on('change textInput input', function () {
-                var bday = document.getElementById("pinfo_bday").value.split('-');
-                var today = new Date();
-                if(bday[0] != 0)
-                {
-                    if((today.getMonth() + 1) <= bday[1])
+                    var bday = document.getElementById("pinfo_bday").value.split('-');
+                    var today = new Date();
+                    if(bday[0] != 0)
                     {
-                      if((today.getDate()) < bday[2])
-                        {
-                            document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
+                        if((today.getMonth() + 1) >= bday[1])
+                        {      
+                          document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
+                            if((today.getDate()) >= bday[2])
+                            {
+                                document.getElementById("age").value = today.getFullYear() - bday[0];
+                            }
                         }
-                      else
+                        else
                         {
-                            document.getElementById("age").value = today.getFullYear() - bday[0];
+                          document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
                         }
                     }
                     else
                     {
-                      document.getElementById("age").value = today.getFullYear() - bday[0];
+                        document.getElementById("age").value = "Invalid Input";
                     }
-                }
-                else
-                {
-                    document.getElementById("age").value = "Invalid Input";
-                }
                 });
 
                 function areadURL(input) {
@@ -1599,7 +1724,6 @@
                   });
 
             </script>
-@endpush
         </body>
 
         </html>

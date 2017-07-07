@@ -34,7 +34,7 @@
                                     <div class="col-md-12">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <textarea id = "emp_role_desc" name = "emp_role_desc" type="text" rows="4" class="form-control"></textarea>
+                                                    <textarea rows="4" id = "emp_role_desc" name = "emp_role_desc" type="text" class="form-control"></textarea>
                                                     <label class="form-label">Description </label>
                                                 </div>
                                             </div>
@@ -76,7 +76,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addModal" onclick="
+                            $('#add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -101,6 +103,13 @@
                         $('#aemp_role_Name').prop('disabled', false);
                         $('#aemp_role_desc').prop('disabled', false);
                         $('#schange').html('SAVE CHANGES');
+                        $( '#aemp_role_Name' ).focus();
+                        swal({
+                        title: 'You can now edit the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -114,6 +123,13 @@
                         $('#aemp_role_Name').prop('disabled', true);
                         $('#aemp_role_desc').prop('disabled', true);
                         $('#schange').html('DELETE RECORD');
+                        swal({
+                        title: 'You can now delete the record',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
+                        $( '#schange' ).focus();
                         ">
                         <i class="material-icons">delete_sweep</i>
                         <span>Delete</span>
@@ -157,7 +173,7 @@
                                             <div class="form-group form-float">
                                                 <div class="form-line">
                                                 <label><small>Description :</small></label>
-                                                    <textarea id = "aemp_role_desc" name = "aemp_role_desc" type="text" rows="4" class="form-control" disabled="disable"></textarea>
+                                                    <textarea rows="4" id = "aemp_role_desc" name = "aemp_role_desc" type="text" class="form-control" disabled="disable"></textarea>
                                                 </div>
                                             </div>
                                     </div>
@@ -195,7 +211,13 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            $('#aemp_role_Name').prop('disabled', true);
+                            $('#aemp_role_desc').prop('disabled', true);
+                            ">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -214,7 +236,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                 <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addModal" onclick="
+                                $('#addbtn').hide();">
                                     <i class="material-icons">group_add</i>
                                     <span>Add Employee Role</span>
                                 </button>
@@ -229,6 +252,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover dataTable js-basic-example animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -243,8 +267,8 @@
                                   @foreach($role as $emprole)
                                    @if($emprole->del_flag == 0)
                                       <tr>
-                                          <td><input type="checkbox" id="{{ $emprole->jobtitle_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $emprole->jobtitle_ID }}"/>
-                                          <label for="{{ $emprole->jobtitle_ID }}"></label></td>
+                                          <td><input type="checkbox" id="{{ $emprole->emp_role_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $emprole->emp_role_ID }}"/>
+                                          <label for="{{ $emprole->emp_role_ID }}"></label></td>
                                           <td>{{ $emprole->emp_role_Name }}</td>
                                           <td>{{ $emprole->emp_role_desc }}</td>
                                           <td><div class="icon-button-demo">
@@ -289,6 +313,7 @@
                                   @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -343,9 +368,8 @@
             </div>
             <!-- #END# VIEW INST MODAL -->
     </section>
-    
-@push('scripts')
-    <script type="text/javascript" src="../../../../public/js/scripts/">
+
+    <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
              }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
@@ -408,7 +432,6 @@
     </script>
 
     <script>
-
         $(document).ready(function()
         {
           $('add').validate();
@@ -508,7 +531,7 @@
               $.ajax({
 
                   type: 'POST',
-                  url: '/admin/maintenance/job/title/ardelete',
+                  url: '/admin/maintenance/employee/role/ardelete',
                   data: {asd:IDS, time:timenow},
                   success:function(xhr){
                       console.log('success');
@@ -523,6 +546,5 @@
           });
 
     </script>
-    @endpush
 
     @endsection

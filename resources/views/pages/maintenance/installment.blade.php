@@ -78,7 +78,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addInstModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addInstModal" onclick="
+                            $('#add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -103,6 +105,13 @@
                           $('#ainstallment_type').prop('disabled', false);
                           $('#ainstallment_desc').prop('disabled', false);
                           $('#schange').html('SAVE CHANGES');
+                          $( '#ainstallment_type' ).focus();
+                          swal({
+                          title: 'You can now edit the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                           ">
                           <i class="material-icons">create</i>
                           <span>Edit</span>
@@ -116,6 +125,13 @@
                           $('#ainstallment_type').prop('disabled', true);
                           $('#ainstallment_desc').prop('disabled', true);
                           $('#schange').html('DELETE RECORD');
+                          $( '#schange' ).focus();
+                          swal({
+                          title: 'You can now delete the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                           ">
                           <i class="material-icons">delete_sweep</i>
                           <span>Delete</span>
@@ -123,27 +139,27 @@
                         <div class="modal-body">
                             <form id="view" name = "view" method="POST">
                             <div class="row clearfix">
-                                                <div class="col-md-1">
-                                                   <label for="date_created"><small><small>Date Created</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <label for="last_update"><small><small>Last Update</small></small></label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="col-md-1">
+                                   <label for="date_created"><small><small>Date Created</small></small></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="date_created" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="last_update"><small><small>Last Update</small></small></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <small><input type="text" id="last_update" class="form-control" readonly="true"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                               <div class="col-md-4" style = "display: none;">
                                 <input id = "instid" type="text" class="form-control" name="instid" pattern="[A-Za-z'-]">
@@ -203,7 +219,13 @@
                               }
                             });
                           }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            $('#ainstallment_type').prop('disabled', true);
+                            $('#ainstallment_desc').prop('disabled', true);
+                            ">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -222,7 +244,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addInstModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addInstModal" onclick="
+                                $('#addbtn').hide();">
                                     <i class="material-icons">playlist_add</i>
                                     <span>Add Installment Type</span>
                                 </button>
@@ -262,11 +285,19 @@
                                           data-id = "{{ $install->installment_ID }}"
                                           data-type = "{{ $install->installment_type }}"
                                           data-desc = "{{ $install->installment_desc }}"
+
+                                          data-created = '{{ \Carbon\Carbon::parse($install->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($install->created_at)->format("l, h:i:s A").")" }}'
+
+                                          data-updated = '{{ \Carbon\Carbon::parse($install->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($install->updated_at)->format("l, h:i:s A").")" }}'
+
                                           onclick= "
 
                                           document.getElementById('instid').value = $(this).data('id');
                                           document.getElementById('ainstallment_type').value = $(this).data('type');
                                           document.getElementById('ainstallment_desc').value = $(this).data('desc');
+
+                                          document.getElementById('date_created').value = $(this).data('created');
+                                          document.getElementById('last_update').value = $(this).data('updated'); 
 
                                           document.getElementById('ainstallment_type').focus();
                                           document.getElementById('ainstallment_desc').focus();">
@@ -288,7 +319,7 @@
 
         </div>
     </section>
-@push('scripts')
+
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -317,6 +348,7 @@
                     maxlength: 50
                   },
                   installment_desc:{
+                    required: true,
                     max: 12
                   }
                 },
@@ -339,6 +371,7 @@
                     maxlength: 50
                   },
                   ainstallment_desc:{
+                    required: true,
                     max: 12
                   }
                 },
@@ -448,7 +481,7 @@
               $.ajax({
 
                   type: 'POST',
-                  url: '/admin/maintenance/installment/type/ardelete',
+                  url: '/admin/maintenance/installment/ardelete',
                   data: {asd:IDS, time:timenow},
                   success:function(xhr){
                       console.log('success');
@@ -463,5 +496,5 @@
           });
 
     </script>
-@endpush
+
 @endsection

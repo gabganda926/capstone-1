@@ -78,7 +78,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCTypeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCTypeModal" onclick="
+                            $('#add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -102,6 +104,13 @@
                         $('#aclientType_type').prop('disabled', false);
                         $('#aclientType_desc').prop('disabled', false);
                         $('#schange').html('SAVE CHANGES');
+                        $( '#aclientType_type' ).focus();
+                        swal({
+                        title: 'You can now edit the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -115,6 +124,13 @@
                         $('#aclientType_type').prop('disabled', false);
                         $('#aclientType_desc').prop('disabled', false);
                         $('#schange').html('DELETE RECORD');
+                        $( '#schange' ).focus();
+                        swal({
+                        title: 'You can now delete the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                         <i class="material-icons">delete_sweep</i>
                         <span>Delete</span>
@@ -202,7 +218,12 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                        $('#Edit').prop('disabled', false);
+                        $('#Delete').prop('disabled', false);
+                        $('#schange').hide();
+                        $('#aclientType_type').prop('disabled', false);
+                        $('#aclientType_desc').prop('disabled', false);">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -220,7 +241,7 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCTypeModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCTypeModal" onclick = "$(this).hide();">
                                     <i class="material-icons">contacts</i>
                                     <span>Add Complaint Type</span>
                                 </button>
@@ -291,7 +312,6 @@
         </div>
     </section>
 
-@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
@@ -465,5 +485,4 @@
           });
 
     </script>
-@endpush
 @endsection

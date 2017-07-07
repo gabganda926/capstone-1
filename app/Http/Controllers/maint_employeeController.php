@@ -186,14 +186,7 @@ class maint_employeeController extends Controller
         $this->employee->personal_info_ID = (int)$latestidpinfo->pinfo_ID;
         $this->employee->emp_role_ID = $req->emp_role;
         $mytime = $req->time;
-        if( $req->has('allow_sale')) 
-        {
-          $this->employee->emp_sales = 1;
-        }
-        else
-        {
-          $this->employee->emp_sales = 0;
-        }
+        $this->employee->emp_sales = $req->aallow_selected;
         $this->employee->emp_role_ID = $req->emp_role;
         $this->employee->created_at = $mytime;
         $this->employee->updated_at = $mytime;
@@ -427,14 +420,7 @@ class maint_employeeController extends Controller
     {
         $employee = employeeConnection::where('emp_ID', '=', $req->aemp_id)->first();
 
-        if($req->has('aallow_sale')) 
-        {
-          $employee->emp_sales = 1;
-        }
-        else
-        {
-          $employee->emp_sales = 0;
-        }
+        $employee->emp_sales = $req->aallow_selected;
         $employee->emp_role_ID = $req->aemp_role;
 
         $mytime = $req->atime;

@@ -118,7 +118,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addVModModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addVModModal" onclick="
+                            $('#add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -140,10 +142,20 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
+                        $('#apicture').show();
+                        document.getElementById('avehicle_type').disabled=false;
+                        document.getElementById('avehicle_make').disabled=false;
                         $('#avehicle_model_name').prop('disabled', false);
                         $('#avehicle_year').prop('disabled', false);
                         $('#avehicle_value').prop('disabled', false);
                         $('#schange').html('SAVE CHANGES');
+                          $( '#avehicle_model_name' ).focus();
+                          swal({
+                          title: 'You can now edit the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -154,10 +166,20 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
+                        $('#apicture').hide();
+                        document.getElementById('avehicle_type').disabled=true;
+                        document.getElementById('avehicle_make').disabled=true;
                         $('#avehicle_model_name').prop('disabled', true);
                         $('#avehicle_year').prop('disabled', true);
                         $('#avehicle_value').prop('disabled', true);
                         $('#schange').html('DELETE RECORD');
+                          $( '#schange' ).focus();
+                          swal({
+                          title: 'You can now delete the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                         <i class="material-icons">delete_sweep</i>
                         <span>Delete</span>
@@ -285,7 +307,16 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            $('#apicture').hide();
+                            document.getElementById('avehicle_type').disabled=true;
+                            document.getElementById('avehicle_make').disabled=true;
+                            $('#avehicle_model_name').prop('disabled', true);
+                            $('#avehicle_year').prop('disabled', true);
+                            $('#avehicle_value').prop('disabled', true);">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -302,7 +333,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addVModModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addVModModal" onclick="
+                                $('#addbtn').hide();">
                                     <i class="material-icons">add_circle_outline</i>
                                     <span>Add Vehicle Model</span>
                                 </button>
@@ -343,12 +375,13 @@
                                     <td>{{ $mod->vehicle_year }}</td>
                                     <td>{{ $mod->vehicle_model_name }}</td>
                                     <td>{{ $mke->vehicle_make_name }}</td>
+                                    <td>
                                     @foreach($type as $vtype)
                                         @if($mod->vehicle_type == $vtype->vehicle_type_ID)
                                             {{ $vtype->vehicle_type_name }}
                                         @endif
                                     @endforeach
-                                    <td>{{ $mod->type }}</td>
+                                    </td>
                                     <td>{{ $mod->vehicle_value }}</td>
                                     <td>
                                     <div class="icon-button-demo">
@@ -365,6 +398,8 @@
 
                                         data-updated = '{{ \Carbon\Carbon::parse($mod->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($mod->updated_at)->format("l, h:i:s A").")" }}'
                                         onclick= "
+                                        document.getElementById('avehicle_type').disabled=true;
+                                        document.getElementById('avehicle_make').disabled=true;
 
                                         $('#editImg').attr('src', $(this).data('source'));
                                         document.getElementById('id').value = $(this).data('id');
@@ -395,8 +430,13 @@
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-@push('scripts')
+
     <script>
+            $.validator.addMethod("minValue", function(value, element) {
+                if(value >= 100000)
+                    return true;
+                return false;
+             }, "Minimum Value is 100,000.");
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
              }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
@@ -422,6 +462,16 @@
                     required: true,
                     blcknumber: true,
                     maxlength: 20
+                  },
+                  vehicle_year:{
+                    required: true,
+                    digits: true,
+                    minlength: 4,
+                    maxlength: 4
+                  },
+                  vehicle_value:{
+                    required: true,
+                    minValue: true
                   },
                   make_name:{
                     required: true
@@ -459,6 +509,7 @@
     </script>
 
     <script>
+        $('#apicture').hide();          
         $(document).ready(function()
         {
           $('add').validate();
@@ -599,5 +650,5 @@
               });
           });
     </script>
-@endpush
+
 @endsection

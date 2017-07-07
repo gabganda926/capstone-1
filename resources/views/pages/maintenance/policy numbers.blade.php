@@ -94,7 +94,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addInstModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addInstModal" onclick="
+                            $('#add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -116,8 +118,17 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
-                        $('#apnumbah').prop('disabled', false);
+                        document.getElementById('astatdrop').disabled=false;
+                        document.getElementById('acompdrop').disabled=false;
+                        $('#apnumbah').prop('readonly', false);
                         $('#schange').html('SAVE CHANGES');
+                          $( '#apnumbah' ).focus();
+                          swal({
+                          title: 'You can now edit the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -128,8 +139,17 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
-                        $('#apnumbah').prop('disabled', true);
+                        document.getElementById('astatdrop').disabled=true;
+                        document.getElementById('acompdrop').disabled=true;
+                        $('#apnumbah').prop('readonly', true);
                         $('#schange').html('DELETE RECORD');
+                          $( '#schange' ).focus();
+                          swal({
+                          title: 'You can now delete the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                         <i class="material-icons">delete_sweep</i>
                         <span>Delete</span>
@@ -183,7 +203,7 @@
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                             <label><small>Policy Number :</small></label>
-                                                <input id = "apnumbah" name = "apnumbah" type="text" class="form-control" pattern="[A-Za-z'-]"  disabled="disable" required>
+                                                <input id = "apnumbah" name = "apnumbah" type="text" class="form-control" pattern="[A-Za-z'-]" readonly=" true" required>
                                             </div>
                                         </div>
                                     </div>
@@ -232,7 +252,13 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            document.getElementById('astatdrop').disabled=true;
+                            document.getElementById('acompdrop').disabled=true;
+                            $('#apnumbah').prop('readonly', true);">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -250,7 +276,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addInstModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addInstModal" onclick="
+                                $('#addbtn').hide();">
                                     <i class="material-icons">library_add</i>
                                     <span>Add Policy Number</span>
                                 </button>
@@ -308,6 +335,8 @@
                                               data-updated = '{{ \Carbon\Carbon::parse($pnumber->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($pnumber->updated_at)->format("l, h:i:s A").")" }}'
 
                                               onclick= "
+                                             document.getElementById('astatdrop').disabled=true;
+                                             document.getElementById('acompdrop').disabled=true;
 
                                               document.getElementById('apnumbah').value = $(this).data('pnum');
                                               document.getElementById('pnid').value = $(this).data('pnum');
@@ -338,7 +367,6 @@
         </div>
     </section>
 
-@push('scripts')
     <script>
             $.validator.addMethod("alphanumeric", function(value, element) {
                 return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
@@ -517,6 +545,4 @@
           });
 
     </script>
-
-@endpush
 @endsection

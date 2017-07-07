@@ -296,7 +296,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addEmpModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addEmpModal"  onclick="
+                            $('#emp_add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -310,7 +312,7 @@
                 <div class="modal-dialog modal-lg animated zoomInRight active" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-view">
-                            <h4><br/>EMPLOYEE DETAILS
+                            <h4><br/>CLIENT - INDIVIDUAL DETAILS
                             </h4>
                         </div><br/>
                         <button id = "Edit" style = "margin-left: 55em" type="button" class="btn btn-success btn-lg waves-effect"
@@ -319,6 +321,10 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
+                        $('#apicture').show();
+                        document.getElementById('apinfo_gender').disabled=false;
+                        document.getElementById('asalesagent').disabled=false;
+                        document.getElementById('aadd_region').disabled=false;
                         $('#aadd_blcknum').prop('readonly', false);
                         $('#aadd_street').prop('readonly', false);
                         $('#aadd_subdivision').prop('readonly', false);
@@ -339,6 +345,13 @@
                         $('#apinfo_gender').prop('readonly', false);
                         $('#apicture').prop('disabled', false);
                         $('#schange').html('Save Changes');
+                        $( '#aclient_first_name' ).focus();
+                        swal({
+                        title: 'You can now edit the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -349,6 +362,10 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
+                        $('#apicture').hide();
+                        document.getElementById('apinfo_gender').disabled=true;
+                        document.getElementById('asalesagent').disabled=true;
+                        document.getElementById('aadd_region').disabled=true;
                         $('#aadd_blcknum').prop('readonly', true);
                         $('#aadd_street').prop('readonly', true);
                         $('#aadd_subdivision').prop('readonly', true);
@@ -369,6 +386,13 @@
                         $('#apinfo_gender').prop('readonly', true);
                         $('#apicture').prop('disabled', true);
                         $('#schange').html('Delete Record');
+                        $( '#schange' ).focus();
+                        swal({
+                        title: 'You can now delete the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                             <i class="material-icons">delete_sweep</i>
                             <span>Delete</span>
@@ -453,7 +477,7 @@
                                             <div class="col-md-2">
                                                 <div class="form-group form-float">
                                                 <label><small>Gender :</small></label>
-                                                    <select id = "apinfo_gender" name = "apinfo_gender" class="form-control show-tick" readonly="true">
+                                                    <select id = "apinfo_gender" name = "apinfo_gender" class="form-control show-tick">
                                                   <option selected value = "" style = "display: none;">-- Gender --</option>
                                                         <option value = "0">Male</option>
                                                         <option value = "1">Female</option>
@@ -514,7 +538,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group form-float">
                                                 <label><small>Sales Agent :</small></label>
-                                                    <select id = "asalesagent" name = "asalesagent" class="form-control show-tick" readonly="true">
+                                                    <select id = "asalesagent" name = "asalesagent" class="form-control show-tick">
                                                   <option selected value = "" style = "display: none;">-- Select Sales Agent --</option>
                                                      @foreach($sales as $saleA)
                                                       @foreach($pInfo as $info)
@@ -604,7 +628,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group form-float">
                                                 <label><small>Region:</small></label>
-                                                    <select id = "aadd_region" name = "aadd_region" class="form-control show-tick" data-live-search="true" readonly="true">
+                                                    <select id = "aadd_region" name = "aadd_region" class="form-control show-tick" data-live-search="true" >
                                                   <option selected value = "" style = "display: none;">-- Select Region --</option>
                                                         <option value = "I">Region I</option>
                                                         <option value = "II">Region II</option>
@@ -669,7 +693,34 @@
                               }
                             });
                           }">SAVE CHANGES</button>
-                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal"
+                          onclick = "
+                        $('#Edit').prop('disabled', false);
+                        $('#Delete').prop('disabled', false);
+                        $('#schange').hide();
+                        $('#apicture').hide();
+                        document.getElementById('apinfo_gender').disabled=true;
+                        document.getElementById('asalesagent').disabled=true;
+                        document.getElementById('aadd_region').disabled=true;
+                        $('#aadd_blcknum').prop('readonly', true);
+                        $('#aadd_street').prop('readonly', true);
+                        $('#aadd_subdivision').prop('readonly', true);
+                        $('#aadd_brngy').prop('readonly', true);
+                        $('#aadd_district').prop('readonly', true);
+                        $('#aadd_city').prop('readonly', true);
+                        $('#aadd_province').prop('readonly', true);
+                        $('#aadd_region').prop('readonly', true);
+                        $('#aadd_zipcode').prop('readonly', true);
+                        $('#aclient_first_name').prop('readonly', false);
+                        $('#aclient_middle_name').prop('readonly', false);
+                        $('#aclient_last_name').prop('readonly', false);
+                        $('#apinfo_mail').prop('readonly', true);
+                        $('#apinfo_cpnum_1').prop('readonly', true);
+                        $('#apinfo_cpnum_2').prop('readonly', true);
+                        $('#apinfo_tpnum').prop('readonly', true);
+                        $('#apinfo_bday').prop('readonly', true);
+                        $('#apinfo_gender').prop('readonly', true);
+                          ">CLOSE</button>
                         </div>
                       </form>
                     </div>
@@ -678,7 +729,7 @@
             <!-- #END OF MODAL -->
             <!-- Exportable Table -->
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-7 col-sm-7 col-xs-7">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2><b>
@@ -686,7 +737,8 @@
                             </b></h2>
                             <ul class="header-dropdown m-r--5">
                                 <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addEmpModal">
+                                <button id = "addbtn" form = "emp_add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addEmpModal"  onclick="
+                                    $('#addbtn').hide();">
                                     <i class="material-icons">group_add</i>
                                     <span>Add Client</span>
                                 </button>
@@ -713,8 +765,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($client as $cli)
-                                 @if($cli->del_flag == 0)
+                             @foreach($client as $cli)
+                              @if($cli->del_flag == 0)
+                               @foreach($pInfo as $Info)
+                                @if($cli->personal_info_ID == $Info->pinfo_ID )
                                     <tr>
                                       <td><input type="checkbox" id="{{$cli->client_ID}}" class="filled-in chk-col-red checkCheckbox" data-id = "{{$cli->client_ID}}"/>
                                         <label for="{{$cli->client_ID}}"></label>
@@ -790,29 +844,37 @@
 
                                         @foreach($add as $addata)
                                           @if($addata->add_ID == $cli->client_add_ID)
-                                          {{ $addata->add_region }}
+                                          {{ 'Region '.$addata->add_region }}
                                           @endif
                                         @endforeach
                                       </td>
                                       <td>
                                        @foreach($pInfo as $Info)
                                         @if($cli->personal_info_ID == $Info->pinfo_ID )
-                                          <li>{{ $Info->pinfo_cpnum_1 }}</li>
+                                         @if($Info->pinfo_cpnum_1 != null)
+                                          <li> {{ $Info->pinfo_cpnum_1 }} </li>
+                                         @endif
                                         @endif
                                        @endforeach
                                        @foreach($pInfo as $Info)
                                         @if($cli->personal_info_ID == $Info->pinfo_ID )
+                                         @if($Info->pinfo_cpnum_2 != null)
                                           <li>{{ $Info->pinfo_cpnum_2 }}</li>
+                                         @endif
                                         @endif
                                        @endforeach
                                        @foreach($pInfo as $Info)
                                         @if($cli->personal_info_ID == $Info->pinfo_ID )
+                                         @if($Info->pinfo_tpnum != null)
                                           <li>{{ $Info->pinfo_tpnum }}</li>
+                                         @endif
                                         @endif
                                        @endforeach
                                        @foreach($pInfo as $Info)
                                         @if($cli->personal_info_ID == $Info->pinfo_ID )
+                                         @if($Info->pinfo_mail != null)
                                           <li>{{ $Info->pinfo_mail }}</li>
+                                         @endif
                                         @endif
                                        @endforeach
                                       </td>
@@ -829,6 +891,7 @@
                                         data-gender='{{ $Info->pinfo_gender }}'
                                         data-add='{{ $cli->client_add_ID }}'
                                         data-pinfo='{{ $cli->personal_info_ID }}'
+                                        data-salesa='{{ $cli->client_sales_ID }}'
                                         data-source = '{!! "/image/".$Info->pinfo_picture !!}'
 
                                         data-created = '{{ \Carbon\Carbon::parse($cli->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($cli->created_at)->format("l, h:i:s A").")" }}'
@@ -891,6 +954,9 @@
                                         @endforeach'
 
                                         onclick = "
+                                        document.getElementById('apinfo_gender').disabled=true;
+                                        document.getElementById('asalesagent').disabled=true;
+                                        document.getElementById('aadd_region').disabled=true;
 
                                         var id = $(this).data('agentid');
                                         var fname = $(this).data('fname');
@@ -905,6 +971,7 @@
                                         var pinfo = $(this).data('pinfo');
                                         var src = $(this).data('source');
                                         var comm = $(this).data('comm');
+                                        var agent = $(this).data('salesa');
                                         var created = $(this).data('created');
                                         var updated = $(this).data('updated');
 
@@ -937,10 +1004,13 @@
                                         document.getElementById('aadd_brngy').value = brngy;
                                         document.getElementById('aadd_district').value = dist;
                                         document.getElementById('aadd_city').value = city;
+                                        document.getElementById('aadd_province').value = prov;
+                                        document.getElementById('aadd_zipcode').value = zipcode;
                                         document.getElementById('date_created').value = created;
                                         document.getElementById('last_update').value = updated; 
+                                        $('#asalesagent').val(agent).change();
+                                        console.log(agent);
                                         $('#aadd_region').val(reg).change();
-                                        document.getElementById('add_zipcode').value = zipcode;
                                         $('#editImg').attr('src', src);
                                         var bday = document.getElementById('apinfo_bday').value.split('-');
                                         var today = new Date();
@@ -964,7 +1034,9 @@
                                                     <span>View</span>
                                                 </button></td>
                                       </tr>
-                                      @endif
+                                   @endif
+                                  @endforeach
+                                 @endif
                                 @endforeach
                                 </tbody>
                             </table>
@@ -975,28 +1047,24 @@
             </div>
         </section>
             <!-- #END# Exportable Table -->
-
-@push('scripts')
         <script>
+        $('#apicture').hide();
         $('#pinfo_bday').on('change textInput input', function () {
             var bday = document.getElementById("pinfo_bday").value.split('-');
             var today = new Date();
             if(bday[0] != 0)
             {
-                if((today.getMonth() + 1) <= bday[1])
-                {
-                  if((today.getDate()) < bday[2])
-                    {
-                        document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
-                    }
-                  else
+                if((today.getMonth() + 1) >= bday[1])
+                {       
+                  document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
+                  if((today.getDate()) >= bday[2])
                     {
                         document.getElementById("age").value = today.getFullYear() - bday[0];
                     }
                 }
                 else
                 {
-                  document.getElementById("age").value = today.getFullYear() - bday[0];
+                  document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
                 }
             }
             else
@@ -1180,6 +1248,49 @@
             <!-- #END# Exportable Table -->
 
             <script>
+                        $.validator.addMethod("minAge", function(value, element) {
+                            var curDate = new Date();
+                            var inputDate = new Date(value);
+                            var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                            if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                            {      
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                                if((curDate.getDate()) >= inputDate.getDate())
+                                {
+                                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                                }
+                            }
+                            else
+                            {
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                            }
+                            if (age >= 18)
+                                return true;
+                            return false;
+                        }, "Age Limit is 18."); 
+                        $.validator.addMethod("maxAge", function(value, element) {
+                            var curDate = new Date();
+                            var inputDate = new Date(value);
+                            var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                            if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                            {      
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                                if((curDate.getDate()) >= inputDate.getDate())
+                                {
+                                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                                }
+                            }
+                            else
+                            {
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                            }
+                            if (age <= 130)
+                                return true;
+                            return false;
+                        }, "Maximum age is 130."); 
+                        $.validator.addMethod("cpValidator", function(value, element) {
+                            return this.optional(element) || /^((\+63)|0)\d{10}$/i.test(value);
+                         }, "Invalid Cellphone Format");
                         $.validator.addMethod("alphanumeric", function(value, element) {
                             return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
                          }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
@@ -1220,15 +1331,11 @@
                                   pinfo_cpnum_1:
                                   {
                                     required: true,
-                                    digits: true,
-                                    minlength: 11,
-                                    maxlength: 11
+                                    cpValidator: true
                                   },
                                   pinfo_cpnum_2:
                                   {
-                                    digits: true,
-                                    minlength: 11,
-                                    maxlength: 11
+                                    cpValidator: true,
                                   },
                                   pinfo_tpnum:
                                   {
@@ -1342,15 +1449,29 @@
                                   apinfo_cpnum_1:
                                   {
                                     required: true,
+                                    cpValidator: true
+                                  },
+                                  apinfo_cpnum_2:
+                                  {
+                                    cpValidator: true
+                                  },
+                                  apinfo_tpnum:
+                                  {
                                     digits: true,
                                     minlength: 7,
-                                    maxlength: 11
+                                    maxlength: 7
                                   },
                                   apinfo_mail:
                                   {
                                     required: true,
                                     email: true,
                                     maxlength: 50
+                                  },
+                                  apinfo_bday:
+                                  {
+                                    required: true,
+                                    minAge: true,
+                                    maxAge: true
                                   },
                                   aadd_blcknum:
                                   {
@@ -1402,21 +1523,8 @@
                                 },
                                 // Specify validation error messages
                                 messages: {
-                                    aclient_first_name:{
-                                        required: "Empty First Name"
-                                    },
-                                    aclient_last_name:{
-                                        required: "Empty Last Name"
-                                    },
-                                    aclient_contact:{
-                                        required: "Empty Contact Number",
-                                        digits: "This field is Digits only",
-                                        minlength: "This field requires minimum length of 7",
-                                        maxlength: "This field requires max length of 11"
-                                    },
-                                    aadd_zipcode:
-                                    {
-                                       digits: "This field is Digits only"
+                                    apinfo_bday:{
+                                        required: "Empty or Invalid Date."
                                     }
 
                                 },
@@ -1428,5 +1536,4 @@
                               });
                             });
             </script>
-@endpush
 @endsection

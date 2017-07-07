@@ -312,24 +312,6 @@
                               function(isConfirm){
                                 if (isConfirm) {
                                   $('#emp_add').submit();
-
-                                    document.getElementById('emp_first_name').value = '';
-                                    document.getElementById('emp_middle_name').value = '';
-                                    document.getElementById('emp_last_name').value = '';
-                                    document.getElementById('emp_contact').value = '';
-                                    document.getElementById('emp_mail').value = '';
-
-                                    document.getElementById('add_blcknum').value = '';
-                                    document.getElementById('add_street').value = '';
-                                    document.getElementById('add_subdivision').value = '';
-                                    document.getElementById('add_brngy').value = '';
-                                    document.getElementById('add_district').value = '';
-                                    document.getElementById('add_city').value = '';
-                                    document.getElementById('add_province').value = '';
-                                    document.getElementById('add_region').value = '';
-                                    $('#add_region').val('').change();
-                                    document.getElementById('aadd_zipcode').value = '';
-                                    $('#emp_type').val('').change();
                                 } else {
                                     swal({
                                     title: 'Cancelled',
@@ -340,7 +322,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addEmpModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addEmpModal" onclick="
+                            $('#emp_add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -363,6 +347,10 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
+                        $('#apicture').show();
+                        document.getElementById('apinfo_gender').disabled=false;
+                        document.getElementById('asalesagent').disabled=false;
+                        document.getElementById('aadd_region').disabled=false;
                         $('#aadd_blcknum').prop('readonly', false);
                         $('#aadd_street').prop('readonly', false);
                         $('#aadd_subdivision').prop('readonly', false);
@@ -380,13 +368,19 @@
                         $('#apinfo_cpnum_2').prop('readonly', false);
                         $('#apinfo_tpnum').prop('readonly', false);
                         $('#apinfo_bday').prop('readonly', false);
-                        $('#apinfo_gender').prop('readonly', false);
                         $('#acomp_name').prop('readonly', false);
                         $('#acomp_telnum').prop('readonly', false);
                         $('#acomp_faxnum').prop('readonly', false);
                         $('#acomp_email').prop('readonly', false);
                         $('#apicture').prop('disabled', false);
                         $('#schange').html('Save Changes');
+                        $( '#acomp_name' ).focus();
+                        swal({
+                        title: 'You can now edit the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -397,6 +391,10 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
+                        $('#apicture').hide();
+                        document.getElementById('apinfo_gender').disabled=true;
+                        document.getElementById('asalesagent').disabled=true;
+                        document.getElementById('aadd_region').disabled=true;
                         $('#aadd_blcknum').prop('readonly', true);
                         $('#aadd_street').prop('readonly', true);
                         $('#aadd_subdivision').prop('readonly', true);
@@ -414,13 +412,19 @@
                         $('#apinfo_cpnum_2').prop('readonly', true);
                         $('#apinfo_tpnum').prop('readonly', true);
                         $('#apinfo_bday').prop('readonly', true);
-                        $('#apinfo_gender').prop('readonly', true);
                         $('#acomp_name').prop('readonly', true);
                         $('#acomp_telnum').prop('readonly', true);
                         $('#acomp_faxnum').prop('readonly', true);
                         $('#acomp_email').prop('readonly', true);
                         $('#apicture').prop('disabled', true);
                         $('#schange').html('Delete Record');
+                        $( '#schange' ).focus();
+                        swal({
+                        title: 'You can now delete the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                             <i class="material-icons">delete_sweep</i>
                             <span>Delete</span>
@@ -764,7 +768,35 @@
                               }
                             });
                           }">SAVE CHANGES</button>
-                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                        $('#Edit').prop('disabled', false);
+                        $('#Delete').prop('disabled', false);
+                        $('#schange').hide();
+                        $('#apicture').hide();
+                        document.getElementById('apinfo_gender').disabled=true;
+                        document.getElementById('asalesagent').disabled=true;
+                        document.getElementById('aadd_region').disabled=true;
+                        $('#aadd_blcknum').prop('readonly', true);
+                        $('#aadd_street').prop('readonly', true);
+                        $('#aadd_subdivision').prop('readonly', true);
+                        $('#aadd_brngy').prop('readonly', true);
+                        $('#aadd_district').prop('readonly', true);
+                        $('#aadd_city').prop('readonly', true);
+                        $('#aadd_province').prop('readonly', true);
+                        $('#aadd_region').prop('readonly', true);
+                        $('#aadd_zipcode').prop('readonly', true);
+                        $('#acPerson_first_name').prop('readonly', true);
+                        $('#acPerson_middle_name').prop('readonly', true);
+                        $('#acPerson_last_name').prop('readonly', true);
+                        $('#apinfo_mail').prop('readonly', true);
+                        $('#apinfo_cpnum_1').prop('readonly', true);
+                        $('#apinfo_cpnum_2').prop('readonly', true);
+                        $('#apinfo_tpnum').prop('readonly', true);
+                        $('#apinfo_bday').prop('readonly', true);
+                        $('#acomp_name').prop('readonly', true);
+                        $('#acomp_telnum').prop('readonly', true);
+                        $('#acomp_faxnum').prop('readonly', true);
+                        $('#acomp_email').prop('readonly', true);">CLOSE</button>
                         </div>
                       </form>
                     </div>
@@ -773,7 +805,7 @@
             <!-- #END OF MODAL -->
             <!-- Exportable Table -->
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-7 col-sm-7 col-xs-7">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2><b>
@@ -781,7 +813,8 @@
                             </b></h2>
                             <ul class="header-dropdown m-r--5">
                                 <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addEmpModal">
+                                <button id = "addbtn" form = "emp_add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addEmpModal"  onclick="
+                                    $('#addbtn').hide();">
                                     <i class="material-icons">group_add</i>
                                     <span>Add Client</span>
                                 </button>
@@ -795,6 +828,7 @@
                             </ul>
                         </div>
                         <div class="body">
+                        <div class="body table-responsive">
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable animated lightSpeedIn active">
                                 <thead>
                                     <tr class="bg-blue-grey">
@@ -869,7 +903,7 @@
 
                                                 @foreach($add as $addata)
                                                   @if($addata->add_ID == $comp->comp_add_ID)
-                                                  {{ $addata->add_region }}
+                                                  {{ 'Region '.$addata->add_region }}
                                           @endif
                                         @endforeach
                                         </td>
@@ -908,7 +942,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                              <li>{{ $Info->pinfo_cpnum_1 }}</li>
+                                             @if($Info->pinfo_cpnum_1 != null)
+                                              <li> {{ $Info->pinfo_cpnum_1 }} </li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -917,7 +953,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                             @if($Info->pinfo_cpnum_2 != null)
                                               <li>{{ $Info->pinfo_cpnum_2 }}</li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -926,7 +964,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                             @if($Info->pinfo_tpnum != null)
                                               <li>{{ $Info->pinfo_tpnum }}</li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -935,7 +975,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                             @if($Info->pinfo_mail != null)
                                               <li>{{ $Info->pinfo_mail }}</li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -1035,6 +1077,9 @@
                                         @endforeach'
 
                                         onclick = "
+                                        document.getElementById('apinfo_gender').disabled=true;
+                                        document.getElementById('asalesagent').disabled=true;
+                                        document.getElementById('aadd_region').disabled=true;
 
                                         var id = $(this).data('compid');
                                         var comp_name = $(this).data('cname');
@@ -1127,15 +1172,15 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-@push('scripts')
          <script>
-
+                $('#apicture').hide();
                 $( document ).ready(function()
                 {
                   $('bank_add').validate();
@@ -1292,20 +1337,17 @@
                     var today = new Date();
                     if(bday[0] != 0)
                     {
-                        if((today.getMonth() + 1) <= bday[1])
-                        {
-                          if((today.getDate()) < bday[2])
-                            {
-                                document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
-                            }
-                          else
+                        if((today.getMonth() + 1) >= bday[1])
+                        {       
+                          document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
+                          if((today.getDate()) >= bday[2])
                             {
                                 document.getElementById("age").value = today.getFullYear() - bday[0];
                             }
                         }
                         else
                         {
-                          document.getElementById("age").value = today.getFullYear() - bday[0];
+                          document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
                         }
                     }
                     else
@@ -1317,6 +1359,49 @@
             <!-- #END# Exportable Table -->
 
             <script>
+                        $.validator.addMethod("minAge", function(value, element) {
+                            var curDate = new Date();
+                            var inputDate = new Date(value);
+                            var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                            if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                            {      
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                                if((curDate.getDate()) >= inputDate.getDate())
+                                {
+                                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                                }
+                            }
+                            else
+                            {
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                            }
+                            if (age >= 18)
+                                return true;
+                            return false;
+                        }, "Age Limit is 18."); 
+                        $.validator.addMethod("maxAge", function(value, element) {
+                            var curDate = new Date();
+                            var inputDate = new Date(value);
+                            var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                            if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                            {      
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                                if((curDate.getDate()) >= inputDate.getDate())
+                                {
+                                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                                }
+                            }
+                            else
+                            {
+                                age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                            }
+                            if (age <= 130)
+                                return true;
+                            return false;
+                        }, "Maximum age is 130."); 
+                        $.validator.addMethod("cpValidator", function(value, element) {
+                            return this.optional(element) || /^((\+63)|0)\d{10}$/i.test(value);
+                         }, "Invalid Cellphone Format");
                         $.validator.addMethod("alphanumeric", function(value, element) {
                             return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
                          }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
@@ -1375,15 +1460,17 @@
                                   pinfo_cpnum_1:
                                   {
                                     required: true,
-                                    digits: true,
-                                    minlength: 7,
-                                    maxlength: 11
+                                    cpValidator: true
                                   },
                                   pinfo_cpnum_2:
                                   {
+                                    cpValidator: true
+                                  },
+                                  pinfo_tpnum:
+                                  {
                                     digits: true,
                                     minlength: 7,
-                                    maxlength: 11
+                                    maxlength: 7
                                   },
                                   pinfo_mail:
                                   {
@@ -1394,6 +1481,8 @@
                                   pinfo_bday:
                                   {
                                     required: true,
+                                    maxAge: true,
+                                    minAge: true
                                   },
                                   pinfo_gender:
                                   {
@@ -1498,15 +1587,17 @@
                                   apinfo_cpnum_1:
                                   {
                                     required: true,
-                                    digits: true,
-                                    minlength: 7,
-                                    maxlength: 11
+                                    cpValidator: true
                                   },
                                   apinfo_cpnum_2:
                                   {
+                                    cpValidator: true
+                                  },
+                                  apinfo_tpnum:
+                                  {
                                     digits: true,
                                     minlength: 7,
-                                    maxlength: 11
+                                    maxlength: 7
                                   },
                                   apinfo_mail:
                                   {
@@ -1517,6 +1608,8 @@
                                   apinfo_bday:
                                   {
                                     required: true,
+                                    maxAge: true,
+                                    minAge: true
                                   },
                                   apinfo_gender:
                                   {
@@ -1586,5 +1679,4 @@
                               });
                             });
             </script>
-@endpush
 @endsection

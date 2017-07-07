@@ -76,7 +76,7 @@ class maint_courierController extends Controller
       }
       catch(\Exception $e)
       {
-        $message = $e->getMessage();
+        $message = $e->getCode();
         if($message == 23000)
         {
             alert()
@@ -161,7 +161,7 @@ class maint_courierController extends Controller
         else
         {
           alert()
-          ->error('ERROR', $e->getCode())
+          ->error('ERROR', $e->getMessage())
           ->persistent("Close");
 
           return Redirect::back();
@@ -210,7 +210,7 @@ class maint_courierController extends Controller
         else
         {
           alert()
-          ->error('ERROR', $e->getCode())
+          ->error('ERROR', $e->getMessage())
           ->persistent("Close");
 
           return Redirect::back();
@@ -296,8 +296,8 @@ class maint_courierController extends Controller
 
   public function update_courier_info(Request $req)
   {
-      $pinfo = personalInfoConnection::where('pinfo_ID', '=', $req->pInfo_ID)->first();
-
+      $pinfo = personalInfoConnection::where('pinfo_ID', '=', $req->apInfo_ID)->first();
+      \Log::Info($pinfo);
       $pinfo->pinfo_first_name = $req->acPerson_first_name;
       $pinfo->pinfo_middle_name = $req->acPerson_middle_name;
       $pinfo->pinfo_last_name = $req->acPerson_last_name;
@@ -307,6 +307,7 @@ class maint_courierController extends Controller
       $pinfo->pinfo_age = $req->apinfo_bday;
       $pinfo->pinfo_gender = $req->apinfo_gender;
       $pinfo->pinfo_mail = $req->apinfo_mail;
+      \Log::Info($pinfo);
       if($req->hasFile('apicture'))
       {
           $file = $req->file('apicture');
@@ -317,6 +318,7 @@ class maint_courierController extends Controller
 
           $file->move(public_path().'/image/', $name);
       }
+
       try
       {
         $pinfo->save();
@@ -344,7 +346,7 @@ class maint_courierController extends Controller
         else
         {
           alert()
-          ->error('ERROR', $e->getCode()+2)
+          ->error('ERROR', $e->getMessage())
           ->persistent("Close");
 
           return Redirect::back();
@@ -390,7 +392,7 @@ class maint_courierController extends Controller
         else
         {
           alert()
-          ->error('ERROR', $e->getCode()+1)
+          ->error('ERROR', $e->getMessage())
           ->persistent("Close");
 
           return Redirect::back();
@@ -438,7 +440,7 @@ class maint_courierController extends Controller
         else
         {
           alert()
-          ->error('ERROR', $e->getCode())
+          ->error('ERROR', $e->getMessage())
           ->persistent("Close");
 
           return Redirect::back();

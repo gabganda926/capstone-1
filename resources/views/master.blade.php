@@ -12,7 +12,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-
     <!--<link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/lib/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
@@ -25,49 +24,49 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="../../../material-design-icons-3.0.1/iconfont/material-icons.css" rel="stylesheet">
+    <link href="{{ URL::asset('material-design-icons-3.0.1/iconfont/material-icons.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="../../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="{{ URL::asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
 
     <!-- Multi Select Css -->
-    <link href="../../../plugins/multi-select/css/multi-select.css" rel="stylesheet">
+    <link href="{{ URL::asset('plugins/multi-select/css/multi-select.css') }}" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="../../../plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="{{ URL::asset('plugins/node-waves/waves.css') }}" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="../../../plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="{{ URL::asset('plugins/animate-css/animate.css') }}" rel="stylesheet" />
 
      <!-- Dropzone Css -->
-    <link href="../../../plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link href="{{ URL::asset('plugins/dropzone/dropzone.css') }}" rel="stylesheet">
 
     <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="../../../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <link href="{{ URL::asset('plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet" />
 
     <!-- Bootstrap Spinner Css 
     <link href="../../plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet"> -->
 
     <!-- Wait Me Css -->
-    <link href="../../../plugins/waitme/waitMe.css" rel="stylesheet" />
+    <link href="{{ URL::asset('plugins/waitme/waitMe.css') }}" rel="stylesheet" />
 
     <!-- Bootstrap Select Css -->
-    <link href="../../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="{{ URL::asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
 
     <!-- Sweet Alert Css -->
-    <link href="../../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="{{ URL::asset('plugins/sweetalert/sweetalert.css') }}" rel="stylesheet" />
 
     <!-- JQuery DataTable Css -->
-    <link href="../../../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="{{ URL::asset('plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
 
     <!-- Custom Css -->
-    <link href="../../../css/style.css" rel="stylesheet">
-    <link href="../../../css/modal.css" rel="stylesheet">
-    <link href="../../../css/modal-list.css" rel="stylesheet">
+    <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/modal.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/modal-list.css') }}" rel="stylesheet">
 
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../../../css/themes/all-themes.css" rel="stylesheet" />
+    <link href="{{ URL::asset('css/themes/all-themes.css') }}" rel="stylesheet" />
 </head>
 
 <body class="theme-teal">
@@ -230,10 +229,10 @@
                                             <span>Vehicle Model</span></a>
                                     </li>
 
-                                    <li class = "@yield('vlist')">
+                                    <!--<li class = "@yield('vlist')">
                                         <a href="/admin/maintenance/vehicle/list">
                                             <span>Vehicle List</span></a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </li>
 
@@ -248,10 +247,10 @@
                                             <span>Insurance Company</span></a>
                                     </li>
 
-                                    <li class = "@yield('forms')">
+                                    <!--<li class = "@yield('forms')">
                                         <a href="/admin/maintenance/insurance/forms">
                                             <span>Insurance Forms</span></a>
-                                    </li>
+                                    </li>-->
                                     <li class = "@yield('policyno')">
                                         <a href="/admin/maintenance/policyno">
                                             <span>Insurance - Policy Number</span></a>
@@ -260,6 +259,27 @@
                                     <li class = "@yield('itype')">
                                         <a href="/admin/maintenance/installment">
                                             <span>Insurance - Installment Type</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class = "@yield('premiums')">
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <i class="material-icons">attach_money</i>
+                                    <span>PREMIUMS</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li class = "@yield('ppam')">
+                                        <a href="/admin/maintenance/personal-accident">
+                                            <span>Auto Personal Accident Premiums</span></a>
+                                    </li>
+
+                                    <li class = "@yield('bi')">
+                                        <a href="/admin/maintenance/bodily-injury">
+                                            <span>Bodily Injury Premiums</span></a>
+                                    </li>
+                                    <li class = "@yield('pd')">
+                                        <a href="/admin/maintenance/property-damage">
+                                            <span>Property Damage Premiums</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -442,73 +462,73 @@
     </section>
 
     <!-- Jquery Core Js -->
-    <script src="../../../plugins/jquery/jquery.min.js"></script>       
+    <script src="{{ URL::asset('plugins/jquery/jquery.min.js') }}"></script>       
     
     <!-- Bootstrap Core Js -->
-    <script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="{{ URL::asset('plugins/bootstrap/js/bootstrap.js') }}"></script>
 
     <!-- Select Plugin Js -->
-    <script src="../../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="{{ URL::asset('plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
 
     <!-- Bootstrap Colorpicker Js -->
-    <script src="../../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <script src="{{ URL::asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
 
     <!-- Dropzone Plugin Js -->
-    <script src="../../../plugins/dropzone/dropzone.js"></script>
+    <script src="{{ URL::asset('plugins/dropzone/dropzone.js') }}"></script>
 
     <!-- Input Mask Plugin Js -->
-    <script src="../../../plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+    <script src="{{ URL::asset('plugins/jquery-inputmask/jquery.inputmask.bundle.js') }}"></script>
 
     <!-- Multi Select Plugin Js -->
-    <script src="../../../plugins/multi-select/js/jquery.multi-select.js"></script>
+    <script src="{{ URL::asset('plugins/multi-select/js/jquery.multi-select.js') }}"></script>
 
     <!-- noUISlider Plugin Js -->
-    <script src="../../../plugins/nouislider/nouislider.js"></script>
+    <script src="{{ URL::asset('plugins/nouislider/nouislider.js') }}"></script>
 
     <!-- Slimscroll Plugin Js -->
-    <script src="../../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="{{ URL::asset('plugins/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
 
     <!-- Jquery Validation Plugin Css -->
-    <script src="../../../plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="{{ URL::asset('plugins/jquery-validation/jquery.validate.js') }}"></script>
 
     <!-- JQuery Steps Plugin Js -->
-    <script src="../../../plugins/jquery-steps/jquery.steps.js"></script>
+    <script src="{{ URL::asset('plugins/jquery-steps/jquery.steps.js') }}"></script>
 
     <!-- Sweet Alert Plugin Js -->
-    <script src="../../../plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="{{ URL::asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 
     <!-- Waves Effect Plugin Js -->
-    <script src="../../../plugins/node-waves/waves.js"></script>
+    <script src="{{ URL::asset('plugins/node-waves/waves.js') }}"></script>
 
     <!-- Autosize Plugin Js -->
-    <script src="../../../plugins/autosize/autosize.js"></script>
+    <script src="{{ URL::asset('plugins/autosize/autosize.js') }}"></script>
 
     <!-- Jquery DataTable Plugin Js -->
-    <script src="../../../plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="../../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="../../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="../../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="../../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="../../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="../../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="../../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
+    <script src="{{ URL::asset('plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
 
     <!-- Custom Js -->
-    <script src="../../../js/admin.js"></script>
-    <script src="../../../js/pages/ui/tooltips-popovers.js"></script>
-    <script src="../../../js/pages/tables/jquery-datatable.js"></script>
-    <script src="../../../js/pages/forms/form-validation.js"></script>
-    <script src="../../../js/pages/ui/dialogs.js"></script>
+    <script src="{{ URL::asset('js/admin.js') }}"></script>
+    <script src="{{ URL::asset('js/pages/ui/tooltips-popovers.js') }}"></script>
+    <script src="{{ URL::asset('js/pages/tables/jquery-datatable.js') }}"></script>
+    <script src="{{ URL::asset('js/pages/forms/form-validation.js') }}"></script>
+    <script src="{{ URL::asset('js/pages/ui/dialogs.js') }}"></script>
 
     <!-- Bootstrap Notify Plugin Js -->
-    <script src="../../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
+    <script src="{{ URL::asset('plugins/bootstrap-notify/bootstrap-notify.js') }}"></script>
 
     <!-- Demo Js -->
-    <script src="../../../js/demo.js"></script>
+    <script src="{{ URL::asset('js/demo.js') }}"></script>
 
     <!-- JQuery Steps Plugin Js -->
-    <script src="../../../plugins/jquery-steps/jquery.steps.js"></script>
+    <script src="{{ URL::asset('plugins/jquery-steps/jquery.steps.js') }}"></script>
 
     <!-- Jquery Spinner Plugin Js 
     <script src="../../plugins/jquery-spinner/js/jquery.spinner.js"></script>-->

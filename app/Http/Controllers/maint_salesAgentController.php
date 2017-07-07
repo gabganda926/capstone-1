@@ -231,7 +231,7 @@ class maint_salesAgentController extends Controller
 
       public function update_agent(Request $req)
       {
-          $address = addressConnection::where('add_ID', '=', $req->aaddid)->first();
+          $address = addressConnection::where('add_ID', '=', $req->aadd_id)->first();
 
           if($req->aadd_blcknum != null)
           {

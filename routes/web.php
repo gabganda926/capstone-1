@@ -79,13 +79,13 @@ Route::post('/admin/maintenance/employee/ardelete', 'maint_employeeController@ar
 //mainte-employee-role
 Route::get('/admin/maintenance/employee/role', 'maint_employeeRoleController@index');
 
-Route::post('/admin/maintenance/employee/role/submit', 'maint_employeeRoleController@add_employee');
+Route::post('/admin/maintenance/employee/role/submit', 'maint_employeeRoleController@add_emp_role');
 
-Route::post('/admin/maintenance/employee/role/update', 'maint_employeeRoleController@update_employee');
+Route::post('/admin/maintenance/employee/role/update', 'maint_employeeRoleController@update_emp_role');
 
-Route::post('/admin/maintenance/employee/role/delete', 'maint_employeeRoleController@delete_employee');
+Route::post('/admin/maintenance/employee/role/delete', 'maint_employeeRoleController@delete_emp_role');
 
-Route::post('/admin/maintenance/employee/role/ardelete', 'maint_employeeRoleController@ardelete_employee');
+Route::post('/admin/maintenance/employee/role/ardelete', 'maint_employeeRoleController@ardelete_emp_role');
 
 //mainte-inst-type
 Route::get('/admin/maintenance/installment', 'maint_installmentTypeController@index');
@@ -112,13 +112,13 @@ Route::post('/admin/maintenance/insurance/company/ardelete', 'maint_insuranceCom
 //mainte-policynum
 Route::get('/admin/maintenance/policyno', 'maint_policyNumberController@index');
 
-Route::post('/admin/maintenance/policyno/submit', 'maint_policyNumberController@add_inscomp');
+Route::post('/admin/maintenance/policyno/submit', 'maint_policyNumberController@add_policy');
 
-Route::post('/admin/maintenance/policyno/update', 'maint_policyNumberController@update_inscomp');
+Route::post('/admin/maintenance/policyno/update', 'maint_policyNumberController@update_policy');
 
-Route::post('/admin/maintenance/policyno/delete', 'maint_policyNumberController@delete_inscomp');
+Route::post('/admin/maintenance/policyno/delete', 'maint_policyNumberController@delete_policy');
 
-Route::post('/admin/maintenance/policyno/ardelete', 'maint_policyNumberController@ardelete_inscomp');
+Route::post('/admin/maintenance/policyno/ardelete', 'maint_policyNumberController@ardelete_policy');
 
 //mainte-forms
 Route::get('/admin/maintenance/insurance/forms', 'maint_FormsController@index');
@@ -208,6 +208,22 @@ Route::post('/admin/maintenance/client/company/delete', 'maint_ClientCompanyCont
 
 Route::post('/admin/maintenance/client/company/ardelete', 'maint_ClientCompanyController@ardelete_client_comp');
 
+//mainte-auto-pa-premium
+Route::get('/admin/maintenance/personal-accident', 'maint_pAutoController@index');
+
+Route::post('/admin/maintenance/personal-accident/submit', 'maint_pAutoController@add_premiumPA');
+
+Route::post('/admin/maintenance/personal-accident/update', 'maint_pAutoController@update_premiumPA');
+
+Route::post('/admin/maintenance/personal-accident/delete', 'maint_pAutoController@delete_premiumPA');
+
+Route::post('/admin/maintenance/personal-accident/ardelete', 'maint_pAutoController@ardelete_premiumPA');
+
+//mainte-bodily-injury-premium
+Route::get('/admin/maintenance/bodily-injury', 'maint_pBodilyInjuryController@index');
+
+//mainte-property-damage-premium
+Route::get('/admin/maintenance/property-damage', 'maint_pPropertyDamageController@index');
 
 //TRANSACTION
 //Insurance
@@ -334,6 +350,58 @@ Route::get('/admin/queries/top-sales-agent', 'z_Queries_topmaint_salesAgentContr
 
 //UTILITIES
 Route::get('/admin/utilities/adm/archives', 'z_Utilities_ArchivesController@index');
+
+Route::post('/admin/utilities/archives/bank/reactivate', 'z_Utilities_ArchivesController@reactivate_bank');
+
+Route::post('/admin/utilities/archives/bank/arreactivate', 'z_Utilities_ArchivesController@arreactivate_bank');
+
+Route::post('/admin/utilities/archives/client/individual/reactivate', 'z_Utilities_ArchivesController@reactivate_client');
+
+Route::post('/admin/utilities/archives/client/individual/arreactivate', 'z_Utilities_ArchivesController@arreactivate_client');
+
+Route::post('/admin/utilities/archives/client/company/reactivate', 'z_Utilities_ArchivesController@reactivate_client_company');
+
+Route::post('/admin/utilities/archives/client/company/arreactivate', 'z_Utilities_ArchivesController@arreactivate_client_company');
+
+Route::post('/admin/utilities/archives/employee/role/reactivate', 'z_Utilities_ArchivesController@reactivate_employee_role');
+
+Route::post('/admin/utilities/archives/employee/role/arreactivate', 'z_Utilities_ArchivesController@arreactivate_employee_role');
+
+Route::post('/admin/utilities/archives/employee/reactivate', 'z_Utilities_ArchivesController@reactivate_employee');
+
+Route::post('/admin/utilities/archives/employee/arreactivate', 'z_Utilities_ArchivesController@arreactivate_employee');
+
+Route::post('/admin/utilities/archives/salesagent/reactivate', 'z_Utilities_ArchivesController@reactivate_agent');
+
+Route::post('/admin/utilities/archives/salesagent/arreactivate', 'z_Utilities_ArchivesController@arreactivate_agent');
+
+Route::post('/admin/utilities/archives/courier/reactivate', 'z_Utilities_ArchivesController@reactivate_courier');
+
+Route::post('/admin/utilities/archives/courier/arreactivate', 'z_Utilities_ArchivesController@arreactivate_courier');
+
+Route::post('/admin/utilities/archives/vehicle/type/reactivate', 'z_Utilities_ArchivesController@reactivate_vehicle_type');
+
+Route::post('/admin/utilities/archives/vehicle/type/arreactivate', 'z_Utilities_ArchivesController@arreactivate_vehicle_type');
+
+Route::post('/admin/utilities/archives/vehicle/make/reactivate', 'z_Utilities_ArchivesController@reactivate_vehicle_make');
+
+Route::post('/admin/utilities/archives/vehicle/make/arreactivate', 'z_Utilities_ArchivesController@arreactivate_vehicle_make');
+
+Route::post('/admin/utilities/archives/vehicle/model/reactivate', 'z_Utilities_ArchivesController@reactivate_vehicle_model');
+
+Route::post('/admin/utilities/archives/vehicle/model/arreactivate', 'z_Utilities_ArchivesController@arreactivate_vehicle_model');
+
+Route::post('/admin/utilities/archives/policynumber/reactivate', 'z_Utilities_ArchivesController@reactivate_policynumber');
+
+Route::post('/admin/utilities/archives/policynumber/arreactivate', 'z_Utilities_ArchivesController@arreactivate_policynumber');
+
+Route::post('/admin/utilities/archives/installment/reactivate', 'z_Utilities_ArchivesController@reactivate_installment');
+
+Route::post('/admin/utilities/archives/installment/arreactivate', 'z_Utilities_ArchivesController@arreactivate_installment');
+
+Route::post('/admin/utilities/archives/complaint/type/reactivate', 'z_Utilities_ArchivesController@reactivate_complaint_type');
+
+Route::post('/admin/utilities/archives/complaint/type/arreactivate', 'z_Utilities_ArchivesController@arreactivate_complaint_type');
 
 Route::get('/admin/utilities/adm/computationSettings', 'z_Utilities_ComputationSettingsController@index');
 

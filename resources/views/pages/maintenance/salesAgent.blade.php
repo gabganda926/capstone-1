@@ -280,7 +280,9 @@
                               });
                               }
                             ">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addEmpModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addEmpModal" onclick="
+                            $('#emp_add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                      </form>
                     </div>
@@ -322,6 +324,13 @@
                         $('#apinfo_gender').prop('readonly', false);
                         $('#apicture').prop('readonly', false);
                         $('#schange').html('SAVE CHANGES');
+                        $( '#acPerson_first_name' ).focus();
+                        swal({
+                        title: 'You can now edit the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -349,8 +358,14 @@
                         $('#apinfo_tpnum').prop('readonly', true);
                         $('#apinfo_bday').prop('readonly', true);
                         $('#apinfo_gender').prop('readonly', true);
-                        $('#apicture').prop('readonly', true);
                         $('#schange').html('DELETE RECORD');
+                        $( '#schange' ).focus();
+                        swal({
+                        title: 'You can now delete   the record.',
+                        type: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                        });
                         ">
                             <i class="material-icons">delete_sweep</i>
                             <span>Delete</span>
@@ -384,7 +399,7 @@
                                  <input id = "aemp_id" name = "aemp_id" type="text" class="form-control">
                              </div>
                              <div class="col-md-4" style = "display: none;">
-                                <input id = "apInfo_ID" name = "pInfo_ID" type="text" class="form-control">
+                                <input id = "apInfo_ID" name = "apInfo_ID" type="text" class="form-control">
                              </div>
                              <div class="col-md-4" style = "display: none;">
                                 <input id = "aadd_id" name = "aadd_id" type="text" class="form-control">
@@ -635,7 +650,27 @@
                               }
                             });
                           }">SAVE CHANGES</button>
-                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                          <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            $('#aadd_blcknum').prop('readonly', true);
+                            $('#aadd_street').prop('readonly', true);
+                            $('#aadd_subdivision').prop('readonly', true);
+                            $('#aadd_brngy').prop('readonly', true);
+                            $('#aadd_district').prop('readonly', true);
+                            $('#aadd_city').prop('readonly', true);
+                            $('#aadd_province').prop('readonly', true);
+                            $('#aadd_zipcode').prop('readonly', true);
+                            $('#acPerson_first_name').prop('readonly', true);
+                            $('#acPerson_middle_name').prop('readonly', true);
+                            $('#acPerson_last_name').prop('readonly', true);
+                            $('#apinfo_mail').prop('readonly', true);
+                            $('#apinfo_cpnum_1').prop('readonly', true);
+                            $('#apinfo_cpnum_2').prop('readonly', true);
+                            $('#apinfo_tpnum').prop('readonly', true);
+                            $('#apinfo_bday').prop('readonly', true);
+                            $('#apinfo_gender').prop('readonly', true);">CLOSE</button>
                         </div>
                       </form>
                     </div>
@@ -706,7 +741,7 @@
 
             <!-- Exportable Table -->
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-7 col-sm-7 col-xs-7">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2><b>
@@ -714,7 +749,8 @@
                             </b></h2>
                             <ul class="header-dropdown m-r--5">
                                 <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addEmpModal">
+                                <button id = "addbtn" form = "emp_add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addEmpModal" onclick="
+                                    $('#addbtn').hide();">
                                     <i class="material-icons">group_add</i>
                                     <span>Add Sales Agent</span>
                                 </button>
@@ -811,29 +847,37 @@
 
                                         @foreach($add as $addata)
                                           @if($addata->add_ID == $agentdata->agent_add_ID)
-                                          {{ $addata->add_region }}
+                                          {{ 'Region '.$addata->add_region }}
                                           @endif
                                         @endforeach
                                       </td>
                                       <td>
                                        @foreach($pnf as $Info)
                                         @if($agentdata->personal_info_ID == $Info->pinfo_ID )
-                                          <li>{{ $Info->pinfo_cpnum_1 }}</li>
+                                         @if($Info->pinfo_cpnum_1 != null)
+                                          <li> {{ $Info->pinfo_cpnum_1 }} </li>
+                                         @endif
                                         @endif
                                        @endforeach
                                        @foreach($pnf as $Info)
                                         @if($agentdata->personal_info_ID == $Info->pinfo_ID )
+                                         @if($Info->pinfo_cpnum_2 != null)
                                           <li>{{ $Info->pinfo_cpnum_2 }}</li>
+                                         @endif
                                         @endif
                                        @endforeach
                                        @foreach($pnf as $Info)
                                         @if($agentdata->personal_info_ID == $Info->pinfo_ID )
+                                         @if($Info->pinfo_tpnum != null)
                                           <li>{{ $Info->pinfo_tpnum }}</li>
+                                         @endif
                                         @endif
                                        @endforeach
                                        @foreach($pnf as $Info)
                                         @if($agentdata->personal_info_ID == $Info->pinfo_ID )
+                                         @if($Info->pinfo_mail != null)
                                           <li>{{ $Info->pinfo_mail }}</li>
+                                         @endif
                                         @endif
                                        @endforeach
                                       </td>
@@ -1002,17 +1046,60 @@
 
             
     </section>
-@push('scripts')
+
     <script>
-        $.validator.addMethod("alphanumeric", function(value, element) {
-            return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
-         }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
-        $.validator.addMethod("alpha", function(value, element) {
-            return this.optional(element) || /^[A-Za-z][A-Za-z '-.]*$/i.test(value);
-         }, "This field must contain only letters, space, dash, apostrophe or dot.");
-        $.validator.addMethod("blcknumber", function(value, element) {
-            return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
-         }, "This field must contain only letters, numbers, space, dash, apostrophe or dot.");
+            $.validator.addMethod("minAge", function(value, element) {
+                var curDate = new Date();
+                var inputDate = new Date(value);
+                var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                {      
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                    if((curDate.getDate()) >= inputDate.getDate())
+                    {
+                        age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                    }
+                }
+                else
+                {
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                }
+                if (age >= 18)
+                    return true;
+                return false;
+            }, "Age Limit is 18."); 
+            $.validator.addMethod("maxAge", function(value, element) {
+                var curDate = new Date();
+                var inputDate = new Date(value);
+                var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                {      
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                    if((curDate.getDate()) >= inputDate.getDate())
+                    {
+                        age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                    }
+                }
+                else
+                {
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                }
+                if (age <= 130)
+                    return true;
+                return false;
+            }, "Maximum age is 130."); 
+            $.validator.addMethod("cpValidator", function(value, element) {
+                return this.optional(element) || /^((\+63)|0)\d{10}$/i.test(value);
+             }, "Invalid Cellphone Format");
+            $.validator.addMethod("alphanumeric", function(value, element) {
+                return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
+             }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
+            $.validator.addMethod("alpha", function(value, element) {
+                return this.optional(element) || /^[A-Za-z][A-Za-z '-.]*$/i.test(value);
+             }, "This field must contain only letters, space, dash, apostrophe or dot.");
+            $.validator.addMethod("blcknumber", function(value, element) {
+                return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
+             }, "This field must contain only letters, numbers, space, dash, apostrophe or dot.");
 
 
         // Wait for the DOM to be ready
@@ -1041,14 +1128,10 @@
                   },
                   pinfo_cpnum_1:{
                     required: true,
-                    digits: true,
-                    minlength: 11,
-                    maxlength: 11
+                    cpValidator: true
                   },
                   pinfo_cpnum_2:{
-                    digits: true,
-                    minlength: 11,
-                    maxlength: 11
+                    cpValidator: true,
                   },
                   pinfo_tpnum:{
                     digits: true,
@@ -1065,6 +1148,8 @@
                   },
                   pinfo_bday:{
                     required:true,
+                    minAge: true,
+                    maxAge: true
                   },
                   add_blcknum:{
                       blcknumber: true,
@@ -1133,83 +1218,84 @@
                   // The key name on the left side is the name attribute
                   // of an input field. Validation rules are defined
                   // on the right side
-                  cPerson_first_name:{
+                  acPerson_first_name:{
                     required: true,
                     alpha:true,
                     maxlength: 30
                   },
-                  cPerson_middle_name:{
+                  acPerson_middle_name:{
                     alpha:true,
                     maxlength: 20
                   },
-                  cPerson_last_name:{
+                  acPerson_last_name:{
                     required: true,
                     alpha:true,
                     maxlength: 20
                   },
-                  pinfo_cpnum_1:{
+                  apinfo_cpnum_1:{
                     required: true,
+                    cpValidator: true
+                  },
+                  apinfo_cpnum_2:{
+                    cpValidator: true,
+                  },
+                  apinfo_tpnum:{
                     digits: true,
                     minlength: 7,
-                    maxlength: 11
+                    maxlength: 7
                   },
-                  pinfo_cpnum_2:{
-                    digits: true,
-                    minlength: 7,
-                    maxlength: 11
-                  },
-                  pinfo_telnum:{
-                    digits: true,
-                    minlength: 7,
-                    maxlength: 11
-                  },
-                  pinfo_mail:{
+                  apinfo_mail:{
                     required:true,
                     email: true,
                     maxlength: 50
                   },
-                  add_blcknum:{
+                  apinfo_bday:{
+                    required:true,
+                    minAge: true,
+                    maxAge: true
+                  },
+                  aadd_blcknum:{
                       blcknumber: true,
                       maxlength: 10
                   },
-                  add_street:
+                  aadd_street:
                   {
                       alphanumeric: true,
                       maxlength: 20
                   },
-                  add_subdivision:
+                  aadd_subdivision:
                   {
                       alphanumeric: true,
                       maxlength: 20
                   },
-                  add_brngy:
+                  aadd_brngy:
                   {
                       alphanumeric: true,
                       maxlength: 20
                   },
-                  add_district:
+                  aadd_district:
                   {
                       alphanumeric: true,
                       maxlength: 20
                   },
-                  add_city:
+                  aadd_city:
                   {
                       required: true,
                       alphanumeric: true,
                       maxlength: 20
                   },
-                  add_province:
+                  aadd_province:
                   {
                       alphanumeric: true,
                       maxlength: 20
                   },
-                  add_region:
+                  aadd_region:
                   {
                       required: true,
                       alphanumeric: true,
                       maxlength: 11
                   },
-                  add_zipcode:
+                  aadd_zipcode:
                   {
                       digits: true,
                       maxlength: 4
@@ -1217,26 +1303,8 @@
                 },
                 // Specify validation error messages
                 messages: {
-                    cPerson_first_name:{
-                        required: "Empty First Name"
-                    },
-                    cPerson_last_name:{
-                        required: "Empty Last Name"
-                    },
-                    pinfo_cpnum_1:{
-                        required: "Empty Contact Number",
-                        digits: "This field is Digits only",
-                        minlength: "This field requires minimum length of 7",
-                        maxlength: "This field requires max length of 11"
-                    },
-                    pinfo_cpnum_2:{
-                        digits: "This field is Digits only",
-                        minlength: "This field requires minimum length of 7",
-                        maxlength: "This field requires max length of 11"
-                    },
-                    add_zipcode:
-                    {
-                       digits: "This field is Digits only"
+                    apinfo_bday:{
+                        required: "Empty or Invalid Date."
                     }
                 },
                 // Make sure the form is submitted to the destination defined
@@ -1256,20 +1324,17 @@
             var today = new Date();
             if(bday[0] != 0)
             {
-                if((today.getMonth() + 1) <= bday[1])
-                {
-                  if((today.getDate()) < bday[2])
-                    {
-                        document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
-                    }
-                  else
+                if((today.getMonth() + 1) >= bday[1])
+                {       
+                  document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
+                  if((today.getDate()) >= bday[2])
                     {
                         document.getElementById("age").value = today.getFullYear() - bday[0];
                     }
                 }
                 else
                 {
-                  document.getElementById("age").value = today.getFullYear() - bday[0];
+                  document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
                 }
             }
             else
@@ -1439,5 +1504,4 @@
           });
 
     </script>
-@endpush
 @endsection

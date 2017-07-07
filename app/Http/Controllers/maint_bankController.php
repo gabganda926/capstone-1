@@ -135,7 +135,7 @@ class maint_bankController extends Controller
 
               $name = $file->getClientOriginalName();
 
-              $pinfo->pinfo_picture = $name;
+              $this->pinfo->pinfo_picture = $name;
 
               $file->move(public_path().'/image/', $name);
           }

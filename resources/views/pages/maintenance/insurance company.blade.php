@@ -19,7 +19,7 @@
                             <h4><br/>CREATE NEW INSURANCE COMPANY RECORD</h4>
                         </div><br/><br/>
                         <div class="modal-body">
-                             <form id="comp_add" name="comp_add" action = "company/submit" method="POST" >
+                             <form id="comp_add" name="comp_add" action = "company/submit" method="POST" enctype="multipart/form-data">
                                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <h3> <small><b>INSURANCE COMPANY INFORMATION</b></small></h3><br/>
                                         <div class="row clearfix">
@@ -322,7 +322,9 @@
                                 }
                               });
                             }">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCompModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCompModal" onclick="
+                            $('#comp_add')[0].reset();
+                            $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -343,6 +345,9 @@
                         $('#Edit').prop('disabled', true);
                         $('#Delete').prop('disabled', false);
                         $('#schange').show();
+                        $('#apicture').show();
+                        document.getElementById('apinfo_gender').disabled=false;
+                        document.getElementById('aadd_region').disabled=false;
                         $('#aadd_blcknum').prop('readonly', false);
                         $('#aadd_street').prop('readonly', false);
                         $('#aadd_subdivision').prop('readonly', false);
@@ -365,8 +370,14 @@
                         $('#acomp_telnum').prop('readonly', false);
                         $('#acomp_faxnum').prop('readonly', false);
                         $('#acomp_email').prop('readonly', false);
-                        $('#apicture').prop('disabled', false);
                         $('#schange').html('Save Changes');
+                          $( '#acomp_name' ).focus();
+                          swal({
+                          title: 'You can now edit the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
@@ -377,6 +388,9 @@
                         $('#Edit').prop('disabled', false);
                         $('#Delete').prop('disabled', true);
                         $('#schange').show();
+                        $('#apicture').hide();
+                        document.getElementById('apinfo_gender').disabled=true;
+                        document.getElementById('aadd_region').disabled=true;
                         $('#aadd_blcknum').prop('readonly', true);
                         $('#aadd_street').prop('readonly', true);
                         $('#aadd_subdivision').prop('readonly', true);
@@ -399,8 +413,14 @@
                         $('#acomp_telnum').prop('readonly', true);
                         $('#acomp_faxnum').prop('readonly', true);
                         $('#acomp_email').prop('readonly', true);
-                        $('#apicture').prop('disabled', true);
                         $('#schange').html('Delete Record');
+                          $( '#schange' ).focus();
+                          swal({
+                          title: 'You can now delete the record.',
+                          type: 'info',
+                          timer: 1500,
+                          showConfirmButton: false
+                          });
                         ">
                             <i class="material-icons">delete_sweep</i>
                             <span>Delete</span>
@@ -735,7 +755,35 @@
                                 }
                               });
                             }">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            $('#apicture').hide();
+                            document.getElementById('apinfo_gender').disabled=true;
+                            document.getElementById('aadd_region').disabled=true;
+                            $('#aadd_blcknum').prop('readonly', true);
+                            $('#aadd_street').prop('readonly', true);
+                            $('#aadd_subdivision').prop('readonly', true);
+                            $('#aadd_brngy').prop('readonly', true);
+                            $('#aadd_district').prop('readonly', true);
+                            $('#aadd_city').prop('readonly', true);
+                            $('#aadd_province').prop('readonly', true);
+                            $('#aadd_region').prop('readonly', true);
+                            $('#aadd_zipcode').prop('readonly', true);
+                            $('#acPerson_first_name').prop('readonly', true);
+                            $('#acPerson_middle_name').prop('readonly', true);
+                            $('#acPerson_last_name').prop('readonly', true);
+                            $('#apinfo_mail').prop('readonly', true);
+                            $('#apinfo_cpnum_1').prop('readonly', true);
+                            $('#apinfo_cpnum_2').prop('readonly', true);
+                            $('#apinfo_tpnum').prop('readonly', true);
+                            $('#apinfo_bday').prop('readonly', true);
+                            $('#apinfo_gender').prop('readonly', true);
+                            $('#acomp_name').prop('readonly', true);
+                            $('#acomp_telnum').prop('readonly', true);
+                            $('#acomp_faxnum').prop('readonly', true);
+                            $('#acomp_email').prop('readonly', true);">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -754,7 +802,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCompModal">
+                                <button id = "addbtn" form = "comp_add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCompModal" onclick="
+                                $('#addbtn').hide();">
                                     <i class="material-icons">business</i>
                                     <span>Add Insurance Company</span>
                                 </button>
@@ -792,6 +841,7 @@
                                      @if($cper->cPerson_ID == $comp->comp_cperson_ID)
                                       @foreach($pInfo as $Info)
                                        @if($Info->pinfo_ID == $cper->personal_info_ID)
+                                       <tr>
                                         <td>
                                             <input type="checkbox" id="{{$comp->comp_ID}}" class="filled-in chk-col-red checkCheckbox" data-id = "{{$comp->comp_ID}}"/>
                                             <label for="{{$comp->comp_ID}}"></label>
@@ -890,7 +940,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
-                                              <li>{{ $Info->pinfo_cpnum_1 }}</li>
+                                             @if($Info->pinfo_cpnum_1 != null)
+                                              <li> {{ $Info->pinfo_cpnum_1 }} </li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -899,7 +951,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                             @if($Info->pinfo_cpnum_2 != null)
                                               <li>{{ $Info->pinfo_cpnum_2 }}</li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -908,7 +962,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                             @if($Info->pinfo_tpnum != null)
                                               <li>{{ $Info->pinfo_tpnum }}</li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -917,7 +973,9 @@
                                           @if($cperson->cPerson_ID == $comp->comp_cperson_ID)
                                            @foreach($pInfo as $Info)
                                             @if($cperson->personal_info_ID == $Info->pinfo_ID )
+                                             @if($Info->pinfo_mail != null)
                                               <li>{{ $Info->pinfo_mail }}</li>
+                                             @endif
                                             @endif
                                            @endforeach
                                           @endif
@@ -1003,6 +1061,8 @@
                                         @endforeach'
 
                                         onclick = "
+                                        document.getElementById('apinfo_gender').disabled=true;
+                                        document.getElementById('aadd_region').disabled=true;
 
                                         var id = $(this).data('compid');
                                         var comp_name = $(this).data('cname');
@@ -1082,6 +1142,7 @@
                                                     <i class="material-icons">remove_red_eye</i>
                                                     <span>View</span>
                                         </button></td>
+                                        </tr>
                                        @endif
                                       @endforeach
                                      @endif
@@ -1146,17 +1207,59 @@
         </div>
     </section>
 
-@push('scripts')
     <script>
-        $.validator.addMethod("alphanumeric", function(value, element) {
-            return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
-         }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
-        $.validator.addMethod("alpha", function(value, element) {
-            return this.optional(element) || /^[A-Za-z][A-Za-z '-.]*$/i.test(value);
-         }, "This field must contain only letters, space, dash, apostrophe or dot.");
-        $.validator.addMethod("blcknumber", function(value, element) {
-            return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
-         }, "This field must contain only letters, numbers, space, dash, apostrophe or dot.");
+            $.validator.addMethod("minAge", function(value, element) {
+                var curDate = new Date();
+                var inputDate = new Date(value);
+                var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                {      
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                    if((curDate.getDate()) >= inputDate.getDate())
+                    {
+                        age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                    }
+                }
+                else
+                {
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                }
+                if (age >= 18)
+                    return true;
+                return false;
+            }, "Age Limit is 18."); 
+            $.validator.addMethod("maxAge", function(value, element) {
+                var curDate = new Date();
+                var inputDate = new Date(value);
+                var age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                if((curDate.getMonth() + 1) >= inputDate.getMonth())
+                {      
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                    if((curDate.getDate()) >= inputDate.getDate())
+                    {
+                        age = Math.abs(inputDate.getFullYear() - curDate.getFullYear());
+                    }
+                }
+                else
+                {
+                    age = Math.abs(inputDate.getFullYear() - curDate.getFullYear()) - 1;
+                }
+                if (age <= 130)
+                    return true;
+                return false;
+            }, "Maximum age is 130."); 
+            $.validator.addMethod("cpValidator", function(value, element) {
+                return this.optional(element) || /^((\+63)|0)\d{10}$/i.test(value);
+             }, "Invalid Cellphone Format");
+            $.validator.addMethod("alphanumeric", function(value, element) {
+                return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
+             }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
+            $.validator.addMethod("alpha", function(value, element) {
+                return this.optional(element) || /^[A-Za-z][A-Za-z '-.]*$/i.test(value);
+             }, "This field must contain only letters, space, dash, apostrophe or dot.");
+            $.validator.addMethod("blcknumber", function(value, element) {
+                return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
+             }, "This field must contain only letters, numbers, space, dash, apostrophe or dot.");
 
 
     // Wait for the DOM to be ready
@@ -1202,19 +1305,16 @@
               },
               pinfo_cpnum_1:{
                 required: true,
-                digits: true,
-                minlength: 7,
-                maxlength: 11
+                cpValidator: true
               },
               pinfo_cpnum_2:{
-                digits: true,
-                minlength: 7,
-                maxlength: 11
+                cpValidator: true
               },
-              pinfo_telnum:{
+              pinfo_tpnum:
+              {
                 digits: true,
                 minlength: 7,
-                maxlength: 11
+                maxlength: 7
               },
               pinfo_mail:
               {
@@ -1225,6 +1325,8 @@
               pinfo_bday:
               {
                 required: true,
+                minAge: true,
+                maxAge: true
               },
               pinfo_gender:
               {
@@ -1317,16 +1419,12 @@
               },
               apinfo_cpnum_1:{
                 required: true,
-                digits: true,
-                minlength: 7,
-                maxlength: 11
+                cpValidator: true
               },
               apinfo_cpnum_2:{
-                digits: true,
-                minlength: 7,
-                maxlength: 11
+                cpValidator: true
               },
-              apinfo_telnum:{
+              apinfo_tpnum:{
                 digits: true,
                 minlength: 7,
                 maxlength: 11
@@ -1340,6 +1438,8 @@
               apinfo_bday:
               {
                 required: true,
+                minAge: true,
+                maxAge: true
               },
               apinfo_gender:
               {
@@ -1425,6 +1525,30 @@
 </script>
 
 <script>
+    $('#apicture').hide();
+    $('#pinfo_bday').on('change textInput input', function () {
+        var bday = document.getElementById("pinfo_bday").value.split('-');
+        var today = new Date();
+        if(bday[0] != 0)
+        {
+            if((today.getMonth() + 1) >= bday[1])
+            {       
+              document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
+              if((today.getDate()) >= bday[2])
+                {
+                    document.getElementById("age").value = today.getFullYear() - bday[0];
+                }
+            }
+            else
+            {
+              document.getElementById("age").value = today.getFullYear() - bday[0] - 1;
+            }
+        }
+        else
+        {
+            document.getElementById("age").value = "Invalid Input";
+        }
+    });
 
     function areadURL(input) {
     if (input.files && input.files[0]) {
@@ -1585,5 +1709,5 @@
       });
 
 </script>
-@endpush
+
 @endsection
