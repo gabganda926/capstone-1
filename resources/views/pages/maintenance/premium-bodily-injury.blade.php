@@ -19,14 +19,20 @@
                             <h4><br/>CREATE NEW BODILY PREMIUM RECORD</h4>
                         </div><br/><br/>
                             <div class="modal-body">
-                                <form id="add" name = "add" action = "complaint/submit" method="POST">
+                                <form id="add" name = "add" action = "bodily-injury/submit" method="POST">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="row clearfix">
                                     <div class="col-sm-6">
                                         <label><small>Insurance Company:</small></label>
-                                        <select id = "compdrop" name = "compdrop" class="form-control show-tick" data-live-search="true">
+                                        <select id = "insurance_compID" name = "insurance_compID" class="form-control show-tick" data-live-search="true">
                                             <option value = "" style = "display:none;">-- Select Insurance Company --</option>
-                                                <option value = "HEHE"></option>
+                                            @foreach($com as $company)
+                                             @if($company->del_flag == 0)
+                                              @if($company->company_type == 0)
+                                                <option value = "{{ $company->comp_ID }}">{{ $company->comp_name }}</option>
+                                              @endif
+                                             @endif
+                                            @endforeach
                                         </select>
                                         <br/>
                                         <br/>
@@ -34,7 +40,7 @@
                                     <div class="col-md-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "clientType_type" name = "clientType_type" type="text" class="form-control" required>
+                                                    <input id = "insuranceLimit" name = "insuranceLimit" type="number" class="form-control" required>
                                                     <label class="form-label">Insurance Cover Limit</label>
                                                 </div>
                                             </div>
@@ -46,7 +52,7 @@
                                     <div class="col-md-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "clientType_type" name = "clientType_type" type="text" class="form-control" required>
+                                                    <input id = "privateCar" name = "privateCar" type="number" class="form-control" required>
                                                     <label class="form-label">For Private Car (PC):</label>
                                                 </div>
                                             </div>
@@ -54,7 +60,7 @@
                                     <div class="col-md-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "clientType_type" name = "clientType_type" type="text" class="form-control" required>
+                                                    <input id = "cv_Light" name = "cv_Light" type="number" class="form-control" required>
                                                     <label class="form-label">For Commercial Vehicle (CV - Light & Medium):</label>
                                                 </div>
                                             </div>
@@ -62,7 +68,7 @@
                                     <div class="col-md-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "clientType_type" name = "clientType_type" type="text" class="form-control" required>
+                                                    <input id = "cv_Heavy" name = "cv_Heavy" type="number" class="form-control" required>
                                                     <label class="form-label">For Commercial Vehicle (CV - Heavy):</label>
                                                 </div>
                                             </div>
@@ -70,7 +76,7 @@
                                     <div class="col-md-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input id = "clientType_type" name = "clientType_type" type="text" class="form-control">
+                                                    <input id = "mcys" name = "mcys" type="number" class="form-control">
                                                     <label class="form-label">MCY'S (Optional):</label>
                                                 </div>
                                             </div>
@@ -82,14 +88,43 @@
                                     </div>
                             </div>
                         <div class="modal-footer js-sweetalert">
-                            <button class="btn btn-primary waves-effect" type="button">SUBMIT</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCTypeModal">CLOSE</button>
+                            <button class="btn btn-primary waves-effect" type="button" onclick = "
+                                document.getElementById('time').value = formatDate(new Date());
+                                if($('#add').valid())
+                                {
+                                  swal({
+                                    title: 'Are you sure?',
+                                    type: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#DD6B55',
+                                    confirmButtonText: 'Continue',
+                                    cancelButtonText: 'Cancel',
+                                    closeOnConfirm: false,
+                                    closeOnCancel: false
+                                  },
+                                  function(isConfirm){
+                                    if (isConfirm) {
+                                      $('#add').submit();
+                                    } else {
+                                        swal({
+                                        title: 'Cancelled',
+                                        type: 'warning',
+                                        timer: 500,
+                                        showConfirmButton: false
+                                        });
+                                    }
+                                  });
+                                }">SUBMIT</button>
+                                <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCTypeModal" onclick="
+                                    $('#add')[0].reset();
+                                    $('#addbtn').show();">CLOSE</button>
                         </div>
                     </form>
                     </div>
                 </div>
             </div>
             <!-- #END# ADD INST MODAL -->
+
             <!-- View INST MODAL-->
             <div class="collapse fade" id="largeModal" role="dialog">
                 <div class="modal-dialog animated zoomInRight active" role="document">
@@ -98,11 +133,37 @@
                             <h4><br/>BODILY INJURY PREMIUM DETAILS
                             </h4>
                         </div><br/>
-                        <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect">
+                        <button id = "Edit" style = "margin-left: 32em" type="button" class="btn btn-success btn-lg waves-effect"
+                        onclick = "
+                        document.getElementById('view').action = 'bodily-injury/update';
+                        $('#Edit').prop('disabled', true);
+                        $('#Delete').prop('disabled', false);
+                        $('#schange').show();
+                        document.getElementById('ainsurance_compID').disabled=false;
+                        $('#ainsuranceLimit').prop('readonly', false);
+                        $('#aprivateCar').prop('readonly', false);
+                        $('#acv_Light').prop('readonly', false);
+                        $('#acv_Heavy').prop('readonly', false);
+                        $('#amcys').prop('readonly', false);
+                        $('#schange').html('SAVE CHANGES');
+                        ">
                         <i class="material-icons">create</i>
                         <span>Edit</span>
                         </button>
-                        <button id = "Delete" type="button" class="btn bg-red btn-lg waves-effect">
+                        <button id = "Delete" type="button" class="btn bg-red btn-lg waves-effect"
+                        onclick = "
+                        document.getElementById('view').action = 'bodily-injury/delete';
+                        $('#Edit').prop('disabled', false);
+                        $('#Delete').prop('disabled', true);
+                        $('#schange').show();
+                        document.getElementById('ainsurance_compID').disabled=true;
+                        $('#ainsuranceLimit').prop('readonly', true);
+                        $('#aprivateCar').prop('readonly', true);
+                        $('#acv_Light').prop('readonly', true);
+                        $('#acv_Heavy').prop('readonly', true);
+                        $('#amcys').prop('readonly', true);
+                        $('#schange').html('DELETE RECORD');
+                        ">
                         <i class="material-icons">delete_sweep</i>
                         <span>Delete</span>
                         </button>
@@ -135,9 +196,15 @@
                                 <div class="row clearfix">
                                         <div class="col-sm-6">
                                         <label><small>Insurance Company:</small></label>
-                                        <select id = "compdrop" name = "compdrop" class="form-control show-tick" data-live-search="true">
+                                        <select id = "ainsurance_compID" name = "ainsurance_compID" class="form-control show-tick" data-live-search="true">
                                             <option value = "" style = "display:none;">-- Select Insurance Company --</option>
-                                                <option value = "HEHE"></option>
+                                            @foreach($com as $company)
+                                             @if($company->del_flag == 0)
+                                              @if($company->company_type == 0)
+                                                <option value = "{{ $company->comp_ID }}">{{ $company->comp_name }}</option>
+                                              @endif
+                                             @endif
+                                            @endforeach
                                         </select>
                                         <br/>
                                         <br/>
@@ -146,7 +213,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line">
                                                     <label><small>Insurance Cover Limit :</small></label>
-                                                        <input id = "aemp_role_Name" name = "aemp_role_Name" type="text" class="form-control" disabled="disable" required>
+                                                        <input id = "ainsuranceLimit" name = "ainsuranceLimit" type="number" class="form-control" readonly="true" required>
                                                     </div>
                                                 </div>
                                         </div>
@@ -159,7 +226,7 @@
                                                         <div class="form-group form-float">
                                                             <div class="form-line">
                                                             <label><small>For Private Car (PC):</small></label>
-                                                                <input id = "aemp_role_desc" name = "aemp_role_desc" type="text" rows="1" class="form-control" disabled="disable">
+                                                                <input id = "aprivateCar" name = "aprivateCar" type="number" rows="1" class="form-control" readonly="true">
                                                             </div>
                                                         </div>
                                                 </div>
@@ -168,7 +235,7 @@
                                                         <div class="form-group form-float">
                                                             <div class="form-line">
                                                             <label><small>For Commercial Vehicle (CV - Light & Medium):</small></label>
-                                                                <input id = "aemp_role_desc" name = "aemp_role_desc" type="text" rows="1" class="form-control" disabled="disable">
+                                                                <input id = "acv_Light" name = "acv_Light" type="number" rows="1" class="form-control" readonly="true">
                                                             </div>
                                                         </div>
                                                 </div>
@@ -180,7 +247,7 @@
                                                         <div class="form-group form-float">
                                                             <div class="form-line">
                                                             <label><small>For Commercial Vehicle (CV - Heavy):</small></label>
-                                                                <input id = "aemp_role_desc" name = "aemp_role_desc" type="text" rows="1" class="form-control" disabled="disable">
+                                                                <input id = "acv_Heavy" name = "acv_Heavy" type="number" rows="1" class="form-control" readonly="true">
                                                             </div>
                                                         </div>
                                                 </div>
@@ -189,17 +256,58 @@
                                                         <div class="form-group form-float">
                                                             <div class="form-line">
                                                             <label><small>MCY'S (Optional):</small></label>
-                                                                <input id = "aemp_role_desc" name = "aemp_role_desc" type="text" rows="1" class="form-control" disabled="disable">
+                                                                <input id = "amcys" name = "amcys" type="number" rows="1" class="form-control" readonly="true">
                                                             </div>
                                                         </div>
-                                            </div>
+                                                </div>
                                             </div>
                                         </div>
                                 </div>
                             </div><br/><br/>
+                            <div class="col-md-4" style = "display: none;">
+                               <input id = "id" name = "id" type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4" style = "display: none;">
+                               <input id = "atime" name = "atime" type="text" class="form-control">
+                            </div>
                         <div class="modal-footer js-sweetalert">
-                            <button id = "schange" class="btn btn-primary waves-effect" style = "display: none;" type="button">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                            <button id = "schange" class="btn btn-primary waves-effect" style = "display: none;" type="button" onclick = "
+                            document.getElementById('atime').value = formatDate(new Date());
+                            if($('#view').valid())
+                            {
+                              swal({
+                                title: 'Are you sure?',
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#DD6B55',
+                                confirmButtonText: 'Continue',
+                                cancelButtonText: 'Cancel',
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                              },
+                              function(isConfirm){
+                                if (isConfirm) {
+                                  $('#view').submit();
+                                } else {
+                                    swal({
+                                    title: 'Cancelled',
+                                    type: 'warning',
+                                    timer: 500,
+                                    showConfirmButton: false
+                                    });
+                                }
+                              });
+                            }">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                            $('#Edit').prop('disabled', false);
+                            $('#Delete').prop('disabled', false);
+                            $('#schange').hide();
+                            document.getElementById('ainsurance_compID').disabled=true;
+                            $('#ainsuranceLimit').prop('readonly', true);
+                            $('#aprivateCar').prop('readonly', true);
+                            $('#acv_Light').prop('readonly', true);
+                            $('#acv_Heavy').prop('readonly', true);
+                            $('#amcys').prop('readonly', true);">CLOSE</button>
                         </div>
                     </form>
                     </div>
@@ -217,7 +325,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCTypeModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCTypeModal" onclick="
+                                    $('#addbtn').hide();">
                                     <i class="material-icons">contacts</i>
                                     <span>Add New Premium Cover</span>
                                 </button>
@@ -247,18 +356,57 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <td><input type="checkbox" id="1" name = "del_check" class="filled-in chk-col-red checkCheckbox"/>
-                                          <label for="1"></td>
-                                        <td>FPG Insurance</td>
-                                        <td>Php 50,000.00</td>
-                                        <td>975.00</td>
-                                        <td>1,050.00</td>
-                                        <td>1,200.00</td>
-                                        <td>450</td>
-                                        <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal">
+                                    @foreach($pdg as $bi)
+                                     @if($bi->del_flag == 0)
+                                      @if($bi->damage_type == 0)
+                                      @foreach($com as $company)
+                                        @if($bi->insurance_compID == $company->comp_ID)
+                                        <tr>
+                                        <td><input type="checkbox" id="{{ $bi->premiumDG_ID }}" name = "del_check" class="filled-in chk-col-red checkCheckbox" data-id = "{{ $bi->premiumDG_ID }}"/>
+                                              <label for="{{ $bi->premiumDG_ID }}"></label></td>
+                                        <td>{{ $company->comp_name }}</td>
+                                        <td>{{ $bi->insuranceLimit }}</td>
+                                        <td>{{ $bi->privateCar }}</td>
+                                        <td>{{ $bi->cv_Light }}</td>
+                                        <td>{{ $bi->cv_Heavy }}</td>
+                                        <td>{{ $bi->mcys }}</td>
+                                        <td><button type="button" class="btn bg-light-blue waves-effect" data-toggle="collapse" data-target="#largeModal"
+                                              data-id = "{{ $bi->premiumDG_ID }}"
+                                              data-cmpid = "{{ $bi->insurance_compID }}"
+                                              data-inslimit = "{{ $bi->insuranceLimit }}"
+                                              data-pc = "{{ $bi->privateCar }}"
+                                              data-clight = "{{ $bi->cv_Light }}"
+                                              data-cheavy = "{{ $bi->cv_Heavy }}"
+                                              data-mycs = "{{ $bi->mcys }}"
+
+                                              data-created = '{{ \Carbon\Carbon::parse($bi->created_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($bi->created_at)->format("l, h:i:s A").")" }}'
+
+                                              data-updated = '{{ \Carbon\Carbon::parse($bi->updated_at)->format("M-d-Y") }} {{ "(".\Carbon\Carbon::parse($bi->updated_at)->format("l, h:i:s A").")" }}'
+
+                                              onclick= "
+                                              document.getElementById('ainsurance_compID').disabled=true;
+
+                                              document.getElementById('id').value = $(this).data('id');
+                                              document.getElementById('ainsuranceLimit').value = $(this).data('inslimit');
+                                              document.getElementById('aprivateCar').value = $(this).data('pc');
+                                              document.getElementById('acv_Light').value = $(this).data('clight');
+                                              document.getElementById('acv_Heavy').value = $(this).data('cheavy');
+                                              document.getElementById('amcys').value = $(this).data('mycs');
+                                              $('#ainsurance_compID').val($(this).data('cmpid')).change();
+
+                                              document.getElementById('date_created').value = $(this).data('created');
+                                              document.getElementById('last_update').value = $(this).data('updated'); 
+                                              ">
+
                                               <i class="material-icons">remove_red_eye</i>
                                               <span>View</span>
-                                          </button></td>
+                                              </button></td>
+                                              </tr>
+                                    @endif
+                                  @endforeach 
+                                  @endif
+                                  @endif
+                                  @endforeach 
                                 </tbody>
                             </table>
                             </div>
@@ -270,8 +418,193 @@
             
         </div>
     </section>
+<script>
+    $.validator.addMethod("alphanumeric", function(value, element) {
+        return this.optional(element) || /^[A-Za-z][A-Za-z0-9 '-.]*$/i.test(value);
+     }, "This field must contain only letters, numbers, dashes, space, apostrophe or dot.");
+    $.validator.addMethod("alpha", function(value, element) {
+        return this.optional(element) || /^[A-Za-z][A-Za-z '-.]*$/i.test(value);
+     }, "This field must contain only letters, space, dash, apostrophe or dot.");
+    $.validator.addMethod("blcknumber", function(value, element) {
+        return this.optional(element) || /^[A-Za-z0-9][A-Za-z0-9 '-.]*$/i.test(value);
+     }, "This field must contain only letters, numbers, space, dash, apostrophe or dot.");
 
-@push('scripts')
-    <!-- SCRIPT HERE -->
-@endpush
+    // Wait for the DOM to be ready
+            $(function() {
+              // Initialize form validation on the registration form.
+              // It has the name attribute "registration"
+              $("form[name='add']").validate({
+                // Specify validation rules
+                rules: {
+                  // The key name on the left side is the name attribute
+                  // of an input field. Validation rules are defined
+                  // on the right side
+                  insurance_compID:{
+                    required: true
+                  },
+                  insuranceLimit:{
+                    required: true,
+                  },
+                  privateCar:{
+                    required: true,
+                  },
+                  cv_Light:{
+                    required: true,
+                  },
+                  cv_Heavy:{
+                    required: true,
+                  },
+                  mcys:{
+                    required: true,
+                  },
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                  form.submit();
+                }
+              });
+
+              $("form[name='view']").validate({
+                // Specify validation rules
+                rules: {
+                  // The key name on the left side is the name attribute
+                  // of an input field. Validation rules are defined
+                  // on the right side
+                  ainsurance_compID:{
+                    required: true
+                  },
+                  ainsuranceLimit:{
+                    required: true,
+                  },
+                  aprivateCar:{
+                    required: true,
+                  },
+                  acv_Light:{
+                    required: true,
+                  },
+                  acv_Heavy:{
+                    required: true,
+                  },
+                  amcys:{
+                    required: true,
+                  },
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                  form.submit();
+                }
+              });
+            });
+    </script>
+
+    <script>
+        $(document).ready(function()
+        {
+          $('add').validate();
+          $('view').validate();
+          if ($('.checkCheckbox:checked').length > 0)
+          {
+               $("#delete_many").show();
+          }
+          else
+          {
+              $("#delete_many").hide();
+          }
+
+          $(".checkCheckbox").change(
+            function()
+            {
+              if ($('.checkCheckbox:checked').length > 0)
+              {
+                   $("#delete_many").show();
+              }
+              else
+              {
+                  $("#delete_many").hide();
+              }
+             }
+          );
+        });
+
+        $(".checkCheckbox").change(
+            function()
+            {
+              if ($('.checkCheckbox:checked').length > 0)
+              {
+                   $("#delete_many").show();
+              }
+              else
+              {
+                   $("#delete_many").hide();
+              }
+             }
+          );
+
+        $('#addCTypeModal').on('hidden.bs.modal', function() {
+            $('#add').trigger('reset');
+        });
+
+        $('#largeModal').on('hidden.bs.modal', function() {
+            $('#view').trigger('reset');
+            $('#Edit').prop('disabled', false);
+            $('#Delete').prop('disabled', false);
+            $('#schange').hide();
+        });
+
+        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        function formatDate(date)
+        {
+          var monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+          ];
+
+          var day = date.getDate();
+          var monthIndex = date.getMonth() + 1;
+          var year = date.getFullYear();
+          var h = addZero(date.getHours());
+          var m = addZero(date.getMinutes());
+          var s = addZero(date.getSeconds());
+
+          return year + '-' + monthIndex + '-' + day + ' ' + h + ':' + m + ':' + s;
+        }
+
+        var IDS;
+        var timenow = formatDate(new Date());
+        $('#delete_many').click(function(event){
+          IDS = $(".checkCheckbox:checked").map(function ()
+          {
+              return $(this).data('id')
+          }).get();
+        });
+
+        $('#delete_many').click(function(event){
+          event.preventDefault();
+              $.ajax({
+
+                  type: 'POST',
+                  url: '/admin/maintenance/bodily-injury/ardelete',
+                  data: {asd:IDS, time:timenow},
+                  success:function(xhr){
+                      console.log('success');
+                      console.log(xhr.responseText);
+                      window.location.reload();
+                  },
+                    error:function(xhr, ajaxOptions, thrownError,data){
+                      console.log(xhr.status);
+                      console.log(xhr.responseText);
+                  }
+              });
+          });
+</script>
 @endsection

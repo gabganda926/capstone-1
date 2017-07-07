@@ -222,8 +222,24 @@ Route::post('/admin/maintenance/personal-accident/ardelete', 'maint_pAutoControl
 //mainte-bodily-injury-premium
 Route::get('/admin/maintenance/bodily-injury', 'maint_pBodilyInjuryController@index');
 
+Route::post('/admin/maintenance/bodily-injury/submit', 'maint_pBodilyInjuryController@add_premiumDG');
+
+Route::post('/admin/maintenance/bodily-injury/update', 'maint_pBodilyInjuryController@update_premiumDG');
+
+Route::post('/admin/maintenance/bodily-injury/delete', 'maint_pBodilyInjuryController@delete_premiumdG');
+
+Route::post('/admin/maintenance/bodily-injury/ardelete', 'maint_pBodilyInjuryController@ardelete_premiumDG');
+
 //mainte-property-damage-premium
 Route::get('/admin/maintenance/property-damage', 'maint_pPropertyDamageController@index');
+
+Route::post('/admin/maintenance/property-damage/submit', 'maint_pPropertyDamageController@add_premiumDG');
+
+Route::post('/admin/maintenance/property-damage/update', 'maint_pPropertyDamageController@update_premiumDG');
+
+Route::post('/admin/maintenance/property-damage/delete', 'maint_pPropertyDamageController@delete_premiumdG');
+
+Route::post('/admin/maintenance/property-damage/ardelete', 'maint_pPropertyDamageController@ardelete_premiumDG');
 
 //TRANSACTION
 //Insurance
@@ -402,6 +418,15 @@ Route::post('/admin/utilities/archives/installment/arreactivate', 'z_Utilities_A
 Route::post('/admin/utilities/archives/complaint/type/reactivate', 'z_Utilities_ArchivesController@reactivate_complaint_type');
 
 Route::post('/admin/utilities/archives/complaint/type/arreactivate', 'z_Utilities_ArchivesController@arreactivate_complaint_type');
+
+Route::post('/admin/utilities/archives/personal-accident/reactivate', 'z_Utilities_ArchivesController@reactivate_personal_accident');
+
+Route::post('/admin/utilities/archives/personal-accident/arreactivate', 'z_Utilities_ArchivesController@arreactivate_personal_accident');
+
+Route::post('/admin/utilities/archives/premium-damage/reactivate', 'z_Utilities_ArchivesController@reactivate_premium_damage');
+
+Route::post('/admin/utilities/archives/premium-damage/arreactivate', 'z_Utilities_ArchivesController@arreactivate_premium_damage');
+
 
 Route::get('/admin/utilities/adm/computationSettings', 'z_Utilities_ComputationSettingsController@index');
 

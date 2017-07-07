@@ -14,9 +14,8 @@ use Redirect;
 
 class maint_pAutoController extends Controller
 {
-	public function __construct(inscompanyConnection $inscomp, premiumPAConnection $pa)
+	public function __construct(premiumPAConnection $pa)
     {
-        $this->icomp = $inscomp;
         $this->premPA= $pa;
     }
 
@@ -82,7 +81,7 @@ class maint_pAutoController extends Controller
     public function update_premiumPA(Request $req)
     {
        $premPA = premiumPAConnection::where('premiumPA_ID', '=', $req->pnid)->first();
-       $premPA->insurance_compID = $req->viewcompdrop;
+       $premPA->insurance_compID = $req->acompdrop;
        $premPA->insuranceLimit = $req->ains_limit;
        $premPA->passengerNum = $req->apass_no;
        $premPA->insuranceCover = $req->ains_cover;
@@ -180,7 +179,7 @@ class maint_pAutoController extends Controller
     {
       foreach($req->asd as $ID)
       {
-       $premPA = policynoConnection::where('premiumPA_ID', '=', $ID)->first();
+       $premPA = premiumPAConnection::where('premiumPA_ID', '=', $ID)->first();
        $premPA->del_flag = 1;
        $mytime = $req->time;
        $premPA->updated_at = $mytime;

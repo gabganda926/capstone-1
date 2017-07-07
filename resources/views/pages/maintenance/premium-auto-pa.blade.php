@@ -157,9 +157,6 @@
                                   function(isConfirm){
                                     if (isConfirm) {
                                       $('#add').submit();
-                                      document.getElementById('pnumbah').value = '';
-                                      $('#statdrop').val('').change();
-                                      $('#compdrop').val('').change();
                                     } else {
                                         swal({
                                         title: 'Cancelled',
@@ -170,7 +167,9 @@
                                     }
                                   });
                                 }">SUBMIT</button>
-                                <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCTypeModal">CLOSE</button>
+                                <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#addCTypeModal" onclick="
+                                    $('#add')[0].reset();
+                                    $('#addbtn').show();">CLOSE</button>
                                 </div>
                             </form>
                         </div>
@@ -213,7 +212,7 @@
                         $('#ains_limit').prop('readonly', true);
                         $('#apass_no').prop('readonly', true);
                         $('#ains_cover').prop('readonly', true);
-                        $('#apass_cover').prop('readonly', true;
+                        $('#apass_cover').prop('readonly', true);
                         $('#amr').prop('readonly', true);
                         $('#schange').html('DELETE RECORD');
                         ">
@@ -385,7 +384,16 @@
                                         }
                                       });
                                     }">SAVE CHANGES</button>
-                                    <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal">CLOSE</button>
+                                    <button type="button" class="btn btn-link waves-effect" data-toggle="collapse" data-target="#largeModal" onclick="
+                                    $('#Edit').prop('disabled', false);
+                                    $('#Delete').prop('disabled', false);
+                                    $('#schange').hide();
+                                    document.getElementById('acompdrop').disabled=true;
+                                    $('#ains_limit').prop('readonly', true);
+                                    $('#apass_no').prop('readonly', true);
+                                    $('#ains_cover').prop('readonly', true);
+                                    $('#apass_cover').prop('readonly', true);
+                                    $('#amr').prop('readonly', true);">CLOSE</button>
                                 </div>
                             </form>
                         </div>
@@ -404,7 +412,8 @@
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <li>
-                                <button type="button" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCTypeModal">
+                                <button id = "addbtn" form = "add" type="submit" class="btn bg-blue waves-effect" data-toggle="collapse" data-target="#addCTypeModal" onclick="
+                                    $('#addbtn').hide();">
                                     <i class="material-icons">add_to_photos</i>
                                     <span>Add New Premium Cover</span>
                                 </button>
@@ -523,24 +532,19 @@
                     required: true
                   },
                   ins_limit:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   pass_no:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   insuranceCover:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   pass_cover:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   mrCover:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                 },
                 // Make sure the form is submitted to the destination defined
@@ -556,28 +560,23 @@
                   // The key name on the left side is the name attribute
                   // of an input field. Validation rules are defined
                   // on the right side
-                  viewcompdrop:{
+                  acompdrop:{
                     required: true
                   },
                   ains_limit:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   apass_no:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   ainsuranceCover:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   apass_cover:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                   amrCover:{
-                    required: true,
-                    digits: true
+                    required: true
                   },
                 },
                 // Make sure the form is submitted to the destination defined

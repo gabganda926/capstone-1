@@ -36,6 +36,10 @@ use App\vMakeConnection;
 
 use App\vTypeConnection;
 
+use App\premiumDGConnection;
+
+use App\premiumPAConnection;
+
 use Alert;
 
 use Redirect;
@@ -45,22 +49,24 @@ class z_Utilities_ArchivesController extends Controller
     public function index()
     {
       return view('/pages/utilities/adm/archives')
-    ->with('address',addressConnection::all())
-    ->with('pinfo',personalInfoConnection::all())
-    ->with('cperson',contactPersonConnection::all())
-    ->with('company',inscompanyConnection::all())
-    ->with('salesA',salesAgentConnection::all())
-    ->with('employee',employeeConnection::all())
-    ->with('bank',BankConnection::all())
-    ->with('client',clientConnection::all())
-    ->with('ctype',complaintTypeConnection::all())
-    ->with('courier',courierConnection::all())
-    ->with('emprole',employeeRoleConnection::all())
-    ->with('installment',installmentConnection::all())
-    ->with('policy',policynoConnection::all())
-    ->with('vModel',vModelConnection::all())
-    ->with('vMake',vMakeConnection::all())
-    ->with('vType',vTypeConnection::all());
+      ->with('ppa',premiumPAConnection::all())
+      ->with('pdg',premiumDGConnection::all())
+      ->with('address',addressConnection::all())
+      ->with('pinfo',personalInfoConnection::all())
+      ->with('cperson',contactPersonConnection::all())
+      ->with('company',inscompanyConnection::all())
+      ->with('salesA',salesAgentConnection::all())
+      ->with('employee',employeeConnection::all())
+      ->with('bank',BankConnection::all())
+      ->with('client',clientConnection::all())
+      ->with('ctype',complaintTypeConnection::all())
+      ->with('courier',courierConnection::all())
+      ->with('emprole',employeeRoleConnection::all())
+      ->with('installment',installmentConnection::all())
+      ->with('policy',policynoConnection::all())
+      ->with('vModel',vModelConnection::all())
+      ->with('vMake',vMakeConnection::all())
+      ->with('vType',vTypeConnection::all());
     }
 
     public function reactivate_client(Request $req)
@@ -353,6 +359,52 @@ class z_Utilities_ArchivesController extends Controller
         foreach($req->ID as $data_ID)
         {
           $employee = complaintTypeConnection::where('complaintType_ID', '=', $data_ID)->first();
+
+          $employee->del_flag = 0;
+          $mytime = $req->time;
+          $employee->updated_at = $mytime;
+
+          $employee->save();
+        }
+    }
+    
+    public function reactivate_personal_accident(Request $req)
+    {
+          $employee = premiumPAConnection::where('premiumPA_ID', '=', $req->id)->first();
+          $employee->del_flag = 0;
+          $mytime = $req->time;
+          $employee->updated_at = $mytime;
+          $employee->save();
+    }
+
+    public function arreactivate_personal_accident(Request $req)
+    {
+        foreach($req->ID as $data_ID)
+        {
+          $employee = premiumPAConnection::where('premiumPA_ID', '=', $data_ID)->first();
+
+          $employee->del_flag = 0;
+          $mytime = $req->time;
+          $employee->updated_at = $mytime;
+
+          $employee->save();
+        }
+    }
+    
+    public function reactivate_premium_damage(Request $req)
+    {
+          $employee = premiumDGConnection::where('premiumDG_ID', '=', $req->id)->first();
+          $employee->del_flag = 0;
+          $mytime = $req->time;
+          $employee->updated_at = $mytime;
+          $employee->save();
+    }
+
+    public function arreactivate_premium_damage(Request $req)
+    {
+        foreach($req->ID as $data_ID)
+        {
+          $employee = premiumDGConnection::where('premiumDG_ID', '=', $data_ID)->first();
 
           $employee->del_flag = 0;
           $mytime = $req->time;

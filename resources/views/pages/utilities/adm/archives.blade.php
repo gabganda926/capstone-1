@@ -1419,6 +1419,7 @@
                                      @if($cper->cPerson_ID == $comp->comp_cperson_ID)
                                       @foreach($pinfo as $Info)
                                        @if($Info->pinfo_ID == $cper->personal_info_ID)
+                                       <tr>
                                         <td>
                                             <input type="checkbox" id="insc_{{$comp->comp_ID}}" class="filled-in chk-col-red insc_checkCheckbox" data-id = "{{$comp->comp_ID}}"/>
                                             <label for="insc_{{$comp->comp_ID}}"></label>
@@ -1564,6 +1565,7 @@
                                                 <i class="material-icons">delete_sweep</i>
                                             </button>
                                         </td>
+                                        </tr>
                                        @endif
                                       @endforeach
                                      @endif
@@ -1768,7 +1770,7 @@
                                     <ul class="header-dropdown m-r--5">
                                         <li class="dropdown">
                                                 <li>
-                                            <button id = "reactivate" type="button" class="btn btn-lg bg-green waves-effect" data-toggle="modal" data-target="#Reactivate">
+                                            <button id = "pa_reactivate" type="button" class="btn btn-lg bg-green waves-effect" data-toggle="modal" data-target="#Reactivate">
                                                 <span>Reactivate</span>
                                             </button>
                                             </li>
@@ -1794,25 +1796,37 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <td><input type="checkbox" id="1" name = "del_check" class="filled-in chk-col-red checkCheckbox"/>
-                                                  <label for="1"></td>
-                                                <td>FPG Insurance</td>
-                                                <td>Php 50,000.00</td>
-                                                <td>3</td>
-                                                <td>208.35</td>
-                                                <td>150.00</td>
-                                                <td>54.00</td>
-                                                <td>412.35</td>
-                                                <td>DATE HERE</td>
-                                                <td>DATE HERE</td>
-                                                <td>
-                                                    <button type="button" class="rbutton btn bg-green waves-effect" data-toggle="tooltip" data-placement="left" title="Reactivate this sales agent" class="btn btn-success btn-xs waves-effect" data-id = "">
-                                                        <i class="material-icons">autorenew</i>
-                                                    </button>
-                                                    <button id = "Delete" type="button" class="btn bg-red waves-effect" data-toggle="tooltip" data-placement="left" title="Delete this sales agent permanently">
-                                                        <i class="material-icons">delete_sweep</i>
-                                                    </button>
-                                                </td>
+                                    @foreach($ppa as $pa)
+                                     @if($pa->del_flag == 1)
+                                      @foreach($company as $com)
+                                        @if($pa->insurance_compID == $com->comp_ID)
+                                        <tr>
+                                          <td><input type="checkbox" id="pa_{{ $pa->premiumPA_ID }}" name = "del_check" class="filled-in chk-col-red pa_checkCheckbox" data-id = "{{ $pa->premiumPA_ID }}"/>
+                                                <label for="pa_{{ $pa->premiumPA_ID }}"></label></td>
+                                          <td>{{ $com->comp_name }}</td>
+                                          <td>{{ $pa->insuranceLimit }}</td>
+                                          <td>{{ $pa->passengerNum }}</td>
+                                          <td>{{ $pa->insuranceCover }}</td>
+                                          <td>{{ $pa->passengerCover }}</td>
+                                          <td>{{ $pa->mrCover }}</td>
+                                          <td>{{ $pa->insuranceCover+$pa->passengerCover+$pa->mrCover }}</td>
+                                          <td>{{ \Carbon\Carbon::parse($pa->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($pa->created_at)->format('l, h:i:s A').")" }}</td>
+                                          <td>{{ \Carbon\Carbon::parse($pa->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($pa->updated_at)->format('l, h:i:s A').")" }}</td>
+                                          <td>
+                                          <button type="button" class="rbutton btn bg-green waves-effect" data-toggle="tooltip" data-placement="left" title="Reactivate this sales agent" class="btn btn-success btn-xs waves-effect" 
+                                          data-id = '{{$pa->premiumPA_ID}}'
+                                          data-category = '13'>
+                                              <i class="material-icons">autorenew</i>
+                                          </button>
+                                          <button id = "Delete" type="button" class="btn bg-red waves-effect" data-toggle="tooltip" data-placement="left" title="Delete this sales agent permanently">
+                                              <i class="material-icons">delete_sweep</i>
+                                          </button>
+                                          </td>
+                                        </tr>
+                                    @endif
+                                  @endforeach 
+                                  @endif
+                                  @endforeach 
                                         </tbody>
                                     </table>
                                     </div>
@@ -1825,7 +1839,7 @@
                                     <ul class="header-dropdown m-r--5">
                                         <li class="dropdown">
                                                 <li>
-                                            <button id = "reactivate" type="button" class="btn btn-lg bg-green waves-effect" data-toggle="modal" data-target="#Reactivate">
+                                            <button id = "bi_reactivate" type="button" class="btn btn-lg bg-green waves-effect" data-toggle="modal" data-target="#Reactivate">
                                                 <span>Reactivate</span>
                                             </button>
                                             </li>
@@ -1850,24 +1864,38 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <td><input type="checkbox" id="1" name = "del_check" class="filled-in chk-col-red checkCheckbox"/>
-                                                  <label for="1"></td>
-                                                <td>FPG Insurance</td>
-                                                <td>Php 50,000.00</td>
-                                                <td>975.00</td>
-                                                <td>1,050.00</td>
-                                                <td>1,200.00</td>
-                                                <td>450</td>
-                                                <td>DATE HERE</td>
-                                                <td>DATE HERE</td>
-                                                <td>
-                                                    <button type="button" class="rbutton btn bg-green waves-effect" data-toggle="tooltip" data-placement="left" title="Reactivate this sales agent" class="btn btn-success btn-xs waves-effect" data-id = "">
-                                                        <i class="material-icons">autorenew</i>
-                                                    </button>
-                                                    <button id = "Delete" type="button" class="btn bg-red waves-effect" data-toggle="tooltip" data-placement="left" title="Delete this sales agent permanently">
-                                                        <i class="material-icons">delete_sweep</i>
-                                                    </button>
-                                                </td>
+                                    @foreach($pdg as $bi)
+                                     @if($bi->del_flag == 1)
+                                      @if($bi->damage_type == 0)
+                                      @foreach($company as $com)
+                                        @if($bi->insurance_compID == $com->comp_ID)
+                                        <tr>
+                                        <td><input type="checkbox" id="bi_{{ $bi->premiumDG_ID }}" name = "del_check" class="filled-in chk-col-red bi_checkCheckbox" data-id = "{{ $bi->premiumDG_ID }}"/>
+                                              <label for="bi_{{ $bi->premiumDG_ID }}"></label></td>
+                                        <td>{{ $com->comp_name }}</td>
+                                        <td>{{ $bi->insuranceLimit }}</td>
+                                        <td>{{ $bi->privateCar }}</td>
+                                        <td>{{ $bi->cv_Light }}</td>
+                                        <td>{{ $bi->cv_Heavy }}</td>
+                                        <td>{{ $bi->mcys }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($bi->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($bi->created_at)->format('l, h:i:s A').")" }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($bi->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($bi->updated_at)->format('l, h:i:s A').")" }}</td>
+                                        <td>
+                                        <button type="button" class="rbutton btn bg-green waves-effect" data-toggle="tooltip" data-placement="left" title="Reactivate this sales agent" class="btn btn-success btn-xs waves-effect" 
+                                        data-id = '{{$bi->premiumDG_ID}}'
+                                        data-category = '14'>
+                                            <i class="material-icons">autorenew</i>
+                                        </button>
+                                        <button id = "Delete" type="button" class="btn bg-red waves-effect" data-toggle="tooltip" data-placement="left" title="Delete this sales agent permanently">
+                                            <i class="material-icons">delete_sweep</i>
+                                        </button>
+                                        </td>
+                                       </tr>
+                                    @endif
+                                  @endforeach 
+                                  @endif
+                                  @endif
+                                  @endforeach 
                                         </tbody>
                                     </table>
                                     </div>
@@ -1880,7 +1908,7 @@
                                     <ul class="header-dropdown m-r--5">
                                         <li class="dropdown">
                                                 <li>
-                                            <button id = "reactivate" type="button" class="btn btn-lg bg-green waves-effect" data-toggle="modal" data-target="#Reactivate">
+                                            <button id = "pd_reactivate" type="button" class="btn btn-lg bg-green waves-effect" data-toggle="modal" data-target="#Reactivate">
                                                 <span>Reactivate</span>
                                             </button>
                                             </li>
@@ -1905,24 +1933,38 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <td><input type="checkbox" id="1" name = "del_check" class="filled-in chk-col-red checkCheckbox"/>
-                                                  <label for="1"></td>
-                                                <td>FPG Insurance</td>
-                                                <td>Php 50,000.00</td>
-                                                <td>975.00</td>
-                                                <td>1,050.00</td>
-                                                <td>1,200.00</td>
-                                                <td>450</td>
-                                                <td>DATE HERE</td>
-                                                <td>DATE HERE</td>
-                                                <td>
-                                                    <button type="button" class="rbutton btn bg-green waves-effect" data-toggle="tooltip" data-placement="left" title="Reactivate this sales agent" class="btn btn-success btn-xs waves-effect" data-id = "">
-                                                        <i class="material-icons">autorenew</i>
-                                                    </button>
-                                                    <button id = "Delete" type="button" class="btn bg-red waves-effect" data-toggle="tooltip" data-placement="left" title="Delete this sales agent permanently">
-                                                        <i class="material-icons">delete_sweep</i>
-                                                    </button>
-                                                </td>                                        
+                                    @foreach($pdg as $bi)
+                                     @if($bi->del_flag == 1)
+                                      @if($bi->damage_type == 1)
+                                      @foreach($company as $com)
+                                        @if($bi->insurance_compID == $com->comp_ID)
+                                        <tr>
+                                        <td><input type="checkbox" id="pd_{{ $bi->premiumDG_ID }}" name = "del_check" class="filled-in chk-col-red pd_checkCheckbox" data-id = "{{ $bi->premiumDG_ID }}"/>
+                                              <label for="pd_{{ $bi->premiumDG_ID }}"></label></td>
+                                        <td>{{ $com->comp_name }}</td>
+                                        <td>{{ $bi->insuranceLimit }}</td>
+                                        <td>{{ $bi->privateCar }}</td>
+                                        <td>{{ $bi->cv_Light }}</td>
+                                        <td>{{ $bi->cv_Heavy }}</td>
+                                        <td>{{ $bi->mcys }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($bi->created_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($bi->created_at)->format('l, h:i:s A').")" }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($bi->updated_at)->format('M-d-Y') }} <br/> {{ "(".\Carbon\Carbon::parse($bi->updated_at)->format('l, h:i:s A').")" }}</td>
+                                        <td>
+                                        <button type="button" class="rbutton btn bg-green waves-effect" data-toggle="tooltip" data-placement="left" title="Reactivate this sales agent" class="btn btn-success btn-xs waves-effect" 
+                                        data-id = '{{$bi->premiumDG_ID}}'
+                                        data-category = '14'>
+                                            <i class="material-icons">autorenew</i>
+                                        </button>
+                                        <button id = "Delete" type="button" class="btn bg-red waves-effect" data-toggle="tooltip" data-placement="left" title="Delete this sales agent permanently">
+                                            <i class="material-icons">delete_sweep</i>
+                                        </button>
+                                        </td>
+                                       </tr>
+                                    @endif
+                                  @endforeach 
+                                  @endif
+                                  @endif
+                                  @endforeach                                        
                                         </tbody>
                                     </table>
                                     </div>
@@ -2381,6 +2423,75 @@
            }
         ); 
 
+        if ($('.pa_checkCheckbox:checked').length > 0)
+        {
+             $("#pa_reactivate").show();
+        }
+        else
+        {
+            $("#pa_reactivate").hide();
+        }
+
+        $(".pa_checkCheckbox").change(
+          function()
+          {
+            if ($('.pa_checkCheckbox:checked').length > 0)
+            {
+                 $("#pa_reactivate").show();
+            }
+            else
+            {
+                $("#pa_reactivate").hide();
+            }
+           }
+        ); 
+
+        if ($('.bi_checkCheckbox:checked').length > 0)
+        {
+             $("#bi_reactivate").show();
+        }
+        else
+        {
+            $("#bi_reactivate").hide();
+        }
+
+        $(".bi_checkCheckbox").change(
+          function()
+          {
+            if ($('.bi_checkCheckbox:checked').length > 0)
+            {
+                 $("#bi_reactivate").show();
+            }
+            else
+            {
+                $("#bi_reactivate").hide();
+            }
+           }
+        ); 
+
+        if ($('.pd_checkCheckbox:checked').length > 0)
+        {
+             $("#pd_reactivate").show();
+        }
+        else
+        {
+            $("#pd_reactivate").hide();
+        }
+
+        $(".pd_checkCheckbox").change(
+          function()
+          {
+            if ($('.pd_checkCheckbox:checked').length > 0)
+            {
+                 $("#pd_reactivate").show();
+            }
+            else
+            {
+                $("#pd_reactivate").hide();
+            }
+           }
+        ); 
+
 
         $('#bank_reactivate').click(function(event){
           arcategory = "0";
@@ -2494,6 +2605,30 @@
           }).get();
         });
 
+        $('#pa_reactivate').click(function(event){
+          arcategory = "13";
+          IDS = $(".pa_checkCheckbox:checked").map(function ()
+          {
+              return $(this).data('id')
+          }).get();
+        });
+
+        $('#bi_reactivate').click(function(event){
+          arcategory = "14";
+          IDS = $(".bi_checkCheckbox:checked").map(function ()
+          {
+              return $(this).data('id')
+          }).get();
+        });
+
+        $('#pd_reactivate').click(function(event){
+          arcategory = "14";
+          IDS = $(".pd_checkCheckbox:checked").map(function ()
+          {
+              return $(this).data('id')
+          }).get();
+        });
+
 
         function archive(input)
         {
@@ -2523,6 +2658,10 @@
               category = 'installment';
             if(input == 12)
               category = 'complaint/type';
+            if(input == 13)
+              category = 'personal-accident';
+            if(input == 14)
+              category = 'premium-damage';
 
         }
 
