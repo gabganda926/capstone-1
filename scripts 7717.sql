@@ -48,16 +48,6 @@ CREATE TABLE tbl_contact_person
 	FOREIGN KEY (personal_info_ID) REFERENCES tbl_personal_info (pinfo_ID)
 );
 
-CREATE TABLE tbl_sender
-(
-	sender_ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	personal_info_ID INT NOT NULL,
-	del_flag int NOT NULL,
-	created_at datetime NOT NULL,
-	updated_at datetime NOT NULL,
-	FOREIGN KEY (personal_info_ID) REFERENCES tbl_personal_info (pinfo_ID)
-);
-
 CREATE TABLE tbl_courier
 (
 	courier_ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -285,4 +275,35 @@ CREATE TABLE tbl_premium_damage
 	created_at datetime NOT NULL,
 	updated_at datetime NOT NULL	
 	FOREIGN KEY (insurance_compID) REFERENCES tbl_company_info(comp_ID)
+);
+
+CREATE TABLE tbl_claim_types
+(
+	claimType_ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	claimType VARCHAR(50) NOT NULL,
+	claimType_desc VARCHAR(100) NOT NULL,
+	del_flag INT NOT NULL,
+	created_at datetime NOT NULL,
+	updated_at datetime NOT NULL,
+);
+
+CREATE TABLE tbl_claim_requirements
+(
+	claimReq_ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	claimReq_Type INT NOT NULL,
+	claimRequirement VARCHAR(100) NOT NULL,
+	del_flag INT NOT NULL,
+	created_at datetime NOT NULL,
+	updated_at datetime NOT NULL,
+	FOREIGN KEY (claimReq_Type) REFERENCES tbl_claim_types(claimType_ID)
+);
+
+CREATE TABLE tbl_transmittal_record
+(
+	transRec_ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	transRec VARCHAR(50) NOT NULL,
+	transRec_desc VARCHAR(100),
+	del_flag INT NOT NULL,
+	created_at datetime NOT NULL,
+	updated_at datetime NOT NULL
 );

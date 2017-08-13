@@ -113,13 +113,15 @@
         <div class="full-bg-img flex-center">
             <ul class="animated fadeInUp">
                 <li>
-                    <h1 class="h1-responsive">i-Insure</h1></li>
+                    <p><font size="18.70em" color="white">i-Insure</font></p></li>
                 <li>
-                    <p>A Quoting, Billing, and Complaint Management System with Claims and Transmittal Monitoring System for Compreline Insurance Services</p>
+                    <p>A Quoting, Billing, and Complaint Management System with Claims <br/> and Transmittal Monitoring System for Compreline Insurance Services</p>
                 </li>
                 <li>
-                    <a href="/sign-in" class="btn btn-primary btn-lg">Log in</a>
-                    <!--<a target="_blank" href="http://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg">Learn more</a> -->
+                    <a href="/sign-in" class="btn btn-block btn-primary">Log in</a>
+                </li>
+                <li>
+                    <a href="/home" class="btn btn-block btn-info">Go to website</a>
                 </li>
             </ul>
         </div>

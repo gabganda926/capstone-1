@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
     <!-- Favicon-->
-    <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('images/favicon.ico') }}" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -105,7 +105,7 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-            <img src="../../../images/logo.png" width="48" height="48" alt="Compreline" style="float:left" />
+            <img src="{{ URL::asset('images/logo.png') }}" width="48" height="48" alt="Compreline" style="float:left" />
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="/admin/dashboard"><b>COMPRELINE | INSURANCE</b></a>
@@ -126,7 +126,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="../../../images/user.png" width="48" height="48" alt="User" />
+                    <img src="{{ URL::asset('images/user.png') }}" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ma. Gabriella Rola</div>
@@ -159,30 +159,10 @@
                             <span>MAINTENANCE</span>
                         </a>
                         <ul class="ml-menu">
-                            <li class = "@yield('client')">
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <i class="material-icons">group_add</i>
-                                    <span>CLIENT</span>
-                                </a>
-                                <ul class="ml-menu">
-
-                                    <li class = "@yield('clientindividual')">
-                                        <a href="/admin/maintenance/client/individual">
-                                            <span>Client - Individual</span>
-                                        </a>
-                                    </li>
-                                    <li class = "@yield('clientcompany')">
-                                        <a href="/admin/maintenance/client/company">
-                                            <span>Client - Company</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
                             <li class = "@yield('personnel')">
                                 <a href="javascript:void(0);" class="menu-toggle">
                                     <i class="material-icons">people</i>
-                                    <span>COMPANY PERSONNEL</span>
+                                    <span>AGENCY PERSONNEL</span>
                                 </a>
                                 <ul class="ml-menu">
 
@@ -283,6 +263,23 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class = "@yield('claims')">
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <i class="material-icons">nature_people</i>
+                                    <span>CLAIMS</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li class = "@yield('claimtype')">
+                                        <a href="/admin/maintenance/claim-type">
+                                            <span>Claim Type</span></a>
+                                    </li>
+
+                                    <li class = "@yield('claimreq')">
+                                        <a href="/admin/maintenance/claim-requirement">
+                                            <span>Claim Requirement</span></a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class = "@yield('bank')">
                                 <a href="/admin/maintenance/bank">
                                     <i class="material-icons">account_balance</i>
@@ -293,6 +290,11 @@
                                     <i class="material-icons">feedback</i>
                                     <span>COMPLAINT</span></a>
                             </li>
+                            <li class = "@yield('mainteTransmittal')">
+                                <a href="/admin/maintenance/transmittal">
+                                    <i class="material-icons">insert_drive_file</i>
+                                    <span>TRANSMITTAL DOCUMENTS</span></a>
+                            </li>
                         </ul>
                     </li>
                     <li class = "@yield('trans')">
@@ -301,32 +303,68 @@
                             <span>TRANSACTIONS</span>
                         </a>
                         <ul class="ml-menu">
+
                             <li class = "@yield('transIns')">
-                                <a href="/admin/transaction/adm/insurance">
+                                <a href="javascript:void(0);" class="menu-toggle">
                                     <i class="material-icons">account_balance_wallet</i>
                                     <span>INSURANCE ACCOUNTS</span>
                                 </a>
+                                <ul class="ml-menu">
+                                    <li class = "@yield('transInsInd')">
+                                        <a href="/admin/transaction/adm/insurance-individual">
+                                            <span>Insurance Accounts - Individual</span>
+                                        </a>
+                                    </li>
+                                    <li class = "@yield('transInsComp')">
+                                        <a href="/admin/transaction/adm/insurance-company">
+                                            <span>Insurance Accounts - Company</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class = "@yield('transClaims')">
-                                <a href="/admin/transaction/adm/claims">
+                                <a href="javascript:void(0);" class="menu-toggle">
                                     <i class="material-icons">queue</i>
                                     <span>CLAIMS</span>
                                 </a>
-                            </li>
-                            <li class = "@yield('transTally')">
-                                <a href="/admin/transaction/adm/tally">
-                                    <i class="material-icons">multiline_chart</i>
-                                    <span>TALLY</span>
-                                </a>
+                                <ul class="ml-menu">
+                                    <li class = "@yield('transClaimsWalkin')">
+                                        <a href="/admin/transaction/adm/claim-request-walkin">
+                                            <span>Walk in - Claim Request</span>
+                                        </a>
+                                    </li>
+                                    <li class = "@yield('transClaimsOnline')">
+                                        <a href="/admin/transaction/adm/claim-request-online">
+                                            <span>Online - Claim Request</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class = "@yield('transTrans')">
-                                <a href="/admin/transaction/adm/transmittal">
+                                <a href="javascript:void(0);" class="menu-toggle">
                                     <i class="material-icons">folder_shared</i>
                                     <span>TRANSMITTAL</span>
                                 </a>
+                                <ul class="ml-menu">
+                                    <li class = "@yield('transTransRequest')">
+                                        <a href="/admin/transaction/adm/transmittal-request">
+                                            <span>Transmittal Requests</span>
+                                        </a>
+                                    </li>
+                                    <li class = "@yield('transTransmittal')">
+                                        <a href="/admin/transaction/adm/transmittal">
+                                            <span>List of Transmittal</span>
+                                        </a>
+                                    </li>
+                                    <li class = "@yield('transTransDocuments')">
+                                        <a href="/admin/transaction/adm/transmittal-documents">
+                                            <span>Transmit Documents</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class = "@yield('transComplaint')">
-                                <a href="/admin/transaction/adm/complaint">
+                                <a href="/admin/transaction/adm/complaint-online">
                                     <i class="material-icons">error_outline</i>
                                     <span>COMPLAINT</span>
                                 </a>
@@ -401,7 +439,12 @@
                             <span>REPORTS</span>
                         </a>
                         <ul class="ml-menu">
-                            
+                            <li class = "@yield('reportTally')">
+                                <a href="/admin/reports/adm/tally">
+                                    <i class="material-icons">multiline_chart</i>
+                                    <span>TALLY</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class = "@yield('utilities')">
@@ -529,9 +572,6 @@
 
     <!-- JQuery Steps Plugin Js -->
     <script src="{{ URL::asset('plugins/jquery-steps/jquery.steps.js') }}"></script>
-
-    <!-- Jquery Spinner Plugin Js 
-    <script src="../../plugins/jquery-spinner/js/jquery.spinner.js"></script>-->
 
     <script>
         $.ajaxSetup({

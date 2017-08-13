@@ -9,6 +9,37 @@
 @section('body')
 
     <section class="content">
+    <h2 style="text-align: center"> Welcome to <b style="color: orange;"> i-Insure </b><br/>
+    <small><label id="demonew"></small></label><br/>
+    <small><label id="demo"></label></small>
+    <label></label>
+        <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+          dd='0'+dd
+        } 
+
+        if(mm<10) {
+          mm='0'+mm
+        } 
+
+        today = mm+'/'+dd+'/'+yyyy+' - <?php 
+    $today = date("D M j Y");  
+
+    echo $today; 
+    ?>';
+        document.getElementById("demonew").innerHTML = today;
+        var myVar=setInterval(function(){myTimer()},1000);
+
+        function myTimer() {
+            var d = new Date();
+            document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+        }
+        </script>
+    </h2>
     <button type="button" class="btn bg-teal waves-effect left" style="float: left; margin-left: 15px;" onclick="window.document.location='/admin/transaction/insurance';">
         <i class="material-icons">backspace</i><span style="font-size: 15px;"> BACK</span>
     </button>

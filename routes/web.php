@@ -20,6 +20,11 @@ Route::get('/admin/dashboard', function (){
    return view('cimis');
 });
 
+//DASHBOARD - Accounting Staff
+Route::get('/accounting-staff/dashboard', function (){
+   return view('cimis-accounting-staff');
+});
+
 //Logins
 Route::get('/sign-in', 'SignInController@index');
 
@@ -186,28 +191,6 @@ Route::post('/admin/maintenance/vehicle/list/delete', 'maint_vListController@del
 
 Route::post('/admin/maintenance/vehicle/list/ardelete', 'maint_vListController@ardelete_vList');
 
-//mainte-client-ind
-Route::get('/admin/maintenance/client/individual', 'maint_ClientIndividualController@index');
-
-Route::post('/admin/maintenance/client/individual/submit', 'maint_ClientIndividualController@add_client');
-
-Route::post('/admin/maintenance/client/individual/update', 'maint_ClientIndividualController@update_client');
-
-Route::post('/admin/maintenance/client/individual/delete', 'maint_ClientIndividualController@delete_client');
-
-Route::post('/admin/maintenance/client/individual/ardelete', 'maint_ClientIndividualController@ardelete_client');
-
-//mainte-client-company
-Route::get('/admin/maintenance/client/company', 'maint_ClientCompanyController@index');
-
-Route::post('/admin/maintenance/client/company/submit', 'maint_ClientCompanyController@add_client_comp');
-
-Route::post('/admin/maintenance/client/company/update', 'maint_ClientCompanyController@update_client_comp');
-
-Route::post('/admin/maintenance/client/company/delete', 'maint_ClientCompanyController@delete_client_comp');
-
-Route::post('/admin/maintenance/client/company/ardelete', 'maint_ClientCompanyController@ardelete_client_comp');
-
 //mainte-auto-pa-premium
 Route::get('/admin/maintenance/personal-accident', 'maint_pAutoController@index');
 
@@ -241,86 +224,151 @@ Route::post('/admin/maintenance/property-damage/delete', 'maint_pPropertyDamageC
 
 Route::post('/admin/maintenance/property-damage/ardelete', 'maint_pPropertyDamageController@ardelete_premiumDG');
 
+//MAINTE - ClaimType
+Route::get('/admin/maintenance/claim-type', 'maint_claimTypeController@index');
+
+Route::post('/admin/maintenance/claim-type/submit', 'maint_claimTypeController@add_claim_type');
+
+Route::post('/admin/maintenance/claim-type/update', 'maint_claimTypeController@update_claim_type');
+
+Route::post('/admin/maintenance/claim-type/delete', 'maint_claimTypeController@delete_claim_type');
+
+Route::post('/admin/maintenance/claim-type/ardelete', 'maint_claimTypeController@ardelete_claim_type');
+
+//MAINTE - ClaimRequirement
+Route::get('/admin/maintenance/claim-requirement', 'maint_claimRequirementsController@index');
+
+Route::post('/admin/maintenance/claim-requirement/submit', 'maint_claimRequirementsController@add_claim_requirements');
+
+Route::post('/admin/maintenance/claim-requirement/update', 'maint_claimRequirementsController@update_claim_requirements');
+
+Route::post('/admin/maintenance/claim-requirement/delete', 'maint_claimRequirementsController@delete_claim_requirements');
+
+Route::post('/admin/maintenance/claim-requirement/ardelete', 'maint_claimRequirementsController@ardelete_claim_requirements');
+
+//MAINTE - Transmittal
+Route::get('/admin/maintenance/transmittal', 'maint_transmittalController@index');
+
+Route::post('/admin/maintenance/transmittal/submit', 'maint_transmittalController@add_transmittal_record');
+
+Route::post('/admin/maintenance/transmittal/update', 'maint_transmittalController@update_transmittal_record');
+
+Route::post('/admin/maintenance/transmittal/delete', 'maint_transmittalController@delete_transmittal_record');
+
+Route::post('/admin/maintenance/transmittal/ardelete', 'maint_transmittalController@ardelete_transmittal_record');
+
 //TRANSACTION
-//Insurance
-Route::get('/admin/transaction/adm/insurance', function (){
-   return view('pages.transaction.adm.insurance');
+//Insurance - individual
+Route::get('/admin/transaction/adm/insurance-individual', function (){
+   return view('pages.transaction.adm.insurance-individual');
 });
 
-//Insurance - Notify Client
-Route::get('/admin/transaction/adm/insurance-notify-client', function (){
-   return view('pages.transaction.adm.insurance-notify-client');
+//Insurance - company
+Route::get('/admin/transaction/adm/insurance-company', function (){
+   return view('pages.transaction.adm.insurance-company');
 });
 
-//Insurance - Client Info
-Route::get('/admin/transaction/adm/insurance-client-info-fpg', function (){
-   return view('pages.transaction.adm.insurance-client-info-fpg');
+//Insurance - Client Info individual
+Route::get('/admin/transaction/adm/insurance-details-individual', function (){
+   return view('pages.transaction.adm.insurance-details-individual');
+});
+
+//Insurance - Client Info company
+Route::get('/admin/transaction/adm/insurance-details-company', function (){
+   return view('pages.transaction.adm.insurance-details-company');
 });
 
 
-//Insurance - Expiring Accounts
-Route::get('/admin/transaction/adm/insurance-expiring-accounts', function (){
-   return view('pages.transaction.adm.insurance-expiring-accounts');
+//Insurance - Expiring Accounts - Company
+Route::get('/admin/transaction/adm/insurance-expiring-accounts-company', function (){
+   return view('pages.transaction.adm.insurance-expiring-accounts-company');
 });
 
-//Insurance - Sent notifications
-Route::get('/admin/transaction/adm/insurance-notification-list', function (){
-   return view('pages.transaction.adm.insurance-notification-list');
+//Insurance - Expiring Accounts - Individual
+Route::get('/admin/transaction/adm/insurance-expiring-accounts-individual', function (){
+   return view('pages.transaction.adm.insurance-expiring-accounts-individual');
 });
 
-//Claims
-Route::get('/admin/transaction/adm/claims', function (){
-   return view('pages.transaction.adm.claims');
+//Insurance - Sent notifications - Company
+Route::get('/admin/transaction/adm/insurance-notification-list-company', function (){
+   return view('pages.transaction.adm.insurance-notification-list-company');
 });
 
-//Claims - claim request
-Route::get('/admin/transaction/adm/claim-request', function (){
-   return view('pages.transaction.adm.claim-request');
+//Insurance - Sent notifications - Individual
+Route::get('/admin/transaction/adm/insurance-notification-list-individual', function (){
+   return view('pages.transaction.adm.insurance-notification-list-individual');
 });
 
-//Claims - validate
-Route::get('/admin/transaction/adm/claim-validate', function (){
-   return view('pages.transaction.adm.claim-validate');
+//Insurance - Settings - Individual
+Route::get('/admin/transaction/adm/insurance-settings-individual', function (){
+   return view('pages.transaction.adm.insurance-settings-individual');
 });
 
-//Claims - request info
-Route::get('/admin/transaction/adm/claim-info', function (){
-   return view('pages.transaction.adm.claim-info');
+//Insurance - Settings - Individual
+Route::get('/admin/transaction/adm/insurance-settings-company', function (){
+   return view('pages.transaction.adm.insurance-settings-company');
 });
 
-//Claims - approved info
-Route::get('/admin/transaction/adm/claim-info-approved', function (){
-   return view('pages.transaction.adm.claim-info-approved');
+//Endorsement
+Route::get('/admin/transaction/adm/endorsement', function (){
+   return view('pages.transaction.adm.endorsement');
 });
 
-//Complaint
-Route::get('/admin/transaction/adm/complaint', function (){
-   return view('pages.transaction.adm.complaint');
+//Claims - walkin
+Route::get('/admin/transaction/adm/claim-request-walkin', function (){
+   return view('pages.transaction.adm.claim-request-walkin');
+});
+
+//Claims - online
+Route::get('/admin/transaction/adm/claim-request-online', function (){
+   return view('pages.transaction.adm.claim-request-online');
+});
+
+//Claims - CREATE REQ walkin
+Route::get('/admin/transaction/adm/claim-create-request-walkin', function (){
+   return view('pages.transaction.adm.claim-create-request-walkin');
+});
+
+//Claims details walkin
+Route::get('/admin/transaction/adm/claim-details-walkin', function (){
+   return view('pages.transaction.adm.claim-details-walkin');
+});
+
+//Claims details online
+Route::get('/admin/transaction/adm/claim-details-online', function (){
+   return view('pages.transaction.adm.claim-details-online');
+});
+
+
+//Complaint - online
+Route::get('/admin/transaction/adm/complaint-online', function (){
+   return view('pages.transaction.adm.complaint-online');
+});
+
+//Complaint - ended
+Route::get('/admin/transaction/adm/complaint-ended', function (){
+   return view('pages.transaction.adm.complaint-ended');
 });
 
 //Complaint-info
-Route::get('/admin/transaction/adm/complaint-info', function (){
-   return view('pages.transaction.adm.complaint-info');
+Route::get('/admin/transaction/adm/complaint-details', function (){
+   return view('pages.transaction.adm.complaint-details');
 });
 
-//Complaint-validate
-Route::get('/admin/transaction/adm/complaint-validate', function (){
-   return view('pages.transaction.adm.complaint-validate');
+//Complaint-auto-reply
+Route::get('/admin/transaction/adm/complaint-auto-reply', function (){
+   return view('pages.transaction.adm.complaint-auto-reply');
 });
 
-//Tally
-Route::get('/admin/transaction/adm/tally', function (){
-   return view('pages.transaction.adm.tally');
-});
-
-//Tally
-Route::get('/admin/transaction/adm/tally-info', function (){
-   return view('pages.transaction.adm.tally-info');
-});
 
 //Transmittal
 Route::get('/admin/transaction/adm/transmittal', function (){
    return view('pages.transaction.adm.transmittal');
+});
+
+//Transmittal - progress
+Route::get('/admin/transaction/adm/transmittal-progress', function (){
+   return view('pages.transaction.adm.transmittal-progress');
 });
 
 //Transmittal - documents
@@ -334,14 +382,25 @@ Route::get('/admin/transaction/adm/transmittal-request', function (){
 });
 
 //Transmittal - validate
-Route::get('/admin/transaction/adm/transmittal-validate', function (){
-   return view('pages.transaction.adm.transmittal-validate');
+Route::get('/admin/transaction/adm/transmittal-info-request', function (){
+   return view('pages.transaction.adm.transmittal-info-request');
 });
 
 //Transmittal - info
 Route::get('/admin/transaction/adm/transmittal-info-approved', function (){
    return view('pages.transaction.adm.transmittal-info-approved');
 });
+
+//Transmittal - ended
+Route::get('/admin/transaction/adm/transmittal-ended', function (){
+   return view('pages.transaction.adm.transmittal-ended');
+});
+
+//Transmittal - auto-reply
+Route::get('/admin/transaction/adm/transmittal-auto-reply', function (){
+   return view('pages.transaction.adm.transmittal-auto-reply');
+});
+
 
 //QUERIES
 Route::get('/admin/queries/most-active-company-client', 'z_Queries_activeCompanyClientController@index');
@@ -363,6 +422,15 @@ Route::get('/admin/queries/top-insured-vehicle', 'z_Queries_topInsuredVehicleCon
 Route::get('/admin/queries/top-sales-agent', 'z_Queries_topmaint_salesAgentController@index');
 
 //REPORTS
+//Tally
+Route::get('/admin/reports/adm/tally', function (){
+   return view('pages.report.adm.tally');
+});
+
+//Tally
+Route::get('/admin/reports/adm/tally-info', function (){
+   return view('pages.report.adm.tally-info');
+});
 
 //UTILITIES
 Route::get('/admin/utilities/adm/archives', 'z_Utilities_ArchivesController@index');
@@ -435,4 +503,296 @@ Route::get('/admin/utilities/adm/generalSettings', 'z_Utilities_GeneralSettingsC
 Route::get('/admin/utilities/adm/taxSettings', 'z_Utilities_TaxSettingsController@index');
 
 Route::get('/admin/utilities/adm/templates', 'z_Utilities_TemplatesController@index');
+
+
+//ACCOUNTING STAFF////////////////////////////////////////////////////////////
+
+//MAINTENANCE
+
+//INDIVIDUAL CLIENT
+Route::get('/admin/maintenance/accounting-staff/client/individual', function (){
+   return view('pages.maintenance.accounting staff.clientIndividual');
+});
+
+Route::get('/admin/maintenance/accounting-staff/client/company', function (){
+   return view('pages.maintenance.accounting staff.clientCompany');
+});
+
+//TRANSACTIONS/////////////////////////////////////////
+//trans-client-ind
+Route::get('/admin/transaction/accounting-staff/client/individual', 'trans_ClientIndividualController@index');
+
+Route::post('/admin/transaction/accounting-staff/client/individual/submit', 'trans_ClientIndividualController@add_client');
+
+Route::post('/admin/transaction/accounting-staff/client/individual/update', 'trans_ClientIndividualController@update_client');
+
+Route::post('/admin/transaction/accounting-staff/client/individual/delete', 'trans_ClientIndividualController@delete_client');
+
+Route::post('/admin/transaction/accounting-staff/client/individual/ardelete', 'trans_ClientIndividualController@ardelete_client');
+
+//trans-client-company
+Route::get('/admin/transaction/accounting-staff/client/company', 'trans_ClientCompanyController@index');
+
+Route::post('/admin/transaction/accounting-staff/client/company/submit', 'trans_ClientCompanyController@add_client_comp');
+
+Route::post('/admin/transaction/accounting-staff/client/company/update', 'trans_ClientCompanyController@update_client_comp');
+
+Route::post('/admin/transaction/accounting-staff/client/company/delete', 'trans_ClientCompanyController@delete_client_comp');
+
+Route::post('/admin/transaction/accounting-staff/client/company/ardelete', 'trans_ClientCompanyController@ardelete_client_comp');
+
+//Insure Client
+Route::get('/admin/transaction/accounting-staff/insure-client', function (){
+   return view('pages.transaction.accounting staff.insure-client');
+});
+
+//Payment Details
+Route::get('/admin/transaction/accounting-staff/payment-details', function (){
+   return view('pages.transaction.accounting staff.payment-details');
+});
+
+//Insurance Accounts - Individual
+Route::get('/admin/transaction/accounting-staff/insurance-individual', function (){
+   return view('pages.transaction.accounting staff.insurance-individual');
+});
+
+//Insurance Accounts - Company
+Route::get('/admin/transaction/accounting-staff/insurance-company', function (){
+   return view('pages.transaction.accounting staff.insurance-company');
+});
+
+//Insurance - Client Info individual
+Route::get('/admin/transaction/accounting-staff/insurance-details-individual', function (){
+   return view('pages.transaction.accounting staff.insurance-details-individual');
+});
+
+//Insurance - Client Info company
+Route::get('/admin/transaction/accounting-staff/insurance-details-company', function (){
+   return view('pages.transaction.accounting staff.insurance-details-company');
+});
+
+
+//Insurance - Expiring Accounts - Company
+Route::get('/admin/transaction/accounting-staff/insurance-expiring-accounts-company', function (){
+   return view('pages.transaction.accounting staff.insurance-expiring-accounts-company');
+});
+
+//Insurance - Expiring Accounts - Individual
+Route::get('/admin/transaction/accounting-staff/insurance-expiring-accounts-individual', function (){
+   return view('pages.transaction.accounting staff.insurance-expiring-accounts-individual');
+});
+
+//Quotation Online Request
+Route::get('/admin/transaction/accounting-staff/quotation-online', function (){
+   return view('pages.transaction.accounting staff.quotation-online');
+});
+
+//Quotation Online AUTO REPLY
+Route::get('/admin/transaction/accounting-staff/quotation-online-auto-reply', function (){
+   return view('pages.transaction.accounting staff.quotation-online-auto-reply');
+});
+
+//Quotation Request INDIVIDUAL DETAILS
+Route::get('/admin/transaction/accounting-staff/quotation-individual-details', function (){
+   return view('pages.transaction.accounting staff.quotation-individual-details');
+});
+
+//Quotation Request COMPANY DETAILS
+Route::get('/admin/transaction/accounting-staff/quotation-company-details', function (){
+   return view('pages.transaction.accounting staff.quotation-company-details');
+});
+
+//Quotation Walkin Request
+Route::get('/admin/transaction/accounting-staff/quotation-walkin', function (){
+   return view('pages.transaction.accounting staff.quotation-walkin');
+});
+
+//Quotation LIST
+Route::get('/admin/transaction/accounting-staff/quotation-list', function (){
+   return view('pages.transaction.accounting staff.quotation-list');
+});
+
+//Renew Client
+Route::get('/admin/transaction/accounting-staff/renew-client', function (){
+   return view('pages.transaction.accounting staff.renew-client');
+});
+
+//PAYMENT
+Route::get('/admin/transaction/accounting-staff/payment', function (){
+   return view('pages.transaction.accounting staff.payment');
+});
+
+//PAYMENT-VIEW online
+Route::get('/admin/transaction/accounting-staff/payment-view', function (){
+   return view('pages.transaction.accounting staff.payment-view');
+});
+
+//PAYMENT-ONLINE
+Route::get('/admin/transaction/accounting-staff/payment-online', function (){
+   return view('pages.transaction.accounting staff.payment-online');
+});
+
+//PAYMENT-ONLINE Auto reply
+Route::get('/admin/transaction/accounting-staff/payment-online-auto-reply', function (){
+   return view('pages.transaction.accounting staff.payment-online-auto-reply');
+});
+
+//PAYMENT-new
+Route::get('/admin/transaction/accounting-staff/payment-new', function (){
+   return view('pages.transaction.accounting staff.payment-new');
+});
+
+//////GENERATE PDF 
+//samplelang Route::get('htmltopdfview',array('as'=>'htmltopdfview','uses'=>'ProductController@htmltopdfview'));
+Route::get('/admin/pdf/quotation-proposal', 'trans_quotationProposalController@generatePDF');
+Route::get('/admin/pdf/breakdown-payment', 'trans_breakdownOfPaymentController@generatePDF');
+Route::get('/admin/pdf/transmittal-form', 'trans_TransmittalFormController@generatePDF');
+
+//////////////WEB PAGE///////////////////
+
+/////////////NOT SIGNED IN
+//HOME
+Route::get('/home', function (){
+   return view('pages.webpage.home');
+});
+
+//QUOTATION
+Route::get('/quotation', function (){
+   return view('pages.webpage.quotation');
+});
+
+//CLAIMS
+Route::get('/claims', function (){
+   return view('pages.webpage.claims');
+});
+
+//CLAIMS
+Route::get('/claim/requirements', function (){
+   return view('pages.webpage.claim-requirements');
+});
+
+//TRANSMITTAL
+Route::get('/transmittal/signin', function (){
+   return view('pages.webpage.transmittal-signin');
+});
+
+//ENDORSEMENT
+Route::get('/endorsement/signin', function (){
+   return view('pages.webpage.endorsement-signin');
+});
+
+//MONITOR PAYMENT
+Route::get('/monitor/payment/signin', function (){
+   return view('pages.webpage.monitor-payment-signin');
+});
+
+//MONITOR transmittal
+Route::get('/monitor/transmittal/signin', function (){
+   return view('pages.webpage.monitor-transmittal-signin');
+});
+
+//MONITOR claims
+Route::get('/monitor/claims/signin', function (){
+   return view('pages.webpage.monitor-claims-signin');
+});
+
+//MONITOR complaint
+Route::get('/monitor/complaint/signin', function (){
+   return view('pages.webpage.monitor-complaint-signin');
+});
+
+//MONITOR endorsement
+Route::get('/monitor/endorsement/signin', function (){
+   return view('pages.webpage.monitor-endorsement-signin');
+});
+
+//MONITOR quotation
+Route::get('/monitor/quotation/signin', function (){
+   return view('pages.webpage.monitor-quotation-signin');
+});
+
+//COMPLAINT
+Route::get('/complaint/signin', function (){
+   return view('pages.webpage.complaint-signin');
+});
+//////////////////////NOT SIGNED IN
+
+
+///////////////////////////SIGNED IN
+//HOME
+Route::get('/user/home', function (){
+   return view('pages.webpage.sign-in.home');
+});
+
+//QUOTATION
+Route::get('/user/quotation', function (){
+   return view('pages.webpage.sign-in.quotation');
+});
+
+//CLAIMS
+Route::get('/user/claims', function (){
+   return view('pages.webpage.sign-in.claims');
+});
+
+//CLAIMS
+Route::get('/user/claim/requirements', function (){
+   return view('pages.webpage.sign-in.claim-requirements');
+});
+
+//TRANSMITTAL
+Route::get('/user/transmittal/signin', function (){
+   return view('pages.webpage.sign-in.transmittal-signin');
+});
+
+//ENDORSEMENT
+Route::get('/user/endorsement/signin', function (){
+   return view('pages.webpage.sign-in.endorsement-signin');
+});
+
+//MONITOR PAYMENT
+Route::get('/user/monitor/payment/signin', function (){
+   return view('pages.webpage.sign-in.monitor-payment-signin');
+});
+
+//MONITOR transmittal
+Route::get('/user/monitor/transmittal/signin', function (){
+   return view('pages.webpage.sign-in.monitor-transmittal-signin');
+});
+
+//MONITOR claims
+Route::get('/user/monitor/claims/signin', function (){
+   return view('pages.webpage.sign-in.monitor-claims-signin');
+});
+
+//MONITOR complaint
+Route::get('/user/monitor/complaint/signin', function (){
+   return view('pages.webpage.sign-in.monitor-complaint-signin');
+});
+
+//MONITOR endorsement
+Route::get('/user/monitor/endorsement/signin', function (){
+   return view('pages.webpage.sign-in.monitor-endorsement-signin');
+});
+
+//MONITOR quotation
+Route::get('/user/monitor/quotation/signin', function (){
+   return view('pages.webpage.sign-in.monitor-quotation-signin');
+});
+
+//COMPLAINT
+Route::get('/user/complaint/signin', function (){
+   return view('pages.webpage.sign-in.complaint-signin');
+});
+
+//PAYMENT
+Route::get('/user/payment', function (){
+   return view('pages.webpage.sign-in.payment');
+});
+
+//PAYMENT - new
+Route::get('/user/payment/new', function (){
+   return view('pages.webpage.sign-in.payment-new');
+});
+///////////////////////////////SIGNED IN
+
 ?>

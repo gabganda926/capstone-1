@@ -16,10 +16,10 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="info-box-4 hover-zoom-effect animated bounceInDown active" onclick="window.document.location='/admin/maintenance/client/individual';" style="cursor: pointer;">
                         <div class="icon">
-                            <i class="material-icons col-red">account_circle</i>
+                            <i class="material-icons col-red">assignment</i>
                         </div>
                         <div class="content">
-                            <div class="text">TOTAL INDIVIDUAL CLIENTS</div>
+                            <div class="text">CLAIM REQUESTS</div>
                             <div class="number count-to" data-from="0" data-to="129" data-speed="15" data-fresh-interval="20">100</div>
                         </div>
                     </div>
@@ -28,10 +28,10 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="info-box-4 hover-zoom-effect animated bounceInDown" onclick="window.document.location='/admin/maintenance/client/company';" style="cursor: pointer;">
                         <div class="icon">
-                            <i class="material-icons col-red">location_city</i>
+                            <i class="material-icons col-red">announcement</i>
                         </div>
                         <div class="content">
-                            <div class="text">TOTAL COMPANY CLIENTS</div>
+                            <div class="text">UNOPENED COMPLAINTS</div>
                             <div class="number count-to" data-from="0" data-to="15" data-speed="15" data-fresh-interval="20">200</div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <i class="material-icons col-red">group</i>
                         </div>
                         <div class="content">
-                            <div class="text">TOTAL ACTIVE SALES AGENTS</div>
+                            <div class="text">TOTAL ACTIVE ACCOUNTS</div>
                             <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">233</div>
                         </div>
                     </div>

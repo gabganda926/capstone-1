@@ -19,7 +19,7 @@ class SignUpController extends Controller
 
   public function index()
   {
-    return view('/pages/main/sign-up');
+    return view('/sign-up');
   }
 
   public function create_account(Request $req)

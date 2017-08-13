@@ -139,14 +139,14 @@
                                             </div>
                                             <div class="col-md-2">
                                             <div class="form-group form-float">
-                                            <input type="checkbox" id="allow_sale" name = "allow_sale" class="filled-in chk-col-green checkCheckbox"
+                                            <input type="checkbox" id="allow_sale" name = "allow_sale" class="filled-in chk-col-green"
                                                 data-id=""/>
                                                 <label for="allow_sale">Sales Agent</label>
                                             </div>
                                             </div>
                                         </div><br/>
                                 <div><h3><small><b>SYSTEM ACCOUNT INFORMATION</b></small></h3></div>
-                                <input type="checkbox" id="auto_gen" name = "auto_gen" class="filled-in chk-col-green checkCheckbox" checked/>
+                                <input type="checkbox" id="auto_gen" name = "auto_gen" class="filled-in chk-col-green" checked/>
                                 <label for="auto_gen">Auto Generate</label>
                                 <div class="row clearfix">
                                         <div class="col-md-2 form-control-label">
@@ -609,7 +609,7 @@
                                             </div>
                                             <div class="col-md-2">
                                             <div class="form-group form-float">
-                                            <input type="checkbox" id="aallow_sales" name = "aallow_sales" class="filled-in chk-col-green checkCheckbox"
+                                            <input type="checkbox" id="aallow_sales" name = "aallow_sales" class="filled-in chk-col-green"
                                                 data-id=""/>
                                                 <label for="aallow_sales">Sales Agent</label>
                                             </div>
@@ -794,6 +794,7 @@
                         $('#Delete').prop('disabled', false);
                         $('#schange').hide();
                         $('#apicture').hide();
+                        $('#aallow_sales').prop('checked', false);
                         document.getElementById('aemp_role').disabled=true;
                         document.getElementById('apinfo_gender').disabled=true;
                         document.getElementById('aallow_sales').disabled=true;
@@ -1133,6 +1134,7 @@
                                         $('#aemp_type').val($(this).data('emptype')).change();
                                         $('#ajobtitle').val($(this).data('jobtitle')).change();
                                         $('#editImg').attr('src', src);
+                                        var today = new Date();
                                         if(bday[0] != 0)
                                         {
                                             if((today.getMonth() + 1) < bday[1])

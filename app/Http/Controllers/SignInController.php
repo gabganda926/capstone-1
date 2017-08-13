@@ -14,7 +14,7 @@ class SignInController extends Controller
 {
   public function index()
   {
-    return view('/pages/main/sign-in');
+    return view('/sign-in');
   }
 
 
